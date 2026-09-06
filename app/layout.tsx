@@ -148,6 +148,13 @@ export default function RootLayout({
             `,
           }}
         />
+        <link
+          rel="preload"
+          as="image"
+          href="/hero-sunrise-poster.webp"
+          type="image/webp"
+          fetchPriority="high"
+        />
       </head>
       <body
         className="bg-[#090D14] text-[#F5F2EB] selection:bg-[#FF5E14] selection:text-white min-h-screen antialiased overflow-x-hidden relative isolate"

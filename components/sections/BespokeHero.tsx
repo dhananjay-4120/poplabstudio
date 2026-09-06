@@ -161,13 +161,14 @@ export default function BespokeHero() {
           muted
           playsInline
           preload="metadata"
-          poster="/hero-sunrise-poster.jpg"
+          poster="/hero-sunrise-poster.webp"
           className={`w-full h-full object-cover object-bottom transition-all duration-1000 ${
             isDark
               ? 'invert-[0.96] contrast-[1.1] brightness-[0.75] opacity-35 sm:opacity-45'
               : 'contrast-[1.0] opacity-35 sm:opacity-45'
           }`}
         >
+          <source src="/hero-sunrise-mobile.webm" type="video/webm" media="(max-width: 768px)" />
           <source src="/hero-sunrise.webm" type="video/webm" />
           <source src="/hero-sunrise-fast.mp4" type="video/mp4" />
         </video>
