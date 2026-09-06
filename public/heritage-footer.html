@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heritage Grove — Footer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #175A67;
+      --ink-soft: #2A707C;
+      --cream: #EAE3DE;
+      --max: 1440px;
+      --fs-nav: clamp(.9rem, .55vw + .75rem, 1.02rem);
+      --bg-color: var(--cream);
+      --text-color: var(--ink);
+    }
+
+    /* Pop Lab Studio Dark Theme Override */
+    html.poplab-dark {
+      --ink: #F5F2EB;
+      --ink-soft: #94A3B8;
+      --cream: #070B10;
+      --bg-color: #070B10;
+      --text-color: #F5F2EB;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow-x: hidden;
+      transition: background-color 0.4s ease;
+    }
+
+    /* === SITE FOOTER === */
+    .site-footer {
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      background-color: var(--bg-color);
+      padding: clamp(2.25rem, 4.5vh, 4rem)
+               max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-right))
+               max(clamp(1.5rem, 3vh, 2.75rem), env(safe-area-inset-bottom))
+               max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-left));
+      transition: background-color 0.4s ease;
+    }
+
+    /* === BACKGROUND MEDIA (DUAL-BUFFER SEAMLESS CROSSFADE) === */
+    .footer-media {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* CRITICAL FIX: Videos are ALWAYS absolute inset-0 so they never stack vertically on mobile */
+    .footer-bg {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center bottom !important;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.4s ease-in-out;
+      will-change: opacity;
+    }
+
+    .footer-bg.active {
+      opacity: 1;
+    }
+
+    /* Pop Lab Studio Dark Mode Video Filter (Nocturnal Moonlight) */
+    html.poplab-dark .footer-bg {
+      filter: invert(0.96) contrast(1.2) brightness(0.85);
+    }
+
+    /* Original Light Mode Video Filter (Pristine Original Artwork) */
+    html:not(.poplab-dark) .footer-bg {
+      filter: none;
+    }
+
+    /* Pop Lab Studio Ambient Sunset Glow */
+    .dark-glow-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(ellipse at 50% 60%, rgba(255, 94, 20, 0.18) 0%, rgba(7, 11, 16, 0.6) 70%, #070B10 100%);
+    }
+
+    html.poplab-dark .dark-glow-overlay {
+      display: block;
+    }
+
+    /* === THEME TOGGLE BUTTON === */
+    .theme-switch-btn {
+      position: absolute;
+      top: 1.5rem;
+      right: max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-right));
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid currentColor;
+      color: inherit;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-family: inherit;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: all 0.2s ease;
+    }
+
+    html.poplab-dark .theme-switch-btn {
+      background: rgba(255, 94, 20, 0.15);
+      border-color: rgba(255, 94, 20, 0.4);
+      color: #FF5E14;
+    }
+
+    .theme-switch-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    /* === INNER CONTAINER & GRID === */
+    .footer-inner {
+      position: relative;
+      width: 100%;
+      max-width: var(--max);
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-grid {
+      display: grid;
+      align-items: start;
+      gap: clamp(1.5rem, 3vw, 3.25rem);
+      grid-template-columns: minmax(240px, 1.45fr) repeat(3, minmax(130px, 0.85fr)) minmax(260px, 1.25fr);
+    }
+
+    /* Column Staggers */
+    .footer-grid > .col:nth-child(2) { --col-stagger: .16s; }
+    .footer-grid > .col:nth-child(3) { --col-stagger: .24s; }
+    .footer-grid > .col:nth-child(4) { --col-stagger: .32s; }
+
+    /* === BRAND COLUMN === */
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: clamp(.65rem, 1vw, 1rem);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: clamp(52px, 4.4vw, 74px);
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    html.poplab-dark .brand-mark {
+      stroke: #FF5E14;
+    }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 500;
+      font-size: clamp(1.85rem, 2.5vw, 2.9rem);
+      line-height: 1;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-blurb {
+      margin-top: clamp(1.15rem, 2.4vh, 1.9rem);
+      max-width: 24ch;
+      line-height: 1.62;
+      font-size: var(--fs-nav);
+      opacity: 0.88;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: clamp(1.15rem, 2.4vh, 1.9rem);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(.6rem, 1.2vh, .95rem);
+    }
+
+    .contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: var(--fs-nav);
+    }
+
+    .contact-list svg {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    html.poplab-dark .contact-list svg {
+      fill: #FF5E14;
+    }
+
+    .contact-list a {
+      color: inherit;
+      text-decoration: none;
+      transition: text-underline-offset 0.2s ease;
+    }
+
+    .contact-list a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* === NAVIGATION COLUMNS === */
+    .col-title {
+      margin: 0 0 clamp(1.15rem, 2.4vh, 1.85rem);
+      font-size: clamp(.95rem, .5vw + .8rem, 1.12rem);
+      font-weight: 600;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+      color: inherit;
+    }
+
+    html.poplab-dark .col-title {
+      color: #FF5E14;
+    }
+
+    .link-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(.62rem, 1.35vh, 1.05rem);
+    }
+
+    .link-list a {
+      display: inline-block;
+      text-decoration: none;
+      color: inherit;
+      font-size: var(--fs-nav);
+      transition: opacity .2s ease, transform .2s ease;
+      opacity: 0.85;
+    }
+
+    .link-list a:hover {
+      opacity: 1;
+      transform: translateX(2px);
+    }
+
+    /* === NEWSLETTER COLUMN === */
+    .newsletter p {
+      margin: 0 0 clamp(1rem, 2.2vh, 1.6rem);
+      max-width: 32ch;
+      line-height: 1.62;
+      font-size: var(--fs-nav);
+      opacity: 0.88;
+    }
+
+    .subscribe {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      max-width: 380px;
+      border: 1px solid var(--text-color);
+      background: rgba(255, 255, 255, .3);
+      transition: border-color 0.3s ease;
+    }
+
+    html.poplab-dark .subscribe {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .subscribe input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: .95rem 1.05rem;
+      font-family: inherit;
+      font-size: var(--fs-nav);
+      color: var(--text-color);
+    }
+
+    .subscribe input::placeholder {
+      color: var(--ink-soft);
+      opacity: .85;
+    }
+
+    .subscribe input:focus-visible {
+      box-shadow: inset 0 0 0 2px rgba(23, 90, 103, .25);
+    }
+
+    html.poplab-dark .subscribe input:focus-visible {
+      box-shadow: inset 0 0 0 2px rgba(255, 94, 20, .35);
+    }
+
+    .subscribe button {
+      width: clamp(56px, 4vw, 66px);
+      border: 0;
+      background: var(--ink);
+      color: var(--cream);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+
+    html.poplab-dark .subscribe button {
+      background: #FF5E14;
+      color: #FFFFFF;
+    }
+
+    .subscribe button:hover {
+      background: #0F454F;
+    }
+
+    html.poplab-dark .subscribe button:hover {
+      background: #E04F0E;
+    }
+
+    .subscribe button svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    /* === FOOTER BOTTOM BAR === */
+    .footer-bottom {
+      margin-top: auto;
+      padding-top: clamp(2.5rem, 6vh, 4.5rem);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem 2rem;
+      flex-wrap: wrap;
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: row;
+      gap: clamp(.9rem, 1.5vw, 1.5rem);
+      align-items: center;
+    }
+
+    .socials a {
+      color: inherit;
+      display: inline-flex;
+      transition: opacity .2s ease, transform .2s ease;
+      text-decoration: none;
+      opacity: 0.85;
+    }
+
+    .socials svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    .socials a:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    html.poplab-dark .socials a:hover {
+      color: #FF5E14;
+    }
+
+    .legal {
+      display: flex;
+      flex-direction: row;
+      gap: clamp(1.15rem, 2.6vw, 3rem);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .legal a {
+      color: inherit;
+      text-decoration: none;
+      font-size: var(--fs-nav);
+      opacity: 0.8;
+    }
+
+    .legal a:hover {
+      opacity: 1;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* === RESPONSIVE BREAKPOINTS === */
+    @media (max-width: 1100px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        row-gap: clamp(2rem, 4vh, 2.75rem);
+      }
+      .brand, .newsletter {
+        grid-column: 1 / -1;
+      }
+      .brand-blurb {
+        max-width: 42ch;
+      }
+      .site-footer {
+        height: auto;
+        min-height: 100svh;
+        padding-right: 0;
+        padding-bottom: 0;
+        padding-left: 0;
+        overflow-x: hidden;
+        overflow-y: visible;
+      }
+      .footer-inner {
+        order: 0;
+        padding-right: max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-right));
+        padding-left: max(clamp(1.25rem, 4vw, 4.5rem), env(safe-area-inset-left));
+        padding-bottom: clamp(1.25rem, 3vh, 2rem);
+      }
+      /* CRITICAL FIX: Container establishes aspect ratio in flow, videos stay absolute inside */
+      .footer-media {
+        position: relative;
+        inset: auto;
+        order: 1;
+        flex-shrink: 0;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        margin-top: 2rem;
+        z-index: 0;
+      }
+      .footer-media::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: clamp(40px, 12vw, 90px);
+        pointer-events: none;
+        z-index: 10;
+        background: linear-gradient(to bottom, var(--bg-color) 0%, rgba(234, 227, 222, .65) 38%, transparent 100%);
+      }
+      html.poplab-dark .footer-media::after {
+        background: linear-gradient(to bottom, #070B10 0%, rgba(7, 11, 16, .7) 38%, transparent 100%);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(1.75rem, 5vw, 2.25rem);
+      }
+      .brand-blurb {
+        max-width: 34ch;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding-top: clamp(2rem, 7vh, 3rem);
+        padding-bottom: clamp(1.25rem, 3vh, 2rem);
+      }
+      .legal {
+        gap: 1.1rem 1.5rem;
+      }
+      .link-list { gap: .2rem; }
+      .link-list a { padding: .55rem 0; }
+      .contact-list { gap: .25rem; }
+      .contact-list a, .contact-list span { padding: .4rem 0; }
+      .legal a { padding: .45rem 0; }
+      .socials a { padding: .3rem; margin: -.3rem; }
+      .socials svg { width: 28px; height: 28px; }
+      .subscribe input { font-size: 16px; padding: 1rem 1.05rem; }
+    }
+
+    @media (max-width: 440px) {
+      :root { --fs-nav: .92rem; }
+      .footer-grid { gap: 1.35rem 1.25rem; }
+      .col-title { margin-bottom: .85rem; }
+      .brand-blurb, .newsletter p { max-width: none; }
+      .subscribe { max-width: none; }
+    }
+
+    @media (max-width: 359px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <!-- THEME TOGGLE: HERITAGE CREAM <-> POP LAB OBSIDIAN -->
+    <button id="themeToggleBtn" class="theme-switch-btn" type="button" aria-label="Toggle dark mode">
+      Theme: Cream
+    </button>
+
+    <!-- BACKGROUND ARTWORK & SEAMLESS DUAL-BUFFER CROSSFADE ENGINE -->
+    <div class="footer-media" aria-hidden="true">
+      <video
+        id="bg-video-1"
+        class="footer-bg active"
+        autoplay
+        muted
+        playsinline
+        preload="auto"
+        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png"
+      >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260901_122529_931c22c8-8d2d-47c0-ad51-b97f56a91e42.mp4" type="video/mp4">
+      </video>
+
+      <video
+        id="bg-video-2"
+        class="footer-bg"
+        muted
+        playsinline
+        preload="auto"
+        poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png"
+      >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260901_122529_931c22c8-8d2d-47c0-ad51-b97f56a91e42.mp4" type="video/mp4">
+      </video>
+
+      <div class="dark-glow-overlay"></div>
+    </div>
+
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <!-- BRAND -->
+        <div class="brand">
+          <a href="#" class="brand-lockup" aria-label="Heritage Grove Home">
+            <svg class="brand-mark" viewBox="0 0 96 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <ellipse cx="48" cy="60" rx="45" ry="57"/>
+              <path d="M48 88V46" stroke-linecap="round"/>
+              <path d="M48 58c-8-2-14-8-16-16 9 0 15 5 16 16Zm0 0c8-2 14-8 16-16-9 0-15 5-16 16Z"/>
+              <path d="M48 74c-9-2-15-8-17-17 10 0 16 6 17 17Zm0 0c9-2 15-8 17-17-10 0-16 6-17 17Z"/>
+              <path d="M48 46c-6-3-9-9-8-16 6 3 9 9 8 16Zm0 0c6-3 9-9 8-16-6 3-9 9-8 16Z"/>
+              <path d="M30 44c-5 1-9-1-12-5 5-2 9-1 12 5Zm36 0c5 1 9-1 12-5-5-2-9-1-12 5Z"/>
+            </svg>
+            <h2 class="brand-name">Heritage Grove</h2>
+          </a>
+          <p class="brand-blurb">Crafting digital experiences that connect, delight, and leave a lasting imprint</p>
+          <ul class="contact-list">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <a href="mailto:care@heritage.com">care@heritage.com</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+              <a href="tel:+910000000000">+91 00000 00000</a>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <span>India</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- COLUMN 1: SHOP -->
+        <nav class="col" aria-label="Shop">
+          <h3 class="col-title">Shop</h3>
+          <ul class="link-list">
+            <li><a href="#">Full Collection</a></li>
+            <li><a href="#">Vases</a></li>
+            <li><a href="#">Tableware</a></li>
+            <li><a href="#">Decor</a></li>
+            <li><a href="#">Limited Releases</a></li>
+            <li><a href="#">Gift Sets</a></li>
+          </ul>
+        </nav>
+
+        <!-- COLUMN 2: HERITAGE -->
+        <nav class="col" aria-label="Heritage">
+          <h3 class="col-title">Heritage</h3>
+          <ul class="link-list">
+            <li><a href="#">Our Roots</a></li>
+            <li><a href="#">Our Craftwork</a></li>
+            <li><a href="#">Responsibility</a></li>
+            <li><a href="#">Join Us</a></li>
+            <li><a href="#">Media Enquiry</a></li>
+          </ul>
+        </nav>
+
+        <!-- COLUMN 3: CARE & SERVICE -->
+        <nav class="col" aria-label="Care and service">
+          <h3 class="col-title">Care &amp; Service</h3>
+          <ul class="link-list">
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping &amp; Dispatch</a></li>
+            <li><a href="#">Where&rsquo;s My Order</a></li>
+            <li><a href="#">Talk To Us</a></li>
+          </ul>
+        </nav>
+
+        <!-- COLUMN 4: THE LETTER -->
+        <div class="newsletter">
+          <h3 class="col-title">The Letter</h3>
+          <p>Sign up for early notice on new arrivals, stories &amp; members-only offers.</p>
+          <form class="subscribe" action="#" method="post" onsubmit="event.preventDefault();">
+            <label for="nl-email" class="sr-only">Email address</label>
+            <input id="nl-email" type="email" name="email" placeholder="Leave your email" autocomplete="email" required>
+            <button type="submit" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12h15M13 6l6 6-6 6"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FOOTER BOTTOM -->
+      <div class="footer-bottom">
+        <div class="socials">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95C18.05 21.45 22 17.2 22 12z"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.46 1.46 0 1 0 0-2.92 1.46 1.46 0 0 0 0 2.92M7.86 18.5v-8.37H5.07v8.37h2.79z"/></svg>
+          </a>
+        </div>
+
+        <nav class="legal" aria-label="Legal">
+          <a href="#">Privacy Notice</a>
+          <a href="#">Terms &amp; Policies</a>
+          <a href="#">Cookie Notice</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SEAMLESS DUAL-BUFFER VIDEO CROSSFADE ENGINE (VIDEOS ARE ALWAYS ABSOLUTE INSET-0) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Theme Toggle
+      const toggleBtn = document.getElementById('themeToggleBtn');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('poplab-dark');
+          toggleBtn.textContent = isDark ? 'Theme: Pop Lab Dark' : 'Theme: Cream';
+        });
+      }
+
+      // 2. Dual-Buffer Crossfade Video Controller
+      const v1 = document.getElementById('bg-video-1');
+      const v2 = document.getElementById('bg-video-2');
+      if (!v1 || !v2) return;
+
+      let activeVideo = v1;
+      let idleVideo = v2;
+      let isFading = false;
+
+      function checkCrossfade() {
+        if (activeVideo.currentTime >= 8.6 && !isFading) {
+          isFading = true;
+
+          idleVideo.currentTime = 0;
+          idleVideo.play().catch(() => {});
+
+          idleVideo.classList.add('active');
+          activeVideo.classList.remove('active');
+
+          setTimeout(() => {
+            activeVideo.pause();
+            const temp = activeVideo;
+            activeVideo = idleVideo;
+            idleVideo = temp;
+            isFading = false;
+          }, 1400);
+        }
+        requestAnimationFrame(checkCrossfade);
+      }
+
+      requestAnimationFrame(checkCrossfade);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+# Pop Lab Studio
+
+> Pop Lab Studio is a high-craft creative growth studio combining brand strategy, cultural PR, performance media (Meta/Google Ads), and conversion rate engineering for high-growth brands and enterprise leaders.
+
+## Core Capabilities & Services
+- [Paid Media Architecture](https://poplabstudio.com/process): Server-side CAPI attribution, sGTM, Advantage+ testing, search term negative insulation, and horizontal ROAS scaling.
+- [Creative Production & Storytelling](https://poplabstudio.com/process): 4-batch format testing (founder POV, cinematic high-res product, technical teardown, social proof comparison).
+- [Conversion Rate Engineering](https://poplabstudio.com/process): Landing page friction reduction, high-intent qualification funnels, and zero-FOUC modern web architectures.
+- [Cultural PR & Brand Strategy](https://poplabstudio.com/): High-impact brand narrative, media placements, and positioning for category leadership.
+
+## Growth Methodology & Sprints
+- [The 5-Stage Sprint System](https://poplabstudio.com/process): Day 0 Diagnostic Teardown -> Week 1 Attribution Architecture -> Week 2 Creative Launch -> Week 3+ Rapid Iteration -> Controlled Horizontal Scaling.
+- [The Diagnostic Teardown](https://poplabstudio.com/contact): 30-minute live screen-share audit identifying budget leaks, tracking flaws, and high-margin conversion angles.
+
+## Case Studies & Verified Results
+- [Artisan Sourdough Bakery (Bakery)](https://poplabstudio.com/work/bakery): 4.2x ROAS, 14,200 orders, ₹38.4L revenue scaling artisanal bakery e-commerce.
+- [Heritage Polki & Diamond Atelier (Jewellery)](https://poplabstudio.com/work/jewellery): ₹2.4Cr pipeline generated at 11.2x pipeline-to-ad-spend with private showroom consultation gates.
+- [Bespoke Luxury Travel (Travel Europe)](https://poplabstudio.com/work/travel-europe): €480k bookings at 6.8x ROAS with multi-country luxury itineraries.
+- [Turnkey Architectural Studio (Interiors)](https://poplabstudio.com/work/interiors): ₹1.8Cr pipeline generated at ₹320 qualified design consultation CPL.
+- [Functional Botanical Skincare (Wellness)](https://poplabstudio.com/work/wellness): 3.9x blended ROAS, 42% 90-day repurchase rate, and 4,800+ subscriber acquisition.
+- [Curated Private Island Escapes (Holiday)](https://poplabstudio.com/work/holiday): €620k charter bookings at 7.4x ROAS with multi-touch attribution.
+- [Enterprise B2B SaaS Growth (LinkedIn)](https://poplabstudio.com/work/linkedin): $1.2M qualified sales pipeline, $420 demo acquisition cost for Series B fintech.
+- [Clean-Label D2C Nutrition (D2C)](https://poplabstudio.com/work/d2c): 3.6x ROAS, ₹54L 60-day revenue scaling high-protein hydration.
+
+## Growth Journal & Technical Teardowns
+- [The Anatomy of a ₹12 Lead vs a ₹120 Customer](https://poplabstudio.com/journal/post-leads): Unit economics of lead gen vs downstream customer acquisition cost.
+- [The Most Expensive Click in Meta Ads (And How to Kill It)](https://poplabstudio.com/journal/post-expensive-click): Algorithmic waste, accidental clicks, and negative audience hygiene.
+- [How We Build 14-Day Creative Production Sprints with AI](https://poplabstudio.com/journal/post-ai-workflow): Blending generative tools with senior human creative direction.
+- [Why Your Meta Pixel is Lying to You in 2026](https://poplabstudio.com/journal/post-pixel): Server-side CAPI, cookie decay, first-party data, and synthetic conversions.
+- [The 3x3 Creative Testing Framework for Scaling Brands](https://poplabstudio.com/journal/post-creative-testing): Scientific creative matrices for scaling ad spend without fatigue.
+- [Mapping the Non-Linear Funnel: From Impression to LTV](https://poplabstudio.com/journal/post-funnel-stages): Multi-touch user journeys across search, social, and retention.
+- [Scaling Past 4x ROAS: The Horizontal Budget Allocation Playbook](https://poplabstudio.com/journal/post-scaling-roas): Channel diversification, budget allocation, and marginal returns.
+
+## Full Context Document
+- [Full LLM Knowledge Base](https://poplabstudio.com/llms-full.txt): Comprehensive deep-dive covering entire methodology, client blueprints, and technical playbooks.
+
+## Studio Contact & Diagnostic Booking
+- Diagnostic Consultation: [https://poplabstudio.com/contact](https://poplabstudio.com/contact)
+- Direct Cal.com Scheduler: [https://cal.com/poplab-studio-o0cj4m/30min](https://cal.com/poplab-studio-o0cj4m/30min)
+- Studio Phone / WhatsApp: +91 88375 65738 ([WhatsApp Link](https://wa.me/918837565738))
+- Direct Inquiries: growth@poplabstudio.com / poplabstudio.business@gmail.com
+- Physical Studio Address: SCO 364, Second Floor, Sector 34A, Chandigarh 160022
