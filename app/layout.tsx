@@ -98,6 +98,56 @@ export default function RootLayout({
             `,
           }}
         />
+        <script
+          id="poplab-chunk-recovery"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var retried = false;
+                function checkAndRecover(err) {
+                  if (retried) return;
+                  var msg = '';
+                  if (err && err.message) msg = err.message;
+                  else if (err && err.reason && err.reason.message) msg = err.reason.message;
+                  else if (typeof err === 'string') msg = err;
+
+                  var isChunk = msg.indexOf('ChunkLoadError') !== -1 ||
+                                msg.indexOf('Loading chunk') !== -1 ||
+                                msg.indexOf('dynamically imported module') !== -1;
+
+                  if (isChunk) {
+                    var key = 'poplab_chunk_retry_ts';
+                    var now = Date.now();
+                    var last = sessionStorage.getItem(key);
+                    if (!last || (now - parseInt(last, 10)) > 12000) {
+                      retried = true;
+                      sessionStorage.setItem(key, now.toString());
+                      window.location.reload();
+                    }
+                  }
+                }
+
+                window.addEventListener('error', function(e) {
+                  if (e.target && e.target.tagName === 'SCRIPT' && e.target.src && e.target.src.indexOf('/_next/static/') !== -1) {
+                    var key = 'poplab_chunk_retry_ts';
+                    var now = Date.now();
+                    var last = sessionStorage.getItem(key);
+                    if (!last || (now - parseInt(last, 10)) > 12000) {
+                      sessionStorage.setItem(key, now.toString());
+                      window.location.reload();
+                    }
+                  } else {
+                    checkAndRecover(e.error || e);
+                  }
+                }, true);
+
+                window.addEventListener('unhandledrejection', function(e) {
+                  checkAndRecover(e.reason);
+                });
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className="bg-[#090D14] text-[#F5F2EB] selection:bg-[#FF5E14] selection:text-white min-h-screen antialiased overflow-x-hidden relative isolate"

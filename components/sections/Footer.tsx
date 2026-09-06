@@ -16,8 +16,6 @@ import Image from 'next/image';
  */
 export default function Footer() {
   const v1Ref = useRef<HTMLVideoElement>(null);
-  const v2Ref = useRef<HTMLVideoElement>(null);
-  const [activeVideoId, setActiveVideoId] = useState<1 | 2>(1);
   const [isDark, setIsDark] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -27,7 +25,6 @@ export default function Footer() {
   const [nlSubmitting, setNlSubmitting] = useState(false);
   const [nlSubscribed, setNlSubscribed] = useState(false);
   const [nlError, setNlError] = useState<string | null>(null);
-  const isFadingRef = useRef(false);
 
   // Sync theme with document.documentElement
   useEffect(() => {
@@ -48,39 +45,25 @@ export default function Footer() {
     return () => observer.disconnect();
   }, []);
 
-  // Dual-buffer continuous crossfade loop for the flying cranes
+  const footerRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  // Lazy-load footer background video only when scrolled within 400px of footer
   useEffect(() => {
-    if (!mounted) return;
-    let animationFrameId: number;
-
-    const checkCrossfade = () => {
-      const activeVideo = activeVideoId === 1 ? v1Ref.current : v2Ref.current;
-      const idleVideo = activeVideoId === 1 ? v2Ref.current : v1Ref.current;
-
-      if (activeVideo && idleVideo) {
-        if (activeVideo.currentTime >= 8.6 && !isFadingRef.current) {
-          isFadingRef.current = true;
-
-          idleVideo.currentTime = 0;
-          idleVideo.play().catch(() => {});
-
-          setActiveVideoId((prev) => (prev === 1 ? 2 : 1));
-
-          setTimeout(() => {
-            activeVideo.pause();
-            isFadingRef.current = false;
-          }, 1400);
+    const el = footerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
         }
-      }
-      animationFrameId = requestAnimationFrame(checkCrossfade);
-    };
-
-    animationFrameId = requestAnimationFrame(checkCrossfade);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [mounted, activeVideoId]);
+      },
+      { rootMargin: '400px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [mounted]);
 
   const handleCopyEmail = () => {
     setCopied(true);
@@ -134,6 +117,7 @@ export default function Footer() {
 
   return (
     <footer
+      ref={footerRef}
       id="footer"
       suppressHydrationWarning
       className={`site-footer relative isolate flex flex-col overflow-hidden border-t border-black/10 dark:border-white/10 transition-colors duration-500 ${
@@ -149,50 +133,26 @@ export default function Footer() {
         suppressHydrationWarning
         className="footer-media absolute inset-0 -z-20 pointer-events-none overflow-hidden"
       >
-        {mounted ? (
-          <>
-            {/* Video 1: Primary buffer */}
-            <video
-              ref={v1Ref}
-              id="footer-bg-video-1"
-              suppressHydrationWarning
-              className={`absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none transition-opacity duration-[1400ms] ease-in-out ${
-                activeVideoId === 1 ? 'opacity-100' : 'opacity-0'
-              } ${isDark ? 'invert-[0.96] contrast-[1.2] brightness-[0.7] opacity-60' : 'filter-none opacity-50'}`}
-              autoPlay
-              muted
-              playsInline
-              preload="auto"
-              poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png"
-            >
-              <source
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260901_122529_931c22c8-8d2d-47c0-ad51-b97f56a91e42.mp4"
-                type="video/mp4"
-              />
-            </video>
-
-            {/* Video 2: Secondary crossfade buffer */}
-            <video
-              ref={v2Ref}
-              id="footer-bg-video-2"
-              suppressHydrationWarning
-              className={`absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none transition-opacity duration-[1400ms] ease-in-out ${
-                activeVideoId === 2 ? 'opacity-100' : 'opacity-0'
-              } ${isDark ? 'invert-[0.96] contrast-[1.2] brightness-[0.7] opacity-60' : 'filter-none opacity-50'}`}
-              muted
-              playsInline
-              preload="auto"
-              poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png"
-            >
-              <source
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260901_122529_931c22c8-8d2d-47c0-ad51-b97f56a91e42.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </>
+        {isInView ? (
+          <video
+            ref={v1Ref}
+            id="footer-bg-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="none"
+            poster="/footer-poster.webp"
+            className={`absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none transition-opacity duration-1000 ${
+              isDark ? 'invert-[0.96] contrast-[1.2] brightness-[0.7] opacity-60' : 'filter-none opacity-50'
+            }`}
+          >
+            <source src="/footer-cranes.webm" type="video/webm" />
+            <source src="/footer-cranes.mp4" type="video/mp4" />
+          </video>
         ) : (
           <img
-            src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png"
+            src="/footer-poster.webp"
             alt="Song Dynasty Landscape with Cranes"
             suppressHydrationWarning
             className={`absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none ${

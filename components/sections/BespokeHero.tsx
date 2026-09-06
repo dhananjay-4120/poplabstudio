@@ -142,9 +142,6 @@ export default function BespokeHero() {
   // Scroll offsets for text
   const textY = useTransform(scrollY, [0, 600], [0, 140]);
   const textOpacity = useTransform(scrollY, [0, 450], [1, 0.15]);
-
-  if (!mounted) return null;
-
   return (
     <section
       id="hero"
@@ -163,7 +160,7 @@ export default function BespokeHero() {
           autoPlay
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="/hero-sunrise-poster.jpg"
           className={`w-full h-full object-cover object-bottom transition-all duration-1000 ${
             isDark
@@ -171,7 +168,8 @@ export default function BespokeHero() {
               : 'contrast-[1.0] opacity-35 sm:opacity-45'
           }`}
         >
-          <source src="/hero-sunrise.mp4" type="video/mp4" />
+          <source src="/hero-sunrise.webm" type="video/webm" />
+          <source src="/hero-sunrise-fast.mp4" type="video/mp4" />
         </video>
       </div>
 
