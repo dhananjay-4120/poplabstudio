@@ -18,8 +18,8 @@ export default function HomePage() {
     email: 'growth@poplabstudio.com',
     telephone: '+918837565738',
     sameAs: [
-      'https://www.instagram.com/poplabstudio',
-      'https://www.linkedin.com/company/poplabstudio',
+      'https://www.instagram.com/poplabstudio.hq/',
+      'https://www.linkedin.com/company/pop-lab-studios/',
       'https://wa.me/918837565738',
     ],
     address: {

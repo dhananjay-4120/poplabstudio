@@ -450,7 +450,7 @@ export default function HeritageFooter() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/poplabstudio"
+              href="https://www.instagram.com/poplabstudio.hq/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -461,7 +461,7 @@ export default function HeritageFooter() {
               </svg>
             </a>
             <a
-              href="https://linkedin.com/company/poplabstudio"
+              href="https://www.linkedin.com/company/pop-lab-studios/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"

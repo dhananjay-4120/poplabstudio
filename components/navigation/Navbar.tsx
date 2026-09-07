@@ -209,7 +209,7 @@ export default function Navbar() {
                       WhatsApp ↗
                     </a>
                     <a
-                      href="https://instagram.com/poplabstudio"
+                      href="https://www.instagram.com/poplabstudio.hq/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-[#FF5E14] transition-colors"
@@ -217,7 +217,7 @@ export default function Navbar() {
                       IG ↗
                     </a>
                     <a
-                      href="https://linkedin.com/company/poplabstudio"
+                      href="https://www.linkedin.com/company/pop-lab-studios/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-[#FF5E14] transition-colors"

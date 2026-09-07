@@ -592,7 +592,7 @@ export default function ContactClient() {
                 </span>
                 <div className="flex items-center gap-4 text-xs font-mono">
                   <a
-                    href="https://instagram.com/poplabstudio"
+                    href="https://www.instagram.com/poplabstudio.hq/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#121824]/80 dark:text-white/80 hover:text-[#FF5E14] transition-colors"
@@ -600,7 +600,7 @@ export default function ContactClient() {
                     Instagram ↗
                   </a>
                   <a
-                    href="https://linkedin.com/company/poplabstudio"
+                    href="https://www.linkedin.com/company/pop-lab-studios/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#121824]/80 dark:text-white/80 hover:text-[#FF5E14] transition-colors"
