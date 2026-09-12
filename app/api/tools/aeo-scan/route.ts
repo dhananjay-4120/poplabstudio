@@ -44,6 +44,60 @@ interface DiagnosticResult {
   }[];
 }
 
+// In-memory rate limiting map (IP -> timestamps array)
+const scanRateLimitMap = new Map<string, number[]>();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_SCANS_PER_WINDOW = 6; // Max 6 scans per minute per IP
+
+function isScanRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = scanRateLimitMap.get(ip) || [];
+  const validTimestamps = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  if (validTimestamps.length >= MAX_SCANS_PER_WINDOW) {
+    return true;
+  }
+  validTimestamps.push(now);
+  scanRateLimitMap.set(ip, validTimestamps);
+  return false;
+}
+
+function isBlockedTarget(hostname: string): boolean {
+  const clean = hostname.toLowerCase().trim();
+  if (
+    clean === 'localhost' ||
+    clean === '127.0.0.1' ||
+    clean === '0.0.0.0' ||
+    clean.endsWith('.internal') ||
+    clean.endsWith('.local') ||
+    clean.startsWith('192.168.') ||
+    clean.startsWith('10.') ||
+    clean.startsWith('172.16.') ||
+    clean.startsWith('172.17.') ||
+    clean.startsWith('172.18.') ||
+    clean.startsWith('172.19.') ||
+    clean.startsWith('172.20.') ||
+    clean.startsWith('172.21.') ||
+    clean.startsWith('172.22.') ||
+    clean.startsWith('172.23.') ||
+    clean.startsWith('172.24.') ||
+    clean.startsWith('172.25.') ||
+    clean.startsWith('172.26.') ||
+    clean.startsWith('172.27.') ||
+    clean.startsWith('172.28.') ||
+    clean.startsWith('172.29.') ||
+    clean.startsWith('172.30.') ||
+    clean.startsWith('172.31.') ||
+    clean.startsWith('169.254.')
+  ) {
+    return true;
+  }
+  // Must have at least one dot to be a valid domain
+  if (!clean.includes('.') || clean.length < 4 || clean.length > 150) {
+    return true;
+  }
+  return false;
+}
+
 function cleanDomain(input: string): { normalizedUrl: string; hostname: string } {
   let trimmed = input.trim();
   if (!/^https?:\/\//i.test(trimmed)) {
@@ -61,6 +115,19 @@ export async function POST(req: NextRequest) {
   const startTime = Date.now();
 
   try {
+    // 1. IP Rate Limiting
+    const clientIp =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('x-real-ip') ||
+      'unknown-ip';
+
+    if (isScanRateLimited(clientIp)) {
+      return NextResponse.json(
+        { error: 'Scan rate limit exceeded. Please wait a moment before running another audit.' },
+        { status: 429 }
+      );
+    }
+
     let body: any;
     try {
       body = await req.json();
@@ -74,6 +141,14 @@ export async function POST(req: NextRequest) {
     }
 
     const { normalizedUrl, hostname } = cleanDomain(rawUrl);
+
+    // 2. SSRF & Internal Network Security Shield
+    if (isBlockedTarget(hostname)) {
+      return NextResponse.json(
+        { error: 'Invalid domain. Scans are only permitted on public web domains.' },
+        { status: 400 }
+      );
+    }
 
     // Fetch HTML and robots.txt in parallel with 6s timeout
     const controller = new AbortController();

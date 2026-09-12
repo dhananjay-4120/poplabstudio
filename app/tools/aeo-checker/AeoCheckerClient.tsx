@@ -47,9 +47,9 @@ interface DiagnosticResult {
 
 const DEEP_SCAN_STEPS = [
   { pct: 15, label: 'Resolving edge DNS, SSL certificates & server headers...', detail: 'Target reachability confirmed' },
-  { pct: 32, label: 'Querying OpenAI GPT-4o & GPTBot crawler directives...', detail: 'Inspecting /robots.txt permissions for search agents' },
+  { pct: 32, label: 'Querying OpenAI Foundation Models & GPTBot crawler directives...', detail: 'Inspecting /robots.txt permissions for search agents' },
   { pct: 51, label: 'Decompiling Schema.org JSON-LD entity graph...', detail: 'Testing entity verification for Perplexity AI' },
-  { pct: 69, label: 'Auditing /llms.txt machine-readable knowledge base...', detail: 'Checking Markdown ingestion standards for Claude & Gemini' },
+  { pct: 69, label: 'Auditing /llms.txt machine-readable knowledge base...', detail: 'Checking Markdown ingestion standards for AI assistants' },
   { pct: 86, label: 'Vectorizing semantic heading hierarchy for Google AI Overviews...', detail: 'Analyzing 40-60 word atomic RAG snippet chunking' },
   { pct: 98, label: 'Synthesizing multi-dimensional AI Citation Index...', detail: 'Finalizing competitor citation leak matrix' },
 ];
@@ -73,8 +73,11 @@ export default function AeoCheckerClient() {
     phone: '',
   });
 
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   const resultsRef = useRef<HTMLDivElement>(null);
   const gateRef = useRef<HTMLDivElement>(null);
+  const scannerTopRef = useRef<HTMLDivElement>(null);
 
   const handleScan = async (e?: React.FormEvent, customUrl?: string) => {
     if (e) e.preventDefault();
@@ -779,6 +782,355 @@ export default function AeoCheckerClient() {
           )}
         </div>
       )}
+
+      {/* ========================================================================= */}
+      {/* 5. EDUCATIONAL USER JOURNEY & ARCHITECTURAL COMPARISON (ALWAYS VISIBLE)   */}
+      {/* ========================================================================= */}
+      <div className="mt-28 pt-20 border-t border-white/10 space-y-28">
+        {/* SECTION A: THE ARCHITECTURAL SHIFT (SEO VS AEO) */}
+        <div>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14] font-semibold">
+              The Architectural Shift
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-light text-white mt-3 mb-5 leading-tight">
+              Why 2018 SEO Techniques Are <br className="hidden sm:inline" />
+              <span className="italic font-normal text-[#FF5E14]">Invisible to AI Search Engines</span>
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#F5F2EB]/70 font-light leading-relaxed">
+              Traditional Google search matches keywords and counts backlinks. AI engines (ChatGPT, Perplexity, Copilot, Google AI Overviews) parse entity relationship graphs and direct conversational vector embeddings. Here is the mathematical difference:
+            </p>
+          </div>
+
+          {/* Visual Workflow Comparison Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            {/* Legacy SEO Card */}
+            <div className="rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+                  <span className="font-mono text-xs uppercase tracking-wider text-red-400 font-semibold">
+                    Legacy Model (2012–2023)
+                  </span>
+                  <span className="font-mono text-[10px] px-2 py-0.5 rounded-full border border-red-500/30 text-red-400 bg-red-500/10">
+                    Declining ROI
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-2xl font-light text-white mb-3">
+                  Traditional Keyword SEO
+                </h3>
+
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed mb-6">
+                  Optimizes for search bots that scan for keyword repetitions, density quotas, and guest-post backlinks.
+                </p>
+
+                {/* Step Flow Diagram */}
+                <div className="space-y-3 font-mono text-xs">
+                  <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[11px] text-white">01</span>
+                    <span className="text-white/80">User searches: &quot;best luxury jewelry near me&quot;</span>
+                  </div>
+                  <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[11px] text-white">02</span>
+                    <span className="text-white/80">Bot indexes raw keywords &amp; backlink volume</span>
+                  </div>
+                  <div className="p-3 rounded-xl border border-white/10 bg-white/[0.02] flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-[11px] text-white">03</span>
+                    <span className="text-white/80">Returns 10 blue links cluttered with ads</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-white/10 font-mono text-xs text-red-400/90 flex items-center gap-2">
+                <span>⚠ Downfall:</span>
+                <span className="text-[#F5F2EB]/70 font-sans text-xs">65%+ of searches now end in zero clicks. Users skip the links.</span>
+              </div>
+            </div>
+
+            {/* Modern AEO/GEO Engine Card */}
+            <div className="rounded-3xl border border-[#FF5E14]/40 bg-gradient-to-b from-[#FF5E14]/10 via-white/[0.02] to-transparent backdrop-blur-xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_20px_50px_rgba(255,94,20,0.1)]">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF5E14]/20 rounded-full blur-3xl pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[#FF5E14] font-semibold">
+                    The Modern Standard (2025–2026+)
+                  </span>
+                  <span className="font-mono text-[10px] px-2 py-0.5 rounded-full border border-[#FF5E14]/40 text-[#FF5E14] bg-[#FF5E14]/10 font-semibold">
+                    3x Higher Conversion
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-2xl font-light text-white mb-3">
+                  Answer Engine Optimization (AEO / GEO)
+                </h3>
+
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/80 font-light leading-relaxed mb-6">
+                  Engineered for multi-agent LLMs that synthesize conversational answers, query vector embeddings, and demand verified entity proofs.
+                </p>
+
+                {/* Step Flow Diagram */}
+                <div className="space-y-3 font-mono text-xs">
+                  <div className="p-3 rounded-xl border border-[#FF5E14]/30 bg-[#FF5E14]/[0.05] flex items-center gap-3 text-white">
+                    <span className="w-6 h-6 rounded-full bg-[#FF5E14] flex items-center justify-center text-[11px] text-white font-bold">01</span>
+                    <span>Founder asks: &quot;Which studio should we hire to scale our brand?&quot;</span>
+                  </div>
+                  <div className="p-3 rounded-xl border border-[#FF5E14]/30 bg-[#FF5E14]/[0.05] flex items-center gap-3 text-white">
+                    <span className="w-6 h-6 rounded-full bg-[#FF5E14] flex items-center justify-center text-[11px] text-white font-bold">02</span>
+                    <span>LLM ingests /llms.txt, Schema graph &amp; RAG vectors</span>
+                  </div>
+                  <div className="p-3 rounded-xl border border-[#FF5E14]/30 bg-[#FF5E14]/[0.05] flex items-center gap-3 text-white">
+                    <span className="w-6 h-6 rounded-full bg-[#FF5E14] flex items-center justify-center text-[11px] text-white font-bold">03</span>
+                    <span className="text-[#FF5E14] font-semibold">AI provides 1 definitive recommendation with your link</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-white/10 font-mono text-xs text-[#25D366] flex items-center gap-2">
+                <span>✓ Winner Takes All:</span>
+                <span className="text-[#F5F2EB]/90 font-sans text-xs">The cited brand captures 80%+ of qualified inbound buyers.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION B: HOW AI SEARCH SELECTS WINNERS (3 STEPS) */}
+        <div>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14] font-semibold">
+              The AI Citation Engine
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-light text-white mt-3 mb-5 leading-tight">
+              How AI Engines Choose Who to Recommend
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#F5F2EB]/70 font-light leading-relaxed">
+              When a buyer prompts an AI assistant, it executes an automated 3-stage filtration pipeline in 800 milliseconds:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Step 1 */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col justify-between hover:border-[#FF5E14]/30 transition-all">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#FF5E14]/10 border border-[#FF5E14]/30 text-[#FF5E14] font-mono font-bold flex items-center justify-center mb-5">
+                  01
+                </div>
+                <h3 className="font-serif text-xl font-light text-white mb-2">
+                  Vector Retrieval &amp; Intent
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed">
+                  AI transforms the user prompt into mathematical vectors. Instead of exact words, it searches for conceptual depth, authoritative case studies, and numerical proof metrics.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/10 font-mono text-[11px] text-[#FF5E14]">
+                Vector Similarity &gt; Word Count
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col justify-between hover:border-[#FF5E14]/30 transition-all">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#FF5E14]/10 border border-[#FF5E14]/30 text-[#FF5E14] font-mono font-bold flex items-center justify-center mb-5">
+                  02
+                </div>
+                <h3 className="font-serif text-xl font-light text-white mb-2">
+                  Machine-Readable Filtration
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed">
+                  AI engines aggressively discard 95% of slow, unformatted sites. They prioritize domains equipped with clean Schema.org entity graphs and standardized /llms.txt knowledge files.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/10 font-mono text-[11px] text-[#FF5E14]">
+                Clean Schemas &gt; Bloated CMS
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 flex flex-col justify-between hover:border-[#FF5E14]/30 transition-all">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#FF5E14]/10 border border-[#FF5E14]/30 text-[#FF5E14] font-mono font-bold flex items-center justify-center mb-5">
+                  03
+                </div>
+                <h3 className="font-serif text-xl font-light text-white mb-2">
+                  Direct Citation &amp; Conversion
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed">
+                  The AI model synthesizes a confident, single-paragraph recommendation and attaches your domain as the primary source citation—funneling qualified buyers straight to your site.
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-white/10 font-mono text-[11px] text-[#25D366]">
+                Single Citation &gt; 10 Blue Links
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION C: 3 LETHAL BLINDSPOTS */}
+        <div>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14] font-semibold">
+              The Reality Check
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-light text-white mt-3 mb-5 leading-tight">
+              3 Blindspots Costing You Customers in AI Search
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#F5F2EB]/70 font-light leading-relaxed">
+              Most founders assume their site is being read by AI assistants. In reality, 9 out of 10 domains suffer from these 3 hidden flaws:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Blindspot 1 */}
+            <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.02] p-6 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs text-red-400 font-semibold uppercase tracking-wider block mb-3">
+                  Blindspot 01
+                </span>
+                <h3 className="font-serif text-xl font-light text-white mb-2">
+                  Silent Crawler Blockades
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed">
+                  Over 40% of Webflow, Shopify, and WordPress configurations accidentally disallow GPTBot and Perplexity in default robots.txt rules, making AI citation impossible.
+                </p>
+              </div>
+              <div className="mt-6 pt-3 border-t border-white/10 font-mono text-xs text-red-400">
+                Fix: Explicit AI directive routing
+              </div>
+            </div>
+
+            {/* Blindspot 2 */}
+            <div className="rounded-2xl border border-amber-500/20 bg-amber-500/[0.02] p-6 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs text-amber-400 font-semibold uppercase tracking-wider block mb-3">
+                  Blindspot 02
+                </span>
+                <h3 className="font-serif text-xl font-light text-white mb-2">
+                  The Missing /llms.txt Protocol
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed">
+                  When LLMs ingest complex client-side JavaScript, they often hallucinate pricing and capabilities. Providing an /llms.txt gives AI verified answers directly.
+                </p>
+              </div>
+              <div className="mt-6 pt-3 border-t border-white/10 font-mono text-xs text-amber-400">
+                Fix: Machine-readable knowledge file
+              </div>
+            </div>
+
+            {/* Blindspot 3 */}
+            <div className="rounded-2xl border border-white/15 bg-white/[0.02] p-6 flex flex-col justify-between">
+              <div>
+                <span className="font-mono text-xs text-[#FF5E14] font-semibold uppercase tracking-wider block mb-3">
+                  Blindspot 03
+                </span>
+                <h3 className="font-serif text-xl font-light text-white mb-2">
+                  Unanchored Knowledge Graphs
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#F5F2EB]/70 font-light leading-relaxed">
+                  Without bidirectional Schema.org sameAs entity anchors connecting your domain to Crunchbase, LinkedIn, and media articles, AI models consider you an unverified rumor.
+                </p>
+              </div>
+              <div className="mt-6 pt-3 border-t border-white/10 font-mono text-xs text-[#FF5E14]">
+                Fix: Multi-entity JSON-LD modeling
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION D: FOUNDER'S FAQ (ACCORDION) */}
+        <div>
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14] font-semibold">
+              Frequently Asked Questions
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-light text-white mt-3 mb-4">
+              Everything You Need to Know About AEO
+            </h2>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-4 font-sans">
+            {[
+              {
+                q: 'Can’t our existing SEO agency handle this for us?',
+                a: 'Almost certainly no. Traditional agencies sell backlinks, keyword stuffing, and basic WordPress plugins. AEO is deep software and data engineering: it requires Next.js server component hydration, /llms.txt machine-readable documentation, and bidirectional Schema.org entity graph modeling.',
+              },
+              {
+                q: 'How fast do AI search engines pick up changes once implemented?',
+                a: 'Real-time search models (like Perplexity and live ChatGPT Search) query the open web directly. By deploying automated IndexNow ping APIs and clean entity graphs, citation updates typically begin indexing within 48 to 72 hours.',
+              },
+              {
+                q: 'Does Answer Engine Optimization replace our paid Meta or Google Ads?',
+                a: 'No—it supercharges them. When high-ticket clients or consumers see your Meta ad, their immediate second step is asking an AI assistant: "Is [Your Brand] legitimate?". If AI verifies and recommends you, your paid ad conversion rates surge.',
+              },
+              {
+                q: 'Why do old keyword stuffing tricks get penalized by AI engines?',
+                a: 'Large Language Models are trained on natural semantic discourse. Repetitive keyword stuffing ruins your semantic vector similarity, causing AI search engines to discard your pages as low-quality synthetic spam.',
+              },
+            ].map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden transition-colors"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none"
+                  >
+                    <span className="font-serif text-lg sm:text-xl text-white font-light">
+                      {faq.q}
+                    </span>
+                    <span className="font-mono text-lg text-[#FF5E14] shrink-0">
+                      {isOpen ? '−' : '+'}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="px-6 pb-6 text-sm text-[#F5F2EB]/75 font-light leading-relaxed border-t border-white/5 pt-4">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* SECTION E: FINAL CONVERSION BANNER */}
+        <div className="rounded-3xl border border-[#FF5E14]/40 bg-gradient-to-r from-[#FF5E14]/15 via-black/40 to-[#FF5E14]/10 p-8 sm:p-14 text-center relative overflow-hidden shadow-2xl">
+          <div className="max-w-2xl mx-auto">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14] font-semibold">
+              The Window of Opportunity is Open
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-light text-white mt-3 mb-5 leading-tight">
+              Dominate AI Recommendations Before Competitors Wake Up
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-[#F5F2EB]/80 font-light leading-relaxed mb-8">
+              Right now, 95% of brands have zero AEO knowledge architecture. The first companies to deploy structured machine graphs will capture permanent authority in their vertical.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#FF5E14] text-white hover:bg-[#E04F0E] transition-all font-mono text-xs uppercase tracking-wider font-semibold shadow-xl shadow-[#FF5E14]/30"
+              >
+                Scan Your Domain Above ↑
+              </button>
+
+              <a
+                href="https://cal.com/poplab-studio-o0cj4m/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl border border-white/20 hover:border-white/40 text-white transition-all font-mono text-xs uppercase tracking-wider font-semibold"
+              >
+                Book 30-Min Strategy Call ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
