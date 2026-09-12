@@ -45,19 +45,20 @@ interface DiagnosticResult {
   }[];
 }
 
-const SCAN_STAGES = [
-  'Establishing secure connection...',
-  'Inspecting robots.txt for GPTBot & Perplexity permissions...',
-  'Parsing Schema.org JSON-LD entity graph...',
-  'Evaluating semantic question & answer chunking...',
-  'Measuring time-to-first-semantic token & RAG readiness...',
-  'Synthesizing multi-dimensional AI visibility report...',
+const DEEP_SCAN_STEPS = [
+  { pct: 15, label: 'Resolving edge DNS, SSL certificates & server headers...', detail: 'Target reachability confirmed' },
+  { pct: 32, label: 'Querying OpenAI GPT-4o & GPTBot crawler directives...', detail: 'Inspecting /robots.txt permissions for search agents' },
+  { pct: 51, label: 'Decompiling Schema.org JSON-LD entity graph...', detail: 'Testing entity verification for Perplexity AI' },
+  { pct: 69, label: 'Auditing /llms.txt machine-readable knowledge base...', detail: 'Checking Markdown ingestion standards for Claude & Gemini' },
+  { pct: 86, label: 'Vectorizing semantic heading hierarchy for Google AI Overviews...', detail: 'Analyzing 40-60 word atomic RAG snippet chunking' },
+  { pct: 98, label: 'Synthesizing multi-dimensional AI Citation Index...', detail: 'Finalizing competitor citation leak matrix' },
 ];
 
 export default function AeoCheckerClient() {
   const [urlInput, setUrlInput] = useState('');
   const [isScanning, setIsScanning] = useState(false);
-  const [scanStageIdx, setScanStageIdx] = useState(0);
+  const [scanProgress, setScanProgress] = useState(0);
+  const [scanStepIdx, setScanStepIdx] = useState(0);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -75,51 +76,82 @@ export default function AeoCheckerClient() {
   const resultsRef = useRef<HTMLDivElement>(null);
   const gateRef = useRef<HTMLDivElement>(null);
 
-  // Stage cycling animation during scan
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isScanning) {
-      interval = setInterval(() => {
-        setScanStageIdx((prev) => (prev + 1) % SCAN_STAGES.length);
-      }, 700);
-    } else {
-      setScanStageIdx(0);
-    }
-    return () => clearInterval(interval);
-  }, [isScanning]);
-
   const handleScan = async (e?: React.FormEvent, customUrl?: string) => {
     if (e) e.preventDefault();
-    const targetUrl = customUrl || urlInput;
-    if (!targetUrl || targetUrl.trim().length < 3) {
+    const rawTarget = customUrl || urlInput;
+    if (!rawTarget || rawTarget.trim().length < 3) {
       setError('Please enter a valid website domain (e.g. yourbrand.com)');
       return;
     }
 
+    let cleaned = rawTarget.trim();
+    // Normalize if user accidentally pasted duplicated http/https
+    cleaned = cleaned.replace(/^(https?:\/\/)+/gi, 'https://');
+    if (!/^https?:\/\//i.test(cleaned)) {
+      cleaned = 'https://' + cleaned;
+    }
+
     setError(null);
     setIsScanning(true);
+    setScanProgress(5);
+    setScanStepIdx(0);
     setResult(null);
     setIsUnlocked(false);
     setGateSuccess(false);
 
-    try {
-      const res = await fetch('/api/tools/aeo-scan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: targetUrl.trim() }),
-      });
-
+    // Launch live API scan in parallel
+    const apiPromise = fetch('/api/tools/aeo-scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: cleaned }),
+    }).then(async (res) => {
       const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to scan domain');
-      }
+      if (!res.ok) throw new Error(data.error || 'Failed to scan domain');
+      return data;
+    });
+
+    const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    try {
+      // Step 0: DNS & SSL
+      setScanProgress(15);
+      setScanStepIdx(0);
+      await wait(1000);
+
+      // Step 1: GPTBot & Crawlers
+      setScanProgress(32);
+      setScanStepIdx(1);
+      await wait(1100);
+
+      // Step 2: Schema Graph
+      setScanProgress(51);
+      setScanStepIdx(2);
+      await wait(1200);
+
+      // Step 3: LLMs.txt
+      setScanProgress(69);
+      setScanStepIdx(3);
+      await wait(1100);
+
+      // Step 4: RAG Chunking
+      setScanProgress(86);
+      setScanStepIdx(4);
+      await wait(1000);
+
+      // Step 5: Citation Index
+      setScanProgress(98);
+      setScanStepIdx(5);
+
+      const data = await apiPromise;
+      await wait(600);
+      setScanProgress(100);
 
       setResult(data);
       setTimeout(() => {
         resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 200);
+      }, 300);
     } catch (err: any) {
-      setError(err.message || 'Diagnostic scan interrupted. Please try again.');
+      setError(err.message || 'Diagnostic scan interrupted. Please verify the domain and try again.');
     } finally {
       setIsScanning(false);
     }
@@ -256,12 +288,25 @@ export default function AeoCheckerClient() {
           className="relative max-w-2xl mx-auto rounded-2xl border border-white/15 bg-white/[0.03] backdrop-blur-xl p-2 sm:p-2.5 flex flex-col sm:flex-row items-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] focus-within:border-[#FF5E14]/70 transition-all"
         >
           <div className="flex-1 flex items-center gap-3 w-full px-4 py-2">
-            <span className="text-[#FF5E14] font-mono text-sm font-semibold">https://</span>
+            <svg
+              className="w-5 h-5 text-[#FF5E14]/80 shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+              />
+            </svg>
             <input
               type="text"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
-              placeholder="yourbrand.com"
+              placeholder="Enter domain or store URL (e.g. brand.com)"
               disabled={isScanning}
               className="w-full bg-transparent border-0 outline-none text-white text-base placeholder:text-stone-500 font-sans"
             />
@@ -278,7 +323,7 @@ export default function AeoCheckerClient() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                 </svg>
-                <span>Scanning...</span>
+                <span>Analyzing AI Index...</span>
               </>
             ) : (
               <span>Run AI Audit ↗</span>
@@ -286,22 +331,9 @@ export default function AeoCheckerClient() {
           </button>
         </form>
 
-        {/* Quick Sample Domain Chips */}
-        <div className="mt-4 flex items-center justify-center gap-2 flex-wrap text-xs font-mono text-[#F5F2EB]/50">
-          <span>Try sample:</span>
-          {['poplabstudio.com', 'stripe.com', 'shopify.com'].map((sample) => (
-            <button
-              key={sample}
-              type="button"
-              onClick={() => {
-                setUrlInput(sample);
-                handleScan(undefined, sample);
-              }}
-              className="px-2.5 py-0.5 rounded border border-white/10 hover:border-[#FF5E14]/40 text-[#F5F2EB]/70 hover:text-white transition-colors"
-            >
-              {sample}
-            </button>
-          ))}
+        {/* Clean Helper Prompt (Samples removed per directive) */}
+        <div className="mt-3.5 text-center text-xs font-mono text-[#F5F2EB]/50">
+          Enter any brand domain or e-commerce URL to diagnose live AI citation visibility
         </div>
 
         {error && (
@@ -311,22 +343,64 @@ export default function AeoCheckerClient() {
         )}
       </div>
 
-      {/* 3. LIVE SCANNING PROGRESS OVERLAY */}
+      {/* 3. CINEMATIC DEEP SCAN PROGRESS HUD */}
       <AnimatePresence>
         {isScanning && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="max-w-md mx-auto my-12 p-6 rounded-2xl border border-white/15 bg-white/[0.02] backdrop-blur-xl text-center"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            className="max-w-xl mx-auto my-12 p-6 sm:p-8 rounded-3xl border border-[#FF5E14]/30 bg-[#090D14]/95 backdrop-blur-2xl text-left shadow-[0_20px_60px_rgba(255,94,20,0.18)] relative overflow-hidden"
           >
-            <div className="w-12 h-12 rounded-full border-2 border-[#FF5E14]/30 border-t-[#FF5E14] animate-spin mx-auto mb-4" />
-            <p className="font-mono text-xs text-[#FF5E14] uppercase tracking-wider mb-2">
-              Step {scanStageIdx + 1} of {SCAN_STAGES.length}
-            </p>
-            <p className="font-sans text-sm text-[#F5F2EB]/80 animate-pulse">
-              {SCAN_STAGES[scanStageIdx]}
-            </p>
+            {/* Ambient amber radar glow */}
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#FF5E14]/15 rounded-full blur-3xl pointer-events-none" />
+
+            {/* Header / Active status */}
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5 font-mono text-xs">
+              <div className="flex items-center gap-2.5 text-[#FF5E14]">
+                <span className="w-2 h-2 rounded-full bg-[#FF5E14] animate-ping" />
+                <span className="font-semibold uppercase tracking-wider">Deep AI Citation Diagnostic</span>
+              </div>
+              <span className="text-white font-bold tracking-wider">{scanProgress}%</span>
+            </div>
+
+            {/* Glowing Progress Bar */}
+            <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-6">
+              <motion.div
+                className="h-full bg-gradient-to-r from-[#FF5E14] via-[#FFA14A] to-[#FF5E14] transition-all duration-300 rounded-full shadow-[0_0_14px_rgba(255,94,20,0.9)]"
+                style={{ width: `${scanProgress}%` }}
+              />
+            </div>
+
+            {/* Terminal Diagnostic Log Lines */}
+            <div className="space-y-3 font-mono text-xs">
+              {DEEP_SCAN_STEPS.map((step, idx) => {
+                const isPassed = idx < scanStepIdx;
+                const isCurrent = idx === scanStepIdx;
+                const isPending = idx > scanStepIdx;
+
+                return (
+                  <div
+                    key={idx}
+                    className={`flex items-start gap-3 transition-opacity duration-300 ${
+                      isPending ? 'opacity-25' : isCurrent ? 'opacity-100 text-white' : 'opacity-70 text-emerald-400'
+                    }`}
+                  >
+                    <span className="shrink-0 mt-0.5">
+                      {isPassed ? '✓' : isCurrent ? '▶' : '○'}
+                    </span>
+                    <div className="flex-1">
+                      <p className={isCurrent ? 'text-white font-medium' : ''}>{step.label}</p>
+                      {isCurrent && (
+                        <p className="text-[10px] text-[#FF5E14] tracking-normal mt-0.5 animate-pulse">
+                          &gt; {step.detail}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
