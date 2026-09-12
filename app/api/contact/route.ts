@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const GOOGLE_SCRIPT_URL =
+  process.env.GOOGLE_SCRIPT_URL ||
   'https://script.google.com/macros/s/AKfycbyAP374g5FmRrr6_QYnNKtZiDUi60uWacUb641cS2qgIQbGLIdD92Hy9efbZx4B-maeJg/exec';
 
 // Simple in-memory rate limiting map (IP -> timestamps array)
@@ -164,6 +165,29 @@ export async function POST(req: NextRequest) {
     const fullPhone = `${countryCode} ${phone}`;
     const eventId = body.eventId || `lead_${Math.random().toString(36).substring(2, 10)}_${Date.now()}`;
 
+    // Extract & sanitize UTM attribution parameters
+    const utmSource = sanitize(body.utmSource);
+    const utmMedium = sanitize(body.utmMedium);
+    const utmCampaign = sanitize(body.utmCampaign);
+    const utmTerm = sanitize(body.utmTerm);
+    const utmContent = sanitize(body.utmContent);
+    const gclid = sanitize(body.gclid);
+    const fbclid = sanitize(body.fbclid);
+
+    // Formatted composite notes so legacy Google Sheet scripts capture attribution without header updates
+    const attributionParts = [
+      utmSource ? `Source: ${utmSource}` : '',
+      utmMedium ? `Medium: ${utmMedium}` : '',
+      utmCampaign ? `Campaign: ${utmCampaign}` : '',
+      gclid ? `GCLID: ${gclid}` : '',
+      fbclid ? `FBCLID: ${fbclid}` : '',
+    ].filter(Boolean).join(' | ');
+
+    const compositeNotes = [
+      message,
+      attributionParts ? `[Attribution: ${attributionParts}]` : '',
+    ].filter(Boolean).join('\n\n');
+
     const leadRecord = {
       brandName,
       website,
@@ -171,8 +195,16 @@ export async function POST(req: NextRequest) {
       email,
       adSpend,
       roadblock,
-      message,
+      message: compositeNotes,
+      notes: compositeNotes, // Backwards-compatible alias
       eventId,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      utmTerm,
+      utmContent,
+      gclid,
+      fbclid,
       pageUrl: body.pageUrl || '',
       userAgent: req.headers.get('user-agent') || body.userAgent || '',
       ip: clientIp,

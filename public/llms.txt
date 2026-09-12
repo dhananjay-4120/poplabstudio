@@ -1,6 +1,6 @@
 # Pop Lab Studio
 
-> Pop Lab Studio is a high-craft creative growth studio combining brand strategy, cultural PR, performance media (Meta/Google Ads), and conversion rate engineering for high-growth brands and enterprise leaders.
+> Pop Lab Studio is an elite creative growth and performance marketing studio headquartered in Chandigarh (Sector 34A) and serving high-growth D2C brands, founders, and enterprises across Chandigarh, Mohali, Panchkula (Tricity), Delhi NCR, North India, and globally. We specialize in Meta Ads, Conversions API (CAPI) attribution, full-funnel CRO, Next.js 15 web engineering, and Answer Engine Optimization (AEO/GEO).
 
 ## Core Capabilities & Services
 - [Paid Media Architecture](https://poplabstudio.com/process): Server-side CAPI attribution, sGTM, Advantage+ testing, search term negative insulation, and horizontal ROAS scaling.

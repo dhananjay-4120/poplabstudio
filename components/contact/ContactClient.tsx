@@ -199,8 +199,26 @@ export default function ContactClient() {
     setSubmitting(true);
 
     const fullPhone = `${formData.countryCode} ${trimmedPhone}`;
-    const notes = `Website: ${formData.website}\nPhone/WhatsApp: ${fullPhone}\nMonthly Spend: ${formData.adSpend}\nRoadblock: ${formData.roadblock}\nNotes: ${formData.message}`;
     const eventId = `lead_${Math.random().toString(36).substring(2, 12)}_${Date.now()}`;
+
+    // Extract UTM attribution from session storage or live query params
+    let utmData: Record<string, string> = {};
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = sessionStorage.getItem('poplab_utm_data');
+        if (stored) utmData = JSON.parse(stored);
+        const params = new URLSearchParams(window.location.search);
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'].forEach((k) => {
+          const val = params.get(k);
+          if (val) utmData[k] = val;
+        });
+      }
+    } catch {}
+
+    const utmSummary = utmData.utm_source
+      ? `\nAttribution: ${utmData.utm_source} / ${utmData.utm_medium || 'direct'} (${utmData.utm_campaign || 'no-campaign'})`
+      : '';
+    const notes = `Website: ${formData.website}\nPhone/WhatsApp: ${fullPhone}\nMonthly Spend: ${formData.adSpend}\nRoadblock: ${formData.roadblock}\nNotes: ${formData.message}${utmSummary}`;
 
     // Browser event tracking
     if (window.dataLayer) {
@@ -209,6 +227,8 @@ export default function ContactClient() {
         eventId,
         name: formData.brandName,
         phone: fullPhone,
+        utmSource: utmData.utm_source || 'direct',
+        utmCampaign: utmData.utm_campaign || '',
       });
     }
 
@@ -230,6 +250,13 @@ export default function ContactClient() {
       pageUrl: typeof window !== 'undefined' ? window.location.href : '',
       eventId,
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+      utmSource: utmData.utm_source || '',
+      utmMedium: utmData.utm_medium || '',
+      utmCampaign: utmData.utm_campaign || '',
+      utmTerm: utmData.utm_term || '',
+      utmContent: utmData.utm_content || '',
+      gclid: utmData.gclid || '',
+      fbclid: utmData.fbclid || '',
       _hp: honeypot,
     };
 
@@ -250,20 +277,6 @@ export default function ContactClient() {
       }
     } catch (apiErr) {
       console.warn('Local API contact submission warning:', apiErr);
-    }
-
-    try {
-      if (GOOGLE_SCRIPT_URL) {
-        fetch(GOOGLE_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          keepalive: true,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-      }
-    } catch (err) {
-      console.warn('Form lead push notice:', err);
     }
 
     setSubmitting(false);

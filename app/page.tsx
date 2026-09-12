@@ -10,13 +10,17 @@ import ContactCTA from '@/components/sections/ContactCTA';
 export default function HomePage() {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
+    '@type': ['ProfessionalService', 'MarketingAgency', 'LocalBusiness'],
     name: 'Pop Lab Studio',
     url: 'https://poplabstudio.com',
+    logo: 'https://poplabstudio.com/logo-studio-dark.png',
+    image: 'https://poplabstudio.com/hero-sunrise-poster.webp',
     description:
-      'Pop Lab Studio is a high-craft creative growth studio. We make brands impossible to ignore through integrated brand strategy, cultural attention, and conversion engineering.',
+      'Pop Lab Studio is an elite creative growth and performance marketing studio serving ambitious founders and D2C brands across Chandigarh, Delhi NCR, North India, and globally.',
     email: 'growth@poplabstudio.com',
     telephone: '+918837565738',
+    priceRange: '₹₹₹',
+    openingHours: 'Mo,Tu,We,Th,Fr,Sa 09:30-19:30',
     sameAs: [
       'https://www.instagram.com/poplabstudio.hq/',
       'https://www.linkedin.com/company/pop-lab-studios/',
@@ -24,38 +28,64 @@ export default function HomePage() {
     ],
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'SCO 364, Second Floor, Sector 34A',
+      addressLocality: 'Chandigarh',
+      addressRegion: 'CH',
+      postalCode: '160022',
       addressCountry: 'IN',
     },
-    areaServed: 'Worldwide',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 30.7226,
+      longitude: 76.7684,
+    },
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Chandigarh' },
+      { '@type': 'AdministrativeArea', name: 'Mohali' },
+      { '@type': 'AdministrativeArea', name: 'Panchkula' },
+      { '@type': 'AdministrativeArea', name: 'Punjab' },
+      { '@type': 'AdministrativeArea', name: 'Delhi NCR' },
+      { '@type': 'Country', name: 'India' },
+      { '@type': 'AdministrativeArea', name: 'Worldwide' },
+    ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Pop Lab Capabilities',
+      name: 'Pop Lab Studio Capabilities',
       itemListElement: [
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Brand Engine',
+            name: 'Performance Media & Meta Ads',
             description:
-              'Brand strategy, positioning archetypes, visual design systems, and high-converting creative assets.',
+              'Full-funnel Meta and Google Ads management, Conversions API (CAPI) architecture, and horizontal ROAS scaling.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Attention Engine',
+            name: 'Answer Engine Optimization (AEO/GEO) & SEO',
             description:
-              'High-velocity cultural PR, creator whitelisting, and Answer Engine Optimization (GEO/AEO).',
+              'Qiaomu technical SEO, structured schema data, llms.txt integration, and citation engineering for ChatGPT Search, Perplexity, and Google AI Overviews.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Growth Engine',
+            name: 'Luxury Web Engineering & CRO',
             description:
-              'Full-funnel paid media (Meta and Google), quick commerce acceleration (Blinkit / Zepto), and frictionless checkout CRO.',
+              'High-speed Next.js 15 web development, Framer Motion interactions, frictionless mobile conversion funnels, and 99+ PageSpeed performance.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Brand Strategy & Creative Production',
+            description:
+              'Positioning archetypes, 3x3 high-converting creative testing frameworks, and cultural PR storytelling.',
           },
         },
       ],

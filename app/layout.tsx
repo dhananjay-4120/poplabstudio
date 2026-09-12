@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Cormorant_Garamond, Italiana, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import AtmosphericBackground from '@/components/ui/AtmosphericBackground';
@@ -148,6 +149,50 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Tag Manager (GTM-5FMR7TWS) */}
+        <Script
+          id="gtm-loader"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5FMR7TWS');`,
+          }}
+        />
+
+        {/* Global UTM & Lead Attribution Listener */}
+        <script
+          id="poplab-utm-tracker"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var params = new URLSearchParams(window.location.search);
+                  var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+                  var hasUtm = false;
+                  var captured = {};
+
+                  for (var i = 0; i < utmKeys.length; i++) {
+                    var val = params.get(utmKeys[i]);
+                    if (val) {
+                      captured[utmKeys[i]] = val;
+                      hasUtm = true;
+                    }
+                  }
+
+                  if (hasUtm) {
+                    captured['landing_page'] = window.location.pathname;
+                    captured['captured_at'] = new Date().toISOString();
+                    sessionStorage.setItem('poplab_utm_data', JSON.stringify(captured));
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+
         <link
           rel="preload"
           as="image"
@@ -160,6 +205,16 @@ export default function RootLayout({
         className="bg-[#090D14] text-[#F5F2EB] selection:bg-[#FF5E14] selection:text-white min-h-screen antialiased overflow-x-hidden relative isolate"
         suppressHydrationWarning
       >
+        {/* Google Tag Manager (noscript fallback) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5FMR7TWS"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+
         <SmoothScroll>
           <AtmosphericBackground />
           <Navbar />
