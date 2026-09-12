@@ -422,6 +422,15 @@ export default function Footer() {
             </span>
             <div className="flex items-center gap-3">
               <Link
+                href="/tools/aeo-checker"
+                className={`hover:underline underline-offset-[3px] transition-colors font-medium ${
+                  isDark ? 'text-[#FF5E14]' : 'text-[#FF5E14]'
+                }`}
+              >
+                AEO Scanner (Free)
+              </Link>
+              <span className="opacity-40">&bull;</span>
+              <Link
                 href="/privacy"
                 className={`hover:underline underline-offset-[3px] transition-colors ${
                   isDark ? 'text-[#F5F2EB]/75 hover:text-[#FF5E14]' : 'text-[#121824]/75 hover:text-[#FF5E14]'

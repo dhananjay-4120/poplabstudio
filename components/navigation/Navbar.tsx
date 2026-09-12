@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { label: 'Work', href: '/work' },
   { label: 'Process', href: '/process' },
   { label: 'Journal', href: '/journal' },
-  { label: 'Services', href: '/#services' },
+  { label: 'AEO Tool', href: '/tools/aeo-checker', badge: 'FREE' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -91,7 +91,14 @@ export default function Navbar() {
                       transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                     />
                   )}
-                  {link.label}
+                  <span className="inline-flex items-center gap-1.5">
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#FF5E14]/15 text-[#FF5E14] border border-[#FF5E14]/30 font-mono font-bold tracking-normal">
+                        {link.badge}
+                      </span>
+                    )}
+                  </span>
                 </Link>
               );
             })}
@@ -170,7 +177,14 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="group flex items-baseline justify-between font-serif text-3xl text-[#121824] dark:text-[#F5F2EB] hover:text-[#FF5E14] dark:hover:text-[#FF5E14] transition-colors border-b border-black/5 dark:border-white/5 pb-3"
                 >
-                  <span>{link.label}</span>
+                  <span className="flex items-center gap-2.5">
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FF5E14]/15 text-[#FF5E14] border border-[#FF5E14]/30">
+                        {link.badge}
+                      </span>
+                    )}
+                  </span>
                   <span className="font-mono text-xs text-[#121824]/40 dark:text-[#F5F2EB]/40 group-hover:text-[#FF5E14]">
                     0{idx + 1} →
                   </span>
