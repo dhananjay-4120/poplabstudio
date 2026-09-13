@@ -34,6 +34,12 @@ interface DiagnosticResult {
     wordCount: number;
     https: boolean;
     hasLlmsTxt: boolean;
+    princetonStatsCount: number;
+    sameAsCount: number;
+    ragBlocksCount: number;
+    hasFaqSchema: boolean;
+    hasAuthorSignal: boolean;
+    hasTables: boolean;
   };
   unlockedHighlights: string[];
   gatedFindings: {
@@ -47,10 +53,10 @@ interface DiagnosticResult {
 
 const DEEP_SCAN_STEPS = [
   { pct: 15, label: 'Resolving edge DNS, SSL certificates & server headers...', detail: 'Target reachability confirmed' },
-  { pct: 32, label: 'Querying OpenAI Foundation Models & GPTBot crawler directives...', detail: 'Inspecting /robots.txt permissions for search agents' },
-  { pct: 51, label: 'Decompiling Schema.org JSON-LD entity graph...', detail: 'Testing entity verification for Perplexity AI' },
-  { pct: 69, label: 'Auditing /llms.txt machine-readable knowledge base...', detail: 'Checking Markdown ingestion standards for AI assistants' },
-  { pct: 86, label: 'Vectorizing semantic heading hierarchy for Google AI Overviews...', detail: 'Analyzing 40-60 word atomic RAG snippet chunking' },
+  { pct: 32, label: 'Querying OpenAI Foundation Models & GPTBot crawler permissions...', detail: 'Inspecting /robots.txt directives for AI search engines' },
+  { pct: 50, label: 'Decompiling Schema.org entity graph & sameAs authority links...', detail: 'Testing Wikidata & Crunchbase entity disambiguation' },
+  { pct: 68, label: 'Auditing /llms.txt machine-readable documentation standard...', detail: 'Checking Markdown indexing for autonomous buying agents' },
+  { pct: 85, label: 'Benchmarking Princeton KDD 2024 GEO empirical data signals...', detail: 'Auditing 40-60 word atomic RAG chunks & statistical density' },
   { pct: 98, label: 'Synthesizing multi-dimensional AI Citation Index...', detail: 'Finalizing competitor citation leak matrix' },
 ];
 
@@ -473,21 +479,69 @@ export default function AeoCheckerClient() {
               </p>
 
               {/* Detected Badges Row */}
-              <div className="flex items-center justify-center gap-2.5 flex-wrap pt-4 border-t border-white/10 font-mono text-xs">
+              <div className="flex items-center justify-center gap-2 flex-wrap pt-4 border-t border-white/10 font-mono text-[11px]">
                 <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white/90">
                   {result.badges.schemasCount} Schemas
                 </span>
-                <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white/90">
-                  {result.badges.questionHeadingsCount} Question Headings
+                <span
+                  className={`px-3 py-1 rounded-full border ${
+                    result.badges.sameAsCount > 0
+                      ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                      : 'border-red-500/40 text-red-400 bg-red-500/10'
+                  }`}
+                >
+                  sameAs Anchors: {result.badges.sameAsCount}
                 </span>
-                <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white/90">
+                <span
+                  className={`px-3 py-1 rounded-full border ${
+                    result.badges.princetonStatsCount >= 4
+                      ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                      : 'border-amber-500/40 text-amber-400 bg-amber-500/10'
+                  }`}
+                >
+                  Princeton Stats: {result.badges.princetonStatsCount}
+                </span>
+                <span
+                  className={`px-3 py-1 rounded-full border ${
+                    result.badges.ragBlocksCount > 0
+                      ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                      : 'border-white/10 text-white/70 bg-white/[0.03]'
+                  }`}
+                >
+                  RAG Chunks: {result.badges.ragBlocksCount}
+                </span>
+                <span
+                  className={`px-3 py-1 rounded-full border ${
+                    result.badges.hasLlmsTxt
+                      ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                      : 'border-amber-500/40 text-amber-400 bg-amber-500/10'
+                  }`}
+                >
+                  /llms.txt: {result.badges.hasLlmsTxt ? 'Active' : 'Missing'}
+                </span>
+                <span
+                  className={`px-3 py-1 rounded-full border ${
+                    result.badges.hasFaqSchema
+                      ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                      : 'border-white/10 text-white/60 bg-white/[0.02]'
+                  }`}
+                >
+                  FAQ Schema: {result.badges.hasFaqSchema ? 'Yes' : 'No'}
+                </span>
+                <span
+                  className={`px-3 py-1 rounded-full border ${
+                    result.badges.hasAuthorSignal
+                      ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10'
+                      : 'border-white/10 text-white/60 bg-white/[0.02]'
+                  }`}
+                >
+                  E-E-A-T Author: {result.badges.hasAuthorSignal ? 'Found' : 'Missing'}
+                </span>
+                <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white/80">
                   {result.badges.wordCount} Words
                 </span>
                 <span className="px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-emerald-400">
                   HTTPS: {result.badges.https ? 'Yes' : 'No'}
-                </span>
-                <span className={`px-3 py-1 rounded-full border ${result.badges.hasLlmsTxt ? 'border-emerald-500/40 text-emerald-400 bg-emerald-500/10' : 'border-amber-500/40 text-amber-400 bg-amber-500/10'}`}>
-                  /llms.txt: {result.badges.hasLlmsTxt ? 'Detected' : 'Missing'}
                 </span>
               </div>
             </div>
@@ -546,12 +600,12 @@ export default function AeoCheckerClient() {
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-1 w-full text-[10px] font-mono text-[#F5F2EB]/60 pt-4 border-t border-white/10">
-                <span>Top: AEO ({result.radarData.aeo})</span>
-                <span>Top-R: GEO ({result.radarData.geo})</span>
+                <span>Top: AEO Graph ({result.radarData.aeo})</span>
+                <span>Top-R: GEO Data ({result.radarData.geo})</span>
                 <span>Bot-R: Crawlers ({result.radarData.crawlers})</span>
-                <span>Bottom: Tech ({result.radarData.techSeo})</span>
-                <span>Bot-L: Content ({result.radarData.contentQuality})</span>
-                <span>Top-L: Speed ({result.radarData.pageSpeed})</span>
+                <span>Bottom: Tech & SSR ({result.radarData.techSeo})</span>
+                <span>Bot-L: E-E-A-T ({result.radarData.contentQuality})</span>
+                <span>Top-L: Latency ({result.radarData.pageSpeed})</span>
               </div>
             </div>
 

@@ -33,6 +33,12 @@ interface DiagnosticResult {
     wordCount: number;
     https: boolean;
     hasLlmsTxt: boolean;
+    princetonStatsCount: number;
+    sameAsCount: number;
+    ragBlocksCount: number;
+    hasFaqSchema: boolean;
+    hasAuthorSignal: boolean;
+    hasTables: boolean;
   };
   unlockedHighlights: string[];
   gatedFindings: {
@@ -227,30 +233,62 @@ export async function POST(req: NextRequest) {
     });
     crawlerScore = Math.max(20, crawlerScore);
 
-    // 2. Structured Data / Schema Analysis
+    // 2. Structured Data / Schema Analysis & sameAs Entity Anchors
     const schemaMatches = html.match(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi) || [];
     let schemasCount = 0;
     const detectedSchemas: string[] = [];
+    const sameAsLinks: string[] = [];
+    let hasFaqSchema = false;
+    let hasAuthorSchema = false;
 
     schemaMatches.forEach((match) => {
       try {
         const content = match.replace(/<script[^>]*>|<\/script>/gi, '').trim();
         const parsed = JSON.parse(content);
-        const types = Array.isArray(parsed['@type'])
-          ? parsed['@type']
-          : [parsed['@type'] || (parsed['@graph'] ? 'Graph' : 'Schema')];
-        types.forEach((t: string) => {
-          if (t && !detectedSchemas.includes(t)) {
-            detectedSchemas.push(t);
-            schemasCount++;
+
+        const inspectItem = (item: any) => {
+          if (!item || typeof item !== 'object') return;
+          if (item['@type']) {
+            const types = Array.isArray(item['@type']) ? item['@type'] : [item['@type']];
+            types.forEach((t: string) => {
+              if (t && !detectedSchemas.includes(t)) {
+                detectedSchemas.push(t);
+                schemasCount++;
+              }
+              if (/faqpage|question|answer/i.test(t)) {
+                hasFaqSchema = true;
+              }
+              if (/person|author/i.test(t)) {
+                hasAuthorSchema = true;
+              }
+            });
           }
-        });
+          if (item.sameAs) {
+            const urls = Array.isArray(item.sameAs) ? item.sameAs : [item.sameAs];
+            urls.forEach((u: string) => {
+              if (typeof u === 'string' && u.trim().length > 5 && !sameAsLinks.includes(u)) {
+                sameAsLinks.push(u);
+              }
+            });
+          }
+          if (item['@graph'] && Array.isArray(item['@graph'])) {
+            item['@graph'].forEach(inspectItem);
+          }
+        };
+
+        if (Array.isArray(parsed)) {
+          parsed.forEach(inspectItem);
+        } else {
+          inspectItem(parsed);
+        }
       } catch {
         schemasCount++;
       }
     });
 
-    // 3. Question Headings & Content Extraction
+    const sameAsCount = sameAsLinks.length;
+
+    // 3. Question Headings & Conversational Extraction
     const headingMatches = html.match(/<h[2-4][^>]*>(.*?)<\/h[2-4]>/gi) || [];
     let questionHeadingsCount = 0;
     headingMatches.forEach((h) => {
@@ -262,13 +300,61 @@ export async function POST(req: NextRequest) {
         cleanH.startsWith('why') ||
         cleanH.startsWith('where') ||
         cleanH.startsWith('can') ||
-        cleanH.startsWith('does')
+        cleanH.startsWith('does') ||
+        cleanH.startsWith('which') ||
+        cleanH.startsWith('is') ||
+        cleanH.startsWith('should')
       ) {
         questionHeadingsCount++;
       }
     });
 
-    // 4. Word Count & Semantic Text
+    // 4. Princeton KDD 2024 GEO Empirical Data & Statistics Check
+    // Princeton Research Factor: Text containing empirical numbers, metrics & stats receives +37% to +40% higher citation
+    const statMatches =
+      html.match(
+        /\b\d+(\.\d+)?%\b|(?:\$|€|£|₹)\s?\d+([\.,]\d+)?|\b\d+(\.\d+)?x\b|\[\d+\]|\b(19|20)\d\d\b|\b\d{2,}(,\d{3})*\s*(users|clients|customers|revenue|hours|seconds|percent|growth|roas|cac|cr|roi)\b/gi
+      ) || [];
+    const princetonStatsCount = statMatches.length;
+
+    // 5. Atomic 40-60 Word RAG Answer Blocks
+    // AI search models (Perplexity, Google AI Overviews) extract self-contained 35-65 word definition chunks
+    const paragraphMatches = html.match(/<p[^>]*>([\s\S]*?)<\/p>/gi) || [];
+    let ragBlocksCount = 0;
+    paragraphMatches.forEach((p) => {
+      const cleanP = p.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      const pWords = cleanP.split(/\s+/).filter(Boolean).length;
+      if (pWords >= 35 && pWords <= 65) {
+        ragBlocksCount++;
+      }
+    });
+
+    // 6. Structured Comparison & Tables (tables, definition lists)
+    const hasTables = /<table\b|<dl\b|<div[^>]*role=["']table["']/i.test(html);
+
+    // 7. Author & E-E-A-T Attribution Signals
+    const hasAuthorSignal =
+      hasAuthorSchema ||
+      /<meta[^>]*name=["']author["']/i.test(html) ||
+      /rel=["']author["']/i.test(html) ||
+      /(?:written|reviewed|authored|published|curated)\s+(?:by\s+)?[A-Z][a-z]+\s+[A-Z][a-z]+/i.test(html);
+
+    // 8. Content Freshness Signals
+    const hasFreshnessSignal =
+      /"dateModified"|"datePublished"/i.test(html) ||
+      /<meta[^>]*property=["']article:(?:modified_time|published_time)["']/i.test(html) ||
+      /\b(2025|2026)\b/i.test(html);
+
+    // 9. Technical & Meta Signals
+    const hasMetaDesc = /<meta[^>]*name=["']description["'][^>]*content=["'][^"']+["']/i.test(html);
+    const hasTitle = /<title[^>]*>(.*?)<\/title>/i.test(html);
+    const hasViewport = /<meta[^>]*name=["']viewport["']/i.test(html);
+    const hasH1 = /<h1[^>]*>([\s\S]*?)<\/h1>/i.test(html);
+    const hasCanonical = /<link[^>]*rel=["']canonical["']/i.test(html);
+    const hasOgImage = /<meta[^>]*property=["']og:image["']/i.test(html);
+
+    // 10. Word Count & CSR Script Trap
+    const scriptTagsCount = (html.match(/<script\b/gi) || []).length;
     const bodyText = html
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ' ')
       .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, ' ')
@@ -276,73 +362,101 @@ export async function POST(req: NextRequest) {
       .replace(/\s+/g, ' ')
       .trim();
     const wordCount = bodyText.split(/\s+/).filter(Boolean).length;
+    const isClientRenderedTrap = wordCount < 200 && scriptTagsCount > 12;
 
-    // 5. Technical Signals
-    const hasMetaDesc = /<meta[^>]*name=["']description["'][^>]*content=["'][^"']+["']/i.test(html);
-    const hasTitle = /<title[^>]*>(.*?)<\/title>/i.test(html);
-    const hasViewport = /<meta[^>]*name=["']viewport["']/i.test(html);
-    const hasH1 = /<h1[^>]*>([\s\S]*?)<\/h1>/i.test(html);
+    // =========================================================================
+    // RIGOROUS MULTI-DIMENSIONAL SCORING CALIBRATION
+    // Raises the bar so generic unoptimized domains score 38-55%, not 90%.
+    // =========================================================================
 
-    // Dimension Calculations
-    // AEO: Schema density + Question headings + llms.txt
-    let aeoScore = 20;
-    if (schemasCount >= 3) aeoScore += 35;
-    else if (schemasCount >= 1) aeoScore += 20;
-    if (questionHeadingsCount >= 3) aeoScore += 25;
-    else if (questionHeadingsCount >= 1) aeoScore += 15;
-    if (hasLlmsTxt) aeoScore += 20;
-    aeoScore = Math.min(96, Math.max(28, aeoScore));
+    // Dimension 1: AEO Architecture (Entity Graph, Schema & Protocol)
+    let aeoScore = 10;
+    if (schemasCount >= 3) aeoScore += 25;
+    else if (schemasCount >= 1) aeoScore += 12;
 
-    // GEO: Generative Context, Word Count, Semantic Depth
-    let geoScore = 30;
-    if (wordCount > 1000) geoScore += 35;
-    else if (wordCount > 500) geoScore += 25;
-    else if (wordCount > 200) geoScore += 15;
-    if (hasMetaDesc) geoScore += 15;
-    if (hasH1) geoScore += 15;
-    if (hasLlmsTxt) geoScore += 10;
-    geoScore = Math.min(95, Math.max(32, geoScore));
+    if (sameAsCount >= 3) aeoScore += 25;
+    else if (sameAsCount >= 1) aeoScore += 12;
 
-    // Tech SEO: HTTPS, Viewport, Title, Canonical
-    let techSeoScore = 40;
-    if (isHttps) techSeoScore += 25;
+    if (hasLlmsTxt) aeoScore += 25;
+    if (hasFaqSchema) aeoScore += 15;
+    aeoScore = Math.min(98, Math.max(15, aeoScore));
+
+    // Dimension 2: GEO Extractability (Princeton Data, RAG Blocks & Q&A)
+    let geoScore = 12;
+    if (princetonStatsCount >= 9) geoScore += 25;
+    else if (princetonStatsCount >= 4) geoScore += 18;
+    else if (princetonStatsCount >= 1) geoScore += 8;
+
+    if (ragBlocksCount >= 3) geoScore += 25;
+    else if (ragBlocksCount >= 1) geoScore += 15;
+
+    if (questionHeadingsCount >= 3) geoScore += 20;
+    else if (questionHeadingsCount >= 1) geoScore += 10;
+
+    if (hasTables) geoScore += 18;
+    geoScore = Math.min(96, Math.max(15, geoScore));
+
+    // Dimension 3: AI Crawler Clearance (robots.txt Directives)
+    // Starts at 90; blocked bots subtract 20 each; unverified robots defaults to 75
+    let crawlerCalc = robotsTxt ? 90 : 75;
+    blockedBots.forEach(() => {
+      crawlerCalc -= 20;
+    });
+    if (/allow:\s*\/|user-agent:\s*\*/i.test(lowerRobots)) crawlerCalc += 10;
+    crawlerScore = Math.min(100, Math.max(15, crawlerCalc));
+
+    // Dimension 4: Technical SEO & SSR Hydration
+    let techSeoScore = 15;
+    if (isHttps) techSeoScore += 20;
     if (hasTitle) techSeoScore += 15;
-    if (hasViewport) techSeoScore += 15;
-    if (hasMetaDesc) techSeoScore += 10;
-    techSeoScore = Math.min(98, Math.max(45, techSeoScore));
+    if (hasMetaDesc) techSeoScore += 15;
+    if (hasH1) techSeoScore += 10;
+    if (hasCanonical) techSeoScore += 10;
+    if (hasViewport) techSeoScore += 10;
+    if (!isClientRenderedTrap && wordCount > 350) techSeoScore += 10;
+    techSeoScore = Math.min(98, Math.max(25, techSeoScore));
 
-    // Content Quality: Semantic density and readability
-    let contentQualityScore = Math.min(95, Math.max(35, Math.round(wordCount / 18) + (questionHeadingsCount * 8) + 20));
+    // Dimension 5: Content Authority & E-E-A-T Signals
+    let contentQualityScore = 15;
+    if (wordCount > 1000) contentQualityScore += 25;
+    else if (wordCount > 500) contentQualityScore += 18;
+    else if (wordCount > 250) contentQualityScore += 10;
 
-    // Page Speed Estimation (derived from server TTFB response latency)
-    let pageSpeedScore = 85;
-    if (fetchDuration > 2500) pageSpeedScore = 40;
-    else if (fetchDuration > 1500) pageSpeedScore = 60;
-    else if (fetchDuration > 800) pageSpeedScore = 75;
+    if (hasAuthorSignal) contentQualityScore += 25;
+    if (hasFreshnessSignal) contentQualityScore += 20;
+    if (hasOgImage) contentQualityScore += 15;
+    contentQualityScore = Math.min(95, Math.max(18, contentQualityScore));
 
-    // Overall Composite Score (weighted)
+    // Dimension 6: Page Speed Estimation (Server TTFB Response Latency)
+    let pageSpeedScore = 80;
+    if (fetchDuration > 2500) pageSpeedScore = 30;
+    else if (fetchDuration > 1600) pageSpeedScore = 48;
+    else if (fetchDuration > 900) pageSpeedScore = 65;
+    else if (fetchDuration < 450) pageSpeedScore = 95;
+
+    // Overall Composite Score (Rigorous Weighted Balance)
     const overallScore = Math.round(
       aeoScore * 0.28 +
-      geoScore * 0.24 +
-      crawlerScore * 0.16 +
-      techSeoScore * 0.14 +
-      contentQualityScore * 0.10 +
+      geoScore * 0.26 +
+      crawlerScore * 0.15 +
+      contentQualityScore * 0.13 +
+      techSeoScore * 0.10 +
       pageSpeedScore * 0.08
     );
 
     let ratingLabel: 'CRITICAL' | 'POOR' | 'FAIR' | 'GOOD' | 'EXCELLENT' = 'FAIR';
     let ratingColor = '#FF9900';
 
-    if (overallScore >= 85) {
+    if (overallScore >= 82) {
       ratingLabel = 'EXCELLENT';
       ratingColor = '#10B981';
-    } else if (overallScore >= 70) {
+    } else if (overallScore >= 68) {
       ratingLabel = 'GOOD';
       ratingColor = '#22C55E';
-    } else if (overallScore >= 55) {
+    } else if (overallScore >= 52) {
       ratingLabel = 'FAIR';
       ratingColor = '#F59E0B';
-    } else if (overallScore >= 40) {
+    } else if (overallScore >= 38) {
       ratingLabel = 'POOR';
       ratingColor = '#F97316';
     } else {
@@ -359,47 +473,46 @@ export async function POST(req: NextRequest) {
 
     const unlockedHighlights = [
       `Overall AI Citation Index rated ${ratingLabel} (${overallScore}/100).`,
-      `${schemasCount} structured Schema entity types detected on page.`,
-      crawlerScore >= 80
-        ? 'Core AI bots (ChatGPT, Perplexity) have crawl clearance.'
-        : `Warning: AI crawlers may be restricted in robots.txt.`,
+      `${schemasCount} Schema entity types & ${sameAsCount} external Knowledge Graph anchors detected.`,
+      `${princetonStatsCount} Princeton empirical data signals & ${ragBlocksCount} atomic RAG answer blocks verified.`,
     ];
 
+    // DYNAMIC & HONEST VULNERABILITIES FOR THE GATED SECTION
     const gatedFindings = [
       {
-        category: 'Entity Citation Architecture',
-        severity: (schemasCount < 3 ? 'critical' : 'warning') as 'critical' | 'warning',
-        title: 'Missing Enterprise Knowledge Graph Anchors',
-        description: 'Perplexity and ChatGPT Search require bidirectional entity verification to prevent synthetic hallucination.',
-        impact: 'High-ticket buyers receive competitor recommendations instead of your brand.',
+        category: 'Entity Disambiguation',
+        severity: (sameAsCount === 0 ? 'critical' : sameAsCount < 3 ? 'warning' : 'info') as 'critical' | 'warning' | 'info',
+        title: sameAsCount === 0 ? 'Zero External Knowledge Graph Anchors (sameAs)' : `${sameAsCount} Entity Anchors Configured`,
+        description: 'Large Language Models require bidirectional Schema.org sameAs links (Wikidata, Crunchbase, LinkedIn) to distinguish your brand from generic vertical competitors.',
+        impact: 'ChatGPT Search & Perplexity cite competing brands because your domain entity cannot be verified.',
+      },
+      {
+        category: 'Princeton GEO Data Grounding',
+        severity: (princetonStatsCount < 3 ? 'critical' : princetonStatsCount < 7 ? 'warning' : 'info') as 'critical' | 'warning' | 'info',
+        title: princetonStatsCount < 3 ? 'Severe Quantitative Data Deficit' : `${princetonStatsCount} Verified Empirical Data Signals`,
+        description: 'The Princeton KDD 2024 GEO benchmark proved that empirical statistics (% / $ / multipliers) provide a +37% citation boost. Vague marketing copy is filtered out by RAG synthesizers.',
+        impact: 'AI answer engines prefer third-party aggregators and Reddit threads over your marketing claims.',
       },
       {
         category: 'LLM Ingestion Protocol',
         severity: (!hasLlmsTxt ? 'critical' : 'info') as 'critical' | 'info',
-        title: hasLlmsTxt ? 'Machine-Readable Protocol Detected' : 'Missing /llms.txt Machine Knowledge Standard',
-        description: 'Modern AI agents prioritize domains with structured markdown documentation files over raw HTML bloat.',
-        impact: 'AI answer engines skip unoptimized sections during real-time retrieval.',
+        title: hasLlmsTxt ? 'Machine-Readable /llms.txt Protocol Active' : 'Missing /llms.txt Machine Knowledge Base',
+        description: 'Modern autonomous buying agents and search LLMs ingest clean Markdown indices rather than bloated client-side JavaScript.',
+        impact: 'AI engines hallucinate pricing and capabilities or fail to index your core service offerings.',
       },
       {
-        category: 'RAG Answer Extraction',
-        severity: (questionHeadingsCount < 2 ? 'warning' : 'info') as 'warning' | 'info',
-        title: 'Sub-Optimal Semantic Question & Answer Hierarchy',
-        description: 'Google AI Overviews and Claude extract answers from discrete 40-60 word atomic summary chunks.',
-        impact: 'Zero-click AI snippets default to third-party forums or review aggregators.',
+        category: 'RAG Snippet Chunking',
+        severity: (ragBlocksCount === 0 ? 'warning' : 'info') as 'warning' | 'info',
+        title: ragBlocksCount === 0 ? 'Absence of 40-60 Word Atomic Answer Blocks' : `${ragBlocksCount} Atomic RAG Chunks Detected`,
+        description: 'Google AI Overviews and Claude extract answers from discrete 40-60 word definition passages placed directly beneath question headings.',
+        impact: 'Zero-click AI summary snippets default to competitor comparison portals.',
       },
       {
-        category: 'Robots & Crawler Hygiene',
-        severity: (blockedBots.length > 0 ? 'critical' : 'info') as 'critical' | 'info',
-        title: blockedBots.length > 0 ? `Active Blocks on ${blockedBots.join(', ')}` : 'Full Crawler Accessibility',
-        description: 'Crawler directives determine whether AI models train and cite your domain in real-time search mode.',
-        impact: 'Search queries in your vertical bypass your landing pages entirely.',
-      },
-      {
-        category: 'Mobile Vector Render Latency',
-        severity: (pageSpeedScore < 70 ? 'warning' : 'info') as 'warning' | 'info',
-        title: 'DOM Hydration & Time to First Semantic Token',
-        description: 'Headless AI scrapers impose strict 1500ms timeouts on client-side JS before falling back to cached SERP data.',
-        impact: 'Dynamic product/service catalogs fail to render for search agents.',
+        category: 'Conversational Schema & Crawlers',
+        severity: (!hasFaqSchema || blockedBots.length > 0 ? 'critical' : 'info') as 'critical' | 'info',
+        title: blockedBots.length > 0 ? `Active Blocks on ${blockedBots.join(', ')}` : !hasFaqSchema ? 'Missing Structured FAQPage Schema' : 'Optimal Conversational Ingestion',
+        description: 'Without structured FAQPage schemas or explicit AI bot clearance, conversational prompts fail to trigger direct accordion answer cards in AI search.',
+        impact: 'High-intent buying questions in your niche are answered without your domain cited.',
       },
     ];
 
@@ -409,7 +522,7 @@ export async function POST(req: NextRequest) {
       overallScore,
       ratingLabel,
       ratingColor,
-      summaryText: `This domain scored ${overallScore}/100 for AI readiness — rated ${ratingLabel}. ${schemasCount} types of structured data implemented. ${crawlerScore >= 80 ? 'Key AI crawlers can access your content.' : 'Crawler restrictions detected.'}`,
+      summaryText: `This domain scored ${overallScore}/100 for AI citation readiness (${ratingLabel}). Found ${schemasCount} schemas, ${sameAsCount} entity anchors, ${princetonStatsCount} data points, and ${ragBlocksCount} atomic RAG answer blocks. ${crawlerScore >= 80 ? 'Core AI search bots can access your content.' : 'Crawler restrictions detected in robots.txt.'}`,
       pageType: schemasCount > 0 ? 'Product / Service Page' : 'Editorial / Content Page',
       radarData: {
         aeo: aeoScore,
@@ -420,11 +533,11 @@ export async function POST(req: NextRequest) {
         pageSpeed: pageSpeedScore,
       },
       metrics: {
-        aeo: { score: aeoScore, status: getStatusText(aeoScore), label: 'AEO' },
-        geo: { score: geoScore, status: getStatusText(geoScore), label: 'GEO' },
+        aeo: { score: aeoScore, status: getStatusText(aeoScore), label: 'AEO (KNOWLEDGE GRAPH)' },
+        geo: { score: geoScore, status: getStatusText(geoScore), label: 'GEO (PRINCETON DATA)' },
         crawlers: { score: crawlerScore, status: getStatusText(crawlerScore), label: 'AI CRAWLERS' },
-        techSeo: { score: techSeoScore, status: getStatusText(techSeoScore), label: 'TECHNICAL SEO' },
-        contentQuality: { score: contentQualityScore, status: getStatusText(contentQualityScore), label: 'CONTENT QUALITY' },
+        techSeo: { score: techSeoScore, status: getStatusText(techSeoScore), label: 'TECHNICAL & SSR' },
+        contentQuality: { score: contentQualityScore, status: getStatusText(contentQualityScore), label: 'E-E-A-T & AUTHORITY' },
         pageSpeed: { score: pageSpeedScore, status: getStatusText(pageSpeedScore), label: 'PAGE SPEED' },
       },
       badges: {
@@ -433,6 +546,12 @@ export async function POST(req: NextRequest) {
         wordCount,
         https: isHttps,
         hasLlmsTxt,
+        princetonStatsCount,
+        sameAsCount,
+        ragBlocksCount,
+        hasFaqSchema,
+        hasAuthorSignal,
+        hasTables,
       },
       unlockedHighlights,
       gatedFindings,
