@@ -1,5 +1,5 @@
 import React from 'react';
-import BespokeHero from '@/components/sections/BespokeHero';
+import KineticLabHero from '@/components/sections/KineticLabHero';
 import MarqueeTape from '@/components/sections/MarqueeTape';
 import Manifesto from '@/components/sections/Manifesto';
 import EngineArchitecture from '@/components/sections/EngineArchitecture';
@@ -105,7 +105,7 @@ export default function HomePage() {
         className="relative flex flex-col items-center overflow-x-hidden w-full selection:bg-[#FF5E14] selection:text-white"
       >
         {/* Section 01: Hero Section (#hero) */}
-        <BespokeHero />
+        <KineticLabHero />
 
         {/* Section 02: Kinetic Marquee Tape */}
         <MarqueeTape />
