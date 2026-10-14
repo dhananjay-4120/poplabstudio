@@ -40,7 +40,7 @@ export default function EngineArchitecture() {
   return (
     <section
       id="engines"
-      className="w-full py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 relative z-10 max-w-6xl mx-auto border-t border-[#F5F2EB]/10"
+      className="w-full scroll-mt-28 sm:scroll-mt-36 py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 relative z-10 max-w-6xl mx-auto border-t border-[#F5F2EB]/10"
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
         <div>

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Cormorant_Garamond, Italiana, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
+import { Cormorant_Garamond, Plus_Jakarta_Sans, Space_Mono } from 'next/font/google';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import AtmosphericBackground from '@/components/ui/AtmosphericBackground';
 import Navbar from '@/components/navigation/Navbar';
@@ -17,15 +17,7 @@ const cormorantGaramond = Cormorant_Garamond({
   display: 'swap',
 });
 
-// 2. Luxury Display Serif (Sculptural Titles)
-const italiana = Italiana({
-  subsets: ['latin'],
-  variable: '--font-italiana',
-  weight: '400',
-  display: 'swap',
-});
-
-// 3. Crisp Technical Body Sans (Paragraphs & Narrative)
+// 2. Crisp Technical Body Sans (Paragraphs & Narrative)
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
@@ -33,11 +25,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: 'swap',
 });
 
-// 4. Swiss Technical & Monospaced Accents (Counters, Badges & Labels)
-const spaceGrotesk = Space_Grotesk({
+// 3. True Tabular Swiss Monospace (Counters, Telemetry, Coordinates & Badges)
+const spaceMono = Space_Mono({
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
-  weight: ['400', '500', '600', '700'],
+  variable: '--font-space-mono',
+  weight: ['400', '700'],
   display: 'swap',
 });
 
@@ -71,7 +63,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${italiana.variable} ${plusJakartaSans.variable} ${spaceGrotesk.variable} dark`}
+      className={`${cormorantGaramond.variable} ${plusJakartaSans.variable} ${spaceMono.variable} dark`}
       suppressHydrationWarning
     >
       <head>

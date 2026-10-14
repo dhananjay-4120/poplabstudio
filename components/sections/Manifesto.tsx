@@ -11,7 +11,7 @@ export default function Manifesto() {
   return (
     <section
       id="manifesto"
-      className="w-full py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 relative z-10 max-w-6xl mx-auto border-t border-[#F5F2EB]/10"
+      className="w-full scroll-mt-28 sm:scroll-mt-36 py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 relative z-10 max-w-6xl mx-auto border-t border-[#F5F2EB]/10"
     >
       <div className="flex flex-col items-center text-center mb-16 sm:mb-20">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#F5F2EB]/15 bg-[#18150F]/70 backdrop-blur-md mb-4">
@@ -23,7 +23,7 @@ export default function Manifesto() {
 
         <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#F5F2EB] tracking-tight max-w-3xl leading-[1.08] mb-6">
           Marketing shouldn&apos;t <br className="hidden sm:inline" />
-          <HandDrawnHighlight strokeColor="#FF5E14"><em>live in silos.</em></HandDrawnHighlight>
+          <span className="italic font-serif text-[#FF5E14]">live in silos.</span>
         </h2>
 
         <p className="font-sans text-base sm:text-lg text-[#F5F2EB]/70 font-light max-w-2xl leading-relaxed">

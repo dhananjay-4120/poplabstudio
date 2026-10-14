@@ -61,13 +61,12 @@ const config: Config = {
         'dark-void': '#090D14',
       },
       fontFamily: {
-        serif: ['var(--font-cormorant)', 'var(--font-italiana)', 'Georgia', 'serif'],
-        italiana: ['var(--font-italiana)', 'serif'],
+        serif: ['var(--font-cormorant)', 'Georgia', 'serif'],
         cormorant: ['var(--font-cormorant)', 'serif'],
         sans: ['var(--font-jakarta)', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         jakarta: ['var(--font-jakarta)', 'sans-serif'],
-        mono: ['var(--font-space-grotesk)', 'monospace'],
-        grotesk: ['var(--font-space-grotesk)', 'sans-serif'],
+        mono: ['var(--font-space-mono)', 'monospace'],
+        spaceMono: ['var(--font-space-mono)', 'monospace'],
       },
       letterSpacing: {
         tighter: '-0.04em',

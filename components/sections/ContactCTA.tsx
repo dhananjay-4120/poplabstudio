@@ -15,7 +15,7 @@ export default function ContactCTA() {
   return (
     <section
       id="contact"
-      className="w-full py-28 md:py-36 px-6 relative z-10 max-w-5xl mx-auto text-center border-t border-black/10 dark:border-[#F5F2EB]/10"
+      className="w-full scroll-mt-28 sm:scroll-mt-36 py-28 md:py-36 px-6 relative z-10 max-w-5xl mx-auto text-center border-t border-black/10 dark:border-[#F5F2EB]/10"
     >
       <div className="relative p-10 sm:p-14 md:p-20 rounded-3xl bg-white dark:bg-[#0D1522]/85 border border-black/10 dark:border-white/10 backdrop-blur-xl shadow-xl dark:shadow-2xl overflow-hidden">
         {/* Warm Ember Radial Glow Behind Dark Glass (The signature orange hint) */}

@@ -47,7 +47,7 @@ export default function Philosophy() {
   return (
     <section
       id="philosophy"
-      className="w-full py-24 sm:py-32 md:py-36 px-6 relative z-10 max-w-6xl mx-auto border-t border-black/10 dark:border-white/10"
+      className="w-full scroll-mt-28 sm:scroll-mt-36 py-24 sm:py-32 md:py-36 px-6 relative z-10 max-w-6xl mx-auto border-t border-black/10 dark:border-white/10"
     >
       {/* Kicker Accent */}
       <div className="flex items-center gap-3 mb-6">

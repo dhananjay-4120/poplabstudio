@@ -92,7 +92,7 @@ export default function NarrativeServices() {
   return (
     <section
       id="services"
-      className="relative w-full py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 z-10 border-t border-[#F5F2EB]/10 overflow-hidden"
+      className="relative w-full scroll-mt-28 sm:scroll-mt-36 py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 z-10 border-t border-[#F5F2EB]/10 overflow-hidden"
     >
       {/* Background Architectural Accent */}
       <div
@@ -152,7 +152,7 @@ export default function NarrativeServices() {
                     0{idx + 1}
                   </span>
                 </div>
-                <div className="font-serif text-base text-[#F5F2EB] line-clamp-1 font-medium">
+                <div className="font-sans text-sm tracking-tight text-[#F5F2EB] line-clamp-1 font-medium group-hover:text-white transition-colors">
                   {chap.title.split('&')[0]}
                 </div>
               </button>
