@@ -2,115 +2,103 @@
 
 import React from 'react';
 import SpotlightCard from '@/components/ui/SpotlightCard';
-import {
-  HandDrawnHighlight,
-  InkSealStamp,
-} from '@/components/ui/VisualSoul';
 
 export default function Manifesto() {
   return (
     <section
       id="manifesto"
-      className="w-full scroll-mt-28 sm:scroll-mt-36 py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 relative z-10 max-w-6xl mx-auto border-t border-[#F5F2EB]/10"
+      aria-label="The Anti-Silo Manifesto"
+      className="w-full scroll-mt-28 sm:scroll-mt-36 py-24 sm:py-32 md:py-40 px-5 sm:px-10 md:px-16 lg:px-20 relative z-10 max-w-6xl mx-auto bg-[#050505] border-t border-white/[0.08]"
     >
       <div className="flex flex-col items-center text-center mb-16 sm:mb-20">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#F5F2EB]/15 bg-[#18150F]/70 backdrop-blur-md mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.12] bg-white/[0.04] backdrop-blur-xl mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF5E14]" />
-          <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#FF5E14]">
+          <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#FF5E14] font-medium">
             THE ANTI-SILO MANIFESTO
           </span>
         </div>
 
-        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#F5F2EB] tracking-tight max-w-3xl leading-[1.08] mb-6">
+        <h2 className="font-sans font-black text-3xl sm:text-5xl md:text-6xl text-white tracking-tight leading-[1.08] max-w-3xl mb-4">
           Marketing shouldn&apos;t <br className="hidden sm:inline" />
-          <span className="italic font-serif text-[#FF5E14]">live in silos.</span>
+          <span className="italic font-serif font-normal text-[#FF5E14]">live in silos.</span>
         </h2>
 
-        <p className="font-sans text-base sm:text-lg text-[#F5F2EB]/70 font-light max-w-2xl leading-relaxed">
-          Your PR shouldn&apos;t ignore your social strategy. Your creatives shouldn&apos;t be
-          disconnected from your media spend. When brand, attention, and commerce operate in isolation,
-          you bleed margin.
+        <p className="font-sans text-base sm:text-lg text-[#F5F2EB]/70 font-light max-w-xl leading-relaxed">
+          When brand identity, paid acquisition, and PR operate in isolation, you burn cash and bleed margin.
         </p>
       </div>
 
-      {/* Side-by-side interactive comparison with spotlight hover physics */}
+      {/* 2-Column Side-by-Side Frosted Contrast */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-        {/* The Broken Traditional Silo */}
+        {/* Left: The Broken Traditional Agency Model */}
         <SpotlightCard
           spotlightColor="rgba(239, 68, 68, 0.12)"
-          className="p-8 sm:p-10 flex flex-col justify-between border-white/[0.06] bg-[#0C121D]/70"
+          className="p-8 sm:p-10 flex flex-col justify-between border-white/[0.08] bg-white/[0.02] backdrop-blur-2xl"
         >
           <div>
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/[0.06] dark:border-white/[0.06]">
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#121824]/50 dark:text-[#F5F2EB]/40 font-medium">
-                THE TRADITIONAL SILO
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]">
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#F5F2EB]/50 font-medium">
+                TRADITIONAL SILO
               </span>
-              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-red-500/10 text-red-500 dark:text-red-400 border border-red-500/20 uppercase tracking-wider">
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30 uppercase tracking-wider">
                 COMPARTMENTALIZED
               </span>
             </div>
 
-            <ul className="space-y-5 font-sans text-sm sm:text-base text-[#121824]/80 dark:text-[#F5F2EB]/70">
-              <li className="flex items-start gap-3.5">
-                <span className="text-red-500 dark:text-red-400 font-mono text-sm select-none mt-0.5">✕</span>
-                <span>Four disconnected agencies with zero shared P&L accountability.</span>
+            <ul className="space-y-4 font-sans text-sm sm:text-base text-[#F5F2EB]/75">
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-mono text-sm mt-0.5">✕</span>
+                <span>Four separate agencies with zero shared accountability.</span>
               </li>
-              <li className="flex items-start gap-3.5">
-                <span className="text-red-500 dark:text-red-400 font-mono text-sm select-none mt-0.5">✕</span>
-                <span>Artistic brand films that look gorgeous but generate zero pipeline.</span>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-mono text-sm mt-0.5">✕</span>
+                <span>Brand films that look pretty but drive zero pipeline.</span>
               </li>
-              <li className="flex items-start gap-3.5">
-                <span className="text-red-500 dark:text-red-400 font-mono text-sm select-none mt-0.5">✕</span>
-                <span>Media spend that halts the moment ad budgets are trimmed.</span>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-mono text-sm mt-0.5">✕</span>
+                <span>Performance buyers burning budget on generic Canva templates.</span>
               </li>
             </ul>
           </div>
 
-          <div className="pt-6 mt-8 border-t border-black/[0.06] dark:border-white/[0.06]">
-            <span className="font-mono text-xs text-[#121824]/50 dark:text-[#F5F2EB]/40 uppercase tracking-widest block">
-              Outcome: Bloated agency retainers, rising CAC, diluted positioning, zero compounding equity.
-            </span>
+          <div className="mt-8 pt-4 border-t border-white/[0.06] font-mono text-xs text-red-400/80">
+            RESULT: RISING CAC &amp; DILUTED PRICING POWER
           </div>
         </SpotlightCard>
 
-        {/* The Pop Lab System */}
+        {/* Right: The Pop Lab Connected Flywheel */}
         <SpotlightCard
-          spotlightColor="rgba(255, 94, 20, 0.25)"
-          className="p-8 sm:p-10 flex flex-col justify-between border-[#FF5E14]/30 bg-gradient-to-br from-[#FFF9F6] to-[#FFF3EC] dark:from-[#131E30]/90 dark:to-[#0A101A]/95 shadow-[0_12px_40px_rgba(255,94,20,0.08)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.5)]"
+          spotlightColor="rgba(255, 94, 20, 0.16)"
+          className="p-8 sm:p-10 flex flex-col justify-between border-[#FF5E14]/30 bg-white/[0.03] backdrop-blur-2xl shadow-[0_0_40px_rgba(255,94,20,0.08)]"
         >
           <div>
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/[0.08] dark:border-white/[0.08]">
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5E14] font-semibold">
-                THE POP LAB SYSTEM
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]">
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5E14] font-medium">
+                POP LAB STUDIO
               </span>
-              <div className="flex items-center gap-2">
-                <InkSealStamp text="POP LAB" subtext="UNIFIED" size={36} />
-                <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#FF5E14]/15 text-[#FF5E14] border border-[#FF5E14]/30 uppercase tracking-wider">
-                  SYNCHRONIZED
-                </span>
-              </div>
+              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-[#FF5E14]/20 text-[#FF5E14] border border-[#FF5E14]/40 uppercase tracking-wider">
+                SYNCHRONIZED
+              </span>
             </div>
 
-            <ul className="space-y-5 font-sans text-sm sm:text-base text-[#121824] dark:text-[#F5F2EB]/95">
-              <li className="flex items-start gap-3.5">
-                <span className="text-[#FF5E14] font-mono text-sm select-none mt-0.5">✓</span>
-                <span>One integrated war-room orchestrating strategy, creative, PR, and commerce.</span>
+            <ul className="space-y-4 font-sans text-sm sm:text-base text-white">
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5E14] font-mono text-sm mt-0.5">✓</span>
+                <span>One unified studio managing brand, media, and PR under one P&amp;L.</span>
               </li>
-              <li className="flex items-start gap-3.5">
-                <span className="text-[#FF5E14] font-mono text-sm select-none mt-0.5">✓</span>
-                <span>High-velocity cultural PR that directly converts into paid ad collateral.</span>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5E14] font-mono text-sm mt-0.5">✓</span>
+                <span>Cinematic creative designed specifically to lower paid CAC.</span>
               </li>
-              <li className="flex items-start gap-3.5">
-                <span className="text-[#FF5E14] font-mono text-sm select-none mt-0.5">✓</span>
-                <span>Every campaign engineered to build permanent, unassailable brand authority.</span>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5E14] font-mono text-sm mt-0.5">✓</span>
+                <span>Cultural PR and AI citations that generate compounding organic demand.</span>
               </li>
             </ul>
           </div>
 
-          <div className="pt-6 mt-8 border-t border-black/[0.08] dark:border-white/[0.08]">
-            <span className="font-mono text-xs text-[#FF5E14] uppercase tracking-widest block font-medium">
-              Outcome: 30–40% lower blended CAC, 14-day rapid deployment sprints, permanent category moat.
-            </span>
+          <div className="mt-8 pt-4 border-t border-white/[0.06] font-mono text-xs text-[#FF5E14]">
+            RESULT: BLENDED EFFICIENCY &amp; CATEGORY GRAVITY
           </div>
         </SpotlightCard>
       </div>

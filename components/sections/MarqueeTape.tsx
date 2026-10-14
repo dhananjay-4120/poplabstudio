@@ -4,34 +4,34 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const ITEMS = [
-  'BRAND STRATEGY',
-  'CULTURAL PR',
-  'CREATIVE CAMPAIGNS',
-  'QUICK COMMERCE',
-  'AI SEARCH & GEO',
+  'BRAND ARCHITECTURE',
+  'CINEMATIC FILM',
+  'CULTURAL PR & CREATORS',
+  'AI SEARCH CITATIONS (GEO/AEO)',
   'PERFORMANCE MEDIA',
-  'CONVERSION ENGINEERING',
+  'QUICK COMMERCE SCALE',
+  'HIGH-VELOCITY CRO',
 ];
 
 export default function MarqueeTape() {
   return (
-    <div className="w-full py-6 md:py-8 border-y border-bone-alabaster/10 bg-[#090D14]/70 overflow-hidden relative z-10 select-none">
+    <div className="w-full py-5 sm:py-6 border-y border-white/[0.08] bg-[#050505]/80 backdrop-blur-xl overflow-hidden relative z-10 select-none">
       <div className="flex w-max">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
             ease: 'linear',
-            duration: 22,
+            duration: 24,
           }}
-          className="flex items-center gap-8 md:gap-12 whitespace-nowrap"
+          className="flex items-center gap-8 md:gap-14 whitespace-nowrap"
         >
           {[...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-8 md:gap-12">
-              <span className="font-grotesk text-xs sm:text-sm font-medium tracking-[0.25em] text-bone-alabaster/60 hover:text-electric-tangerine transition-colors duration-200">
+            <div key={idx} className="flex items-center gap-8 md:gap-14">
+              <span className="font-sans text-xs sm:text-xs font-semibold uppercase tracking-[0.22em] text-white/55 hover:text-[#FF5E14] transition-colors duration-200">
                 {item}
               </span>
-              <span className="text-electric-tangerine text-xs opacity-70">✦</span>
+              <span className="text-[#FF5E14] text-xs opacity-75">✦</span>
             </div>
           ))}
         </motion.div>

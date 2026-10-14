@@ -16,7 +16,7 @@ import Image from 'next/image';
  */
 export default function Footer() {
   const v1Ref = useRef<HTMLVideoElement>(null);
-  const [isDark, setIsDark] = useState(true);
+  const isDark = true;
   const [mounted, setMounted] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -26,23 +26,8 @@ export default function Footer() {
   const [nlSubscribed, setNlSubscribed] = useState(false);
   const [nlError, setNlError] = useState<string | null>(null);
 
-  // Sync theme with document.documentElement
   useEffect(() => {
     setMounted(true);
-    const updateTheme = () => {
-      const isLight = document.documentElement.classList.contains('light');
-      setIsDark(!isLight);
-    };
-
-    updateTheme();
-
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   const footerRef = useRef<HTMLElement>(null);

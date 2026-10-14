@@ -5,7 +5,6 @@ import SmoothScroll from '@/components/ui/SmoothScroll';
 import AtmosphericBackground from '@/components/ui/AtmosphericBackground';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/sections/Footer';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 import './globals.css';
 
 // 1. Editorial Display Serif (Headlines & Dramatic Accents)
@@ -47,10 +46,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F7F5F0' },
-    { media: '(prefers-color-scheme: dark)', color: '#090D14' },
-  ],
+  themeColor: '#050505',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -63,34 +59,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${plusJakartaSans.variable} ${spaceMono.variable} dark`}
+      className={`${cormorantGaramond.variable} ${plusJakartaSans.variable} ${spaceMono.variable} dark bg-[#050505] text-[#F5F2EB]`}
       suppressHydrationWarning
     >
       <head>
-        <script
-          id="poplab-theme-detector"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var stored = localStorage.getItem('poplab-theme');
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var isDark = stored !== null ? (stored === 'dark') : prefersDark;
-                  var root = document.documentElement;
-                  if (isDark) {
-                    root.classList.add('dark');
-                    root.classList.remove('light');
-                    root.style.colorScheme = 'dark';
-                  } else {
-                    root.classList.remove('dark');
-                    root.classList.add('light');
-                    root.style.colorScheme = 'light';
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
         <script
           id="poplab-chunk-recovery"
           dangerouslySetInnerHTML={{
@@ -194,7 +166,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body
-        className="bg-[#090D14] text-[#F5F2EB] selection:bg-[#FF5E14] selection:text-white min-h-screen antialiased overflow-x-hidden relative isolate"
+        className="bg-[#050505] text-[#F5F2EB] selection:bg-[#FF5E14] selection:text-white min-h-screen antialiased overflow-x-hidden relative isolate"
         suppressHydrationWarning
       >
         {/* Google Tag Manager (noscript fallback) */}
@@ -214,7 +186,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <main className="flex-1 w-full">{children}</main>
             <Footer />
           </div>
-          <ThemeToggle />
         </SmoothScroll>
       </body>
     </html>

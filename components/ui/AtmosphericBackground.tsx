@@ -73,11 +73,11 @@ export default function AtmosphericBackground() {
       aria-hidden="true"
     >
       {/* 1. Deep Void Base Layer */}
-      <div className="absolute inset-0 bg-[#F7F5F0] dark:bg-[#090D14] transition-colors duration-500" />
+      <div className="absolute inset-0 bg-[#050505]" />
 
       {/* 2. Architectural Blueprint Grid & Crosshairs */}
       <div
-        className="absolute inset-0 opacity-[0.025] dark:opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
         style={{
           backgroundImage: `
             linear-gradient(to right, currentColor 1px, transparent 1px),
@@ -89,7 +89,7 @@ export default function AtmosphericBackground() {
 
       {/* Subtle Coordinate Registration Dots */}
       <div
-        className="absolute inset-0 opacity-[0.04] dark:opacity-[0.05] pointer-events-none"
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle, rgba(255, 94, 20, 0.8) 1px, transparent 1px)`,
           backgroundSize: '120px 120px',
@@ -158,7 +158,7 @@ export default function AtmosphericBackground() {
       </svg>
 
       {/* 5. Cinematic Vignette (Preserves Editorial Contrast & Readability) */}
-      <div className="absolute inset-0 pointer-events-none opacity-60 dark:opacity-100 bg-[radial-gradient(ellipse_at_50%_40%,transparent_40%,rgba(235,231,220,0.6)_100%)] dark:bg-[radial-gradient(ellipse_at_50%_40%,transparent_35%,rgba(9,13,20,0.85)_100%)]" />
+      <div className="absolute inset-0 pointer-events-none opacity-100 bg-[radial-gradient(ellipse_at_50%_40%,transparent_35%,rgba(5,5,5,0.92)_100%)]" />
 
     </div>
   );

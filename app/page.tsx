@@ -1,10 +1,8 @@
 import React from 'react';
-import KineticLabHero from '@/components/sections/KineticLabHero';
+import DreamyVideoHero from '@/components/sections/DreamyVideoHero';
 import MarqueeTape from '@/components/sections/MarqueeTape';
+import DreamyEngineShowcase from '@/components/sections/DreamyEngineShowcase';
 import Manifesto from '@/components/sections/Manifesto';
-import EngineArchitecture from '@/components/sections/EngineArchitecture';
-import NarrativeServices from '@/components/sections/NarrativeServices';
-import Philosophy from '@/components/sections/Philosophy';
 import ContactCTA from '@/components/sections/ContactCTA';
 
 export default function HomePage() {
@@ -13,10 +11,10 @@ export default function HomePage() {
     '@type': ['ProfessionalService', 'MarketingAgency', 'LocalBusiness'],
     name: 'Pop Lab Studio',
     url: 'https://poplabstudio.com',
-    logo: 'https://poplabstudio.com/logo-studio-dark.png',
+    logo: 'https://poplabstudio.com/logo-white.png',
     image: 'https://poplabstudio.com/hero-sunrise-poster.webp',
     description:
-      'Pop Lab Studio is an elite creative growth and performance marketing studio serving ambitious founders and D2C brands across Chandigarh, Delhi NCR, North India, and globally.',
+      'Pop Lab Studio is an elite creative growth studio fusing brand architecture, cultural PR, and performance media for ambitious founders and brands.',
     email: 'growth@poplabstudio.com',
     telephone: '+918837565738',
     priceRange: '₹₹₹',
@@ -58,34 +56,25 @@ export default function HomePage() {
             '@type': 'Service',
             name: 'Performance Media & Meta Ads',
             description:
-              'Full-funnel Meta and Google Ads management, Conversions API (CAPI) architecture, and horizontal ROAS scaling.',
+              'Full-funnel Meta and Google Ads management, Conversions API architecture, and horizontal scale.',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Answer Engine Optimization (AEO/GEO) & SEO',
+            name: 'Answer Engine Optimization (AEO/GEO) & Cultural PR',
             description:
-              'Qiaomu technical SEO, structured schema data, llms.txt integration, and citation engineering for ChatGPT Search, Perplexity, and Google AI Overviews.',
+              'Tier-1 press features, creator whitelisting, and LLM answer engine citations (GEO/AEO).',
           },
         },
         {
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Luxury Web Engineering & CRO',
+            name: 'Brand Architecture & Cinematic Film',
             description:
-              'High-speed Next.js 15 web development, Framer Motion interactions, frictionless mobile conversion funnels, and 99+ PageSpeed performance.',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Brand Strategy & Creative Production',
-            description:
-              'Positioning archetypes, 3x3 high-converting creative testing frameworks, and cultural PR storytelling.',
+              'Provocative positioning, tactile identity systems, and cinematic film assets.',
           },
         },
       ],
@@ -102,29 +91,21 @@ export default function HomePage() {
 
       <div
         id="top"
-        className="relative flex flex-col items-center overflow-x-hidden w-full selection:bg-[#FF5E14] selection:text-white"
+        className="relative flex flex-col items-center overflow-x-hidden w-full selection:bg-[#FF5E14] selection:text-white bg-[#050505]"
       >
-        {/* Section 01: Hero Section (#hero) */}
-        <KineticLabHero />
+        {/* Section 01: Ambient Dreamy Video Hero (#hero) */}
+        <DreamyVideoHero />
 
-        {/* Section 02: Kinetic Marquee Tape */}
+        {/* Section 02: Kinetic Capabilities Marquee */}
         <MarqueeTape />
 
-        {/* Section 03: Narrative Services Arc (#services) */}
-        <NarrativeServices />
+        {/* Section 03: The 3 Connected Engines Interactive Glass Stage (#engines) */}
+        <DreamyEngineShowcase />
 
-        {/* Section 04: Visual Anti-Silo Manifesto (#manifesto) */}
+        {/* Section 04: Visual Anti-Silo Contrast Manifesto (#manifesto) */}
         <Manifesto />
 
-        {/* Section 05: The 3 Connected Engines (#engines & #capabilities) */}
-        <div id="engines" className="w-full">
-          <EngineArchitecture />
-        </div>
-
-        {/* Section 06: Studio Standards & Philosophy (#philosophy) */}
-        <Philosophy />
-
-        {/* Section 07: Direct-Response Partnership CTA (#contact) */}
+        {/* Section 05: Direct Partnership Concierge CTA (#contact) */}
         <ContactCTA />
       </div>
     </>

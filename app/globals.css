@@ -4,7 +4,7 @@
 
 :root {
   /* ==========================================================================
-     POP LAB CORE BRAND TOKENS
+     POP LAB CORE BRAND TOKENS (Pure Obsidian Dark Mode)
      ========================================================================== */
   --color-electric-tangerine: #FF5E14;
   --color-maritime-azure: #0E4D7A;
@@ -17,35 +17,32 @@
   --twilight-indigo-rgb: 26, 36, 54;
   --bone-alabaster-rgb: 245, 242, 235;
 
-  /* ==========================================================================
-     SEMANTIC SURFACE & DEPTH TOKENS
-     ========================================================================== */
-  --bg-void: #090D14;
-  --bg-canvas: #0D1522;
-  --bg-surface: rgba(26, 36, 54, 0.65);
-  --bg-surface-elevated: rgba(26, 36, 54, 0.85);
-  --bg-glass-nav: rgba(26, 36, 54, 0.60);
+  /* Semantic Surface & Depth Tokens */
+  --bg-void: #050505;
+  --bg-canvas: #070B10;
+  --bg-surface: rgba(255, 255, 255, 0.03);
+  --bg-surface-elevated: rgba(255, 255, 255, 0.06);
+  --bg-glass-nav: rgba(5, 5, 5, 0.75);
 
   /* Borders & Dividers */
   --border-subtle: rgba(245, 242, 235, 0.08);
   --border-medium: rgba(245, 242, 235, 0.15);
   --border-accent: rgba(255, 94, 20, 0.40);
-  --border-azure: rgba(14, 77, 122, 0.35);
 
   /* Typography Colors */
   --text-primary: #F5F2EB;
-  --text-muted: rgba(245, 242, 235, 0.65);
-  --text-dim: rgba(245, 242, 235, 0.40);
+  --text-muted: rgba(245, 242, 235, 0.70);
+  --text-dim: rgba(245, 242, 235, 0.45);
   --text-accent: #FF5E14;
 
   /* Shadows & Glows */
   --glow-tangerine: 0 0 32px rgba(255, 94, 20, 0.25);
-  --glow-azure: 0 0 40px rgba(14, 77, 122, 0.30);
-  --glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  --glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
 }
 
 html {
   color-scheme: dark;
+  background-color: #050505;
 }
 
 /* Lenis Smooth Scroll Optimizations */
@@ -69,10 +66,9 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
-
 body {
-  background-color: var(--bg-void);
-  color: var(--text-primary);
+  background-color: #050505;
+  color: #F5F2EB;
   font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
@@ -80,12 +76,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar for Luxury Polish */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #090D14;
+  background: #050505;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(245, 242, 235, 0.15);
@@ -95,265 +91,33 @@ body {
   background: rgba(255, 94, 20, 0.4);
 }
 
-/* Liquid Glass Utility */
+/* Liquid Glass Utilities (Inspired by videobg.ai & Apple Scrollytelling) */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+}
+
+.liquid-glass:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
 .liquid-glass-pill {
-  background: rgba(26, 36, 54, 0.6);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(245, 242, 235, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .liquid-glass-pill:hover {
-  border-color: rgba(245, 242, 235, 0.2);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
-/* ==========================================================================
-   EDITORIAL LIGHT MODE PALETTE (Warm Bone Alabaster & Obsidian Ink)
-   ========================================================================== */
-html.light,
-html:not(.dark) {
-  color-scheme: light;
-  --bg-void: #F7F5F0;
-  --bg-canvas: #EFECE3;
-  --text-primary: #121824;
-  --text-muted: rgba(18, 24, 36, 0.70);
-  --border-subtle: rgba(18, 24, 36, 0.08);
-}
-
-html.light body,
-html:not(.dark) body {
-  background-color: #F7F5F0 !important;
-  color: #121824 !important;
-}
-
-/* Light Mode Background Base */
-html.light .bg-\[\#090D14\],
-html:not(.dark) .bg-\[\#090D14\] {
-  background-color: #F7F5F0 !important;
-}
-
-/* Light Mode Card Surfaces & Gradients */
-html.light [class*="from-[#10192A]"],
-html:not(.dark) [class*="from-[#10192A]"],
-html.light [class*="from-[#0D1522]"],
-html:not(.dark) [class*="from-[#0D1522]"],
-html.light [class*="from-[#0C121D]"],
-html:not(.dark) [class*="from-[#0C121D]"],
-html.light [class*="from-[#070B10]"],
-html:not(.dark) [class*="from-[#070B10]"] {
-  background-image: none !important;
-  background-color: #FFFFFF !important;
-}
-
-html.light [class*="bg-[#0D1522]"],
-html:not(.dark) [class*="bg-[#0D1522]"],
-html.light [class*="bg-[#0C121D]"],
-html:not(.dark) [class*="bg-[#0C121D]"],
-html.light [class*="bg-[#10192A]"],
-html:not(.dark) [class*="bg-[#10192A]"],
-html.light [class*="bg-[#0A101C]"],
-html:not(.dark) [class*="bg-[#0A101C]"],
-html.light [class*="bg-[#090D14]"],
-html:not(.dark) [class*="bg-[#090D14]"],
-html.light [class*="bg-[#070B10]"],
-html:not(.dark) [class*="bg-[#070B10]"],
-html.light [class*="bg-[#18150F]"],
-html:not(.dark) [class*="bg-[#18150F]"] {
-  background-color: #FFFFFF !important;
-  box-shadow: 0 4px 24px rgba(18, 24, 36, 0.04) !important;
-}
-
-html.light [class*="bg-[#182338]"],
-html:not(.dark) [class*="bg-[#182338]"] {
-  background-color: #EBE7DC !important;
-  color: #121824 !important;
-}
-
-/* Light Mode Typography Inversions */
-html.light .text-\[\#F5F2EB\],
-html:not(.dark) .text-\[\#F5F2EB\],
-html.light .text-bone-alabaster,
-html:not(.dark) .text-bone-alabaster,
-html.light [class*="text-bone-alabaster"]:not([class*="/"]),
-html:not(.dark) [class*="text-bone-alabaster"]:not([class*="/"]) {
-  color: #121824 !important;
-}
-
-html.light .text-\[\#F5F2EB\]\/95,
-html.light .text-\[\#F5F2EB\]\/90,
-html.light .text-\[\#F5F2EB\]\/80,
-html.light .text-\[\#F5F2EB\]\/75,
-html.light .text-\[\#F5F2EB\]\/70,
-html.light [class*="text-bone-alabaster/95"],
-html.light [class*="text-bone-alabaster/90"],
-html.light [class*="text-bone-alabaster/80"],
-html.light [class*="text-bone-alabaster/75"],
-html.light [class*="text-bone-alabaster/70"],
-html:not(.dark) .text-\[\#F5F2EB\]\/95,
-html:not(.dark) .text-\[\#F5F2EB\]\/90,
-html:not(.dark) .text-\[\#F5F2EB\]\/80,
-html:not(.dark) .text-\[\#F5F2EB\]\/75,
-html:not(.dark) .text-\[\#F5F2EB\]\/70,
-html:not(.dark) [class*="text-bone-alabaster/95"],
-html:not(.dark) [class*="text-bone-alabaster/90"],
-html:not(.dark) [class*="text-bone-alabaster/80"],
-html:not(.dark) [class*="text-bone-alabaster/75"],
-html:not(.dark) [class*="text-bone-alabaster/70"] {
-  color: rgba(18, 24, 36, 0.85) !important;
-}
-
-html.light .text-\[\#F5F2EB\]\/60,
-html.light .text-\[\#F5F2EB\]\/50,
-html.light .text-\[\#F5F2EB\]\/40,
-html.light .text-\[\#F5F2EB\]\/35,
-html.light [class*="text-bone-alabaster/60"],
-html.light [class*="text-bone-alabaster/50"],
-html.light [class*="text-bone-alabaster/40"],
-html.light [class*="text-bone-alabaster/35"],
-html.light [class*="text-bone-alabaster/20"],
-html:not(.dark) .text-\[\#F5F2EB\]\/60,
-html:not(.dark) .text-\[\#F5F2EB\]\/50,
-html:not(.dark) .text-\[\#F5F2EB\]\/40,
-html:not(.dark) .text-\[\#F5F2EB\]\/35,
-html:not(.dark) [class*="text-bone-alabaster/60"],
-html:not(.dark) [class*="text-bone-alabaster/50"],
-html:not(.dark) [class*="text-bone-alabaster/40"],
-html:not(.dark) [class*="text-bone-alabaster/35"],
-html:not(.dark) [class*="text-bone-alabaster/20"] {
-  color: rgba(18, 24, 36, 0.55) !important;
-}
-
-/* Light Mode Borders */
-html.light [class*="border-bone-alabaster"],
-html:not(.dark) [class*="border-bone-alabaster"],
-html.light .border-\[\#F5F2EB\]\/10,
-html.light .border-\[\#F5F2EB\]\/15,
-html.light .border-white\/\[0\.08\],
-html.light .border-white\/\[0\.06\],
-html.light .border-white\/\[0\.05\],
-html.light .border-white\/\[0\.04\],
-html.light .border-white\/5,
-html.light .border-white\/10,
-html:not(.dark) .border-\[\#F5F2EB\]\/10,
-html:not(.dark) .border-\[\#F5F2EB\]\/15,
-html:not(.dark) .border-white\/\[0\.08\],
-html:not(.dark) .border-white\/\[0\.06\],
-html:not(.dark) .border-white\/\[0\.05\],
-html:not(.dark) .border-white\/\[0\.04\],
-html:not(.dark) .border-white\/5,
-html:not(.dark) .border-white\/10 {
-  border-color: rgba(18, 24, 36, 0.08) !important;
-}
-
-html.light [class*="bg-twilight-indigo"],
-html:not(.dark) [class*="bg-twilight-indigo"] {
-  background-color: #FFFFFF !important;
-}
-
-/* Light Mode Hover Contrast Safeguards */
-html.light a[class*="hover:text-white"]:hover,
-html:not(.dark) a[class*="hover:text-white"]:hover,
-html.light button[class*="hover:text-white"]:hover:not([class*="bg-[#FF5E14]"]),
-html:not(.dark) button[class*="hover:text-white"]:hover:not([class*="bg-[#FF5E14]"]) {
-  color: #FF5E14 !important;
-}
-
-/* Ensure headings inside light mode stay crisp obsidian */
-html.light h1:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html.light h2:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html.light h3:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html.light h4:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html:not(.dark) h1:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html:not(.dark) h2:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html:not(.dark) h3:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *),
-html:not(.dark) h4:not([class*="text-[#FF5E14]"]):not(button *):not(a[class*="bg-[#FF5E14]"] *) {
-  color: #121824 !important;
-}
-
-/* Light Mode Input, Select, Textarea Contrast Safeguards */
-html.light input:not([type="submit"]):not([type="button"]),
-html.light select,
-html.light textarea,
-html:not(.dark) input:not([type="submit"]):not([type="button"]),
-html:not(.dark) select,
-html:not(.dark) textarea {
-  color: #121824 !important;
-  background-color: #FFFFFF !important;
-  border-color: rgba(18, 24, 36, 0.18) !important;
-}
-
-html.light option,
-html:not(.dark) option {
-  color: #121824 !important;
-  background-color: #FFFFFF !important;
-}
-
-html.dark option {
-  color: #F5F2EB !important;
-  background-color: #0D1522 !important;
-}
-
-html.light input::placeholder,
-html.light textarea::placeholder,
-html:not(.dark) input::placeholder,
-html:not(.dark) textarea::placeholder {
-  color: rgba(18, 24, 36, 0.68) !important;
-  opacity: 1 !important;
-}
-
-/* Light Mode Logo Inversion */
-html.light img[alt="Pop Lab Studio"],
-html:not(.dark) img[alt="Pop Lab Studio"] {
-  filter: invert(1) brightness(0.15) !important;
-}
-
-/* Light Mode Hero Video Mask Adjustment */
-html.light #hero .bg-gradient-to-r,
-html:not(.dark) #hero .bg-gradient-to-r {
-  background: linear-gradient(to right, #F7F5F0 0%, rgba(247, 245, 240, 0.88) 55%, rgba(247, 245, 240, 0.35) 100%) !important;
-}
-
-html.light #hero .bg-gradient-to-t,
-html:not(.dark) #hero .bg-gradient-to-t {
-  background: linear-gradient(to top, #F7F5F0 0%, transparent 60%, rgba(247, 245, 240, 0.6) 100%) !important;
-}
-
-/* Light Mode Floating Navbar */
-html.light header nav,
-html:not(.dark) header nav {
-  background-color: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(18, 24, 36, 0.08) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Light Mode Scrollbar */
-html.light ::-webkit-scrollbar-track,
-html:not(.dark) ::-webkit-scrollbar-track {
-  background: #F7F5F0;
-}
-html.light ::-webkit-scrollbar-thumb,
-html:not(.dark) ::-webkit-scrollbar-thumb {
-  background: rgba(18, 24, 36, 0.18);
-}
-
-/* ==========================================================================
-   HUMAN CRAFTSMANSHIP: HAND-DRAWN SCRIBBLE & CARD TOUCH PHYSICS
-   ========================================================================== */
-@keyframes scribbleDraw {
-  0% {
-    stroke-dashoffset: 280;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-scribble {
-  animation: scribbleDraw 1.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-}
-
-/* Mobile & Touch Minimal Motion Physics */
+/* Mobile & Touch Card Physics */
 .touch-motion-card {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -368,16 +132,15 @@ html:not(.dark) ::-webkit-scrollbar-thumb {
 
 @keyframes subtleAmbientPulse {
   0%, 100% {
-    opacity: 0.2;
+    opacity: 0.25;
     transform: scale(1);
   }
   50% {
-    opacity: 0.45;
-    transform: scale(1.01);
+    opacity: 0.55;
+    transform: scale(1.015);
   }
 }
 
 .ambient-card-glint {
   animation: subtleAmbientPulse 7s ease-in-out infinite;
 }
-
