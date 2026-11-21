@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import WorkClient from './WorkClient';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/work' },
   title: 'Selected Work & Performance Case Studies — Pop Lab Studio',
   description:
     'Real growth and paid-media performance across luxury jewellery, D2C e-commerce, travel, B2B software, and wellness. Verifiable numbers straight from the ad managers.',
   openGraph: {
+    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
     title: 'Selected Work & Performance Case Studies — Pop Lab Studio',
     description:
       'Real growth and paid-media performance across luxury, D2C, travel, B2B, and wellness. Names withheld under confidentiality; numbers as run.',

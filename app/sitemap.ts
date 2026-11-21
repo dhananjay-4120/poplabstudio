@@ -45,10 +45,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/heritage`,
+      url: `${baseUrl}/tools/aeo-checker`,
       lastModified: now,
       changeFrequency: 'monthly',
-      priority: 0.5,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/privacy`,

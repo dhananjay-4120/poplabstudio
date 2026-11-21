@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/privacy' },
   title: 'Privacy Policy · Pop Lab Studio',
   description:
     'How Pop Lab Studio collects, uses, and safeguards your brand and personal data. Plain language, strict confidentiality.',
   openGraph: {
+    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
     title: 'Privacy Policy · Pop Lab Studio',
     description: 'How Pop Lab Studio protects your data and privacy.',
     url: 'https://poplabstudio.com/privacy',

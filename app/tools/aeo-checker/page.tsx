@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import AeoCheckerClient from './AeoCheckerClient';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/tools/aeo-checker' },
   title: 'Free AEO & GEO Website Diagnostic Scanner — Pop Lab Studio',
   description:
     'Free AI Search and Answer Engine Optimization (AEO/GEO) checker. Discover if ChatGPT Search, Perplexity, and Google AI Overviews cite your brand or your competitors.',
   openGraph: {
+    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
     title: 'Free AEO & GEO Website Diagnostic Scanner — Pop Lab Studio',
     description:
       'Analyze your website for AI Search visibility, schema graph completeness, and LLM crawler access in 5 seconds.',

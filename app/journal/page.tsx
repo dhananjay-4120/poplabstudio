@@ -3,10 +3,12 @@ import type { Metadata } from 'next';
 import JournalClient from './JournalClient';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/journal' },
   title: 'The Growth Journal & Teardowns — Pop Lab Studio',
   description:
     'Honest notes on paid media, creative engineering, server-side attribution, and the unglamorous marketing work that shows up in the P&L.',
   openGraph: {
+    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
     title: 'The Growth Journal & Teardowns — Pop Lab Studio',
     description:
       'Teardowns, frameworks, and notes from live accounts. No thought-leadership fluff - just what we tell partners on calls.',

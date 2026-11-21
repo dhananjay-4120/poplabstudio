@@ -273,11 +273,11 @@ export default function Footer() {
           </div>
 
           {/* RIGHT COLUMN: THE DISPATCH NEWSLETTER (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-3xl backdrop-blur-md border shadow-sm transition-colors ${
+          <div className={`lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-3xl backdrop-blur-md border shadow-sm transition-colors ${
             isDark
               ? 'bg-[#0D1522]/80 border-white/10'
               : 'bg-white/80 border-black/10'
-          }">
+          }`}>
             <div>
               <div className="flex items-center justify-between mb-3">
                 <span className="font-mono text-xs uppercase tracking-[0.2em] font-semibold text-[#FF5E14]">

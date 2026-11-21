@@ -28,7 +28,7 @@ export default function MarqueeTape() {
         >
           {[...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS].map((item, idx) => (
             <div key={idx} className="flex items-center gap-8 md:gap-14">
-              <span className="font-sans text-xs sm:text-xs font-semibold uppercase tracking-[0.22em] text-white/55 hover:text-[#FF5E14] transition-colors duration-200">
+              <span className="font-sans text-xs sm:text-xs font-semibold uppercase tracking-[0.22em] text-white/55">
                 {item}
               </span>
               <span className="text-[#FF5E14] text-xs opacity-75">✦</span>

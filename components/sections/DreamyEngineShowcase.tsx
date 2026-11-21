@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -179,7 +180,7 @@ export default function DreamyEngineShowcase() {
 
                 <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between text-xs font-sans text-[#F5F2EB]/70">
                   <span>Pop Lab Proprietary Flywheel</span>
-                  <span className="text-[#FF5E14]">Verified →</span>
+                  <Link href="/work" className="text-[#FF5E14] hover:underline underline-offset-[3px]">See the work →</Link>
                 </div>
               </div>
             </div>

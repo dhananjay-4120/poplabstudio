@@ -34,7 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${article.title} ${article.italicAccent} — Growth Journal | Pop Lab Studio`,
     description: article.excerpt,
+    alternates: { canonical: `/journal/${article.slug}` },
     openGraph: {
+      images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
       title: `${article.title} ${article.italicAccent} — Pop Lab Studio`,
       description: article.excerpt,
       url: `https://poplabstudio.com/journal/${article.slug}`,

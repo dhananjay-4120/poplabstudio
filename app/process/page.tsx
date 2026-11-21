@@ -12,10 +12,12 @@ import {
 } from '@/components/ui/VisualSoul';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/process' },
   title: 'Our Methodology & 4-Stage Sprint Process — Pop Lab Studio',
   description:
     'How Pop Lab Studio runs creative growth: channel fit before clever, friction as data, creative as the primary lever, and attribution before optimization.',
   openGraph: {
+    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
     title: 'Our Methodology & 4-Stage Sprint Process — Pop Lab Studio',
     description:
       'A method, not a magic trick. The operational system behind our paid media, creative production, and conversion rate engineering.',

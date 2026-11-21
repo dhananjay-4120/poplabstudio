@@ -3,6 +3,7 @@ import JapanesePaintingLandscape from '@/components/sections/JapanesePaintingLan
 import Link from 'next/link';
 
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'Detailed Japanese Painting SVG Showcase — Pop Lab Studio',
   description: 'Authentic vector Ukiyo-e and Sumi-e landscape with Torii gate, ancient gnarled pine trees, craggy mountains, and flying cranes.',
 };

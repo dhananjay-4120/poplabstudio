@@ -220,25 +220,6 @@ export default function ContactClient() {
       : '';
     const notes = `Website: ${formData.website}\nPhone/WhatsApp: ${fullPhone}\nMonthly Spend: ${formData.adSpend}\nRoadblock: ${formData.roadblock}\nNotes: ${formData.message}${utmSummary}`;
 
-    // Browser event tracking
-    if (window.dataLayer) {
-      window.dataLayer.push({
-        event: 'leadFormSubmitted',
-        eventId,
-        name: formData.brandName,
-        phone: fullPhone,
-        utmSource: utmData.utm_source || 'direct',
-        utmCampaign: utmData.utm_campaign || '',
-      });
-    }
-
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'Lead', {
-        content_name: 'Connect Form',
-        status: 'Intake Completed',
-      }, { eventID: eventId });
-    }
-
     const payload = {
       brandName: formData.brandName,
       website: formData.website,
@@ -276,7 +257,28 @@ export default function ContactClient() {
         return;
       }
     } catch (apiErr) {
-      console.warn('Local API contact submission warning:', apiErr);
+      console.warn('Contact submission failed:', apiErr);
+      setError('We could not send your details. Please check your connection and try again, or message us on WhatsApp at +91 88375 65738.');
+      setSubmitting(false);
+      return;
+    }
+
+    // Browser event tracking (fires only after the lead reached the server; no personal data in the dataLayer)
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'leadFormSubmitted',
+        eventId,
+        adSpend: formData.adSpend,
+        utmSource: utmData.utm_source || 'direct',
+        utmCampaign: utmData.utm_campaign || '',
+      });
+    }
+
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', {
+        content_name: 'Connect Form',
+        status: 'Intake Completed',
+      }, { eventID: eventId });
     }
 
     setSubmitting(false);

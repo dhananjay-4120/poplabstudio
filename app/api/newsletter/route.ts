@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Google Apps Script webhook that already receives contact-form leads
+const DEFAULT_SHEET_WEBHOOK =
+  'https://script.google.com/macros/s/AKfycbyAP374g5FmRrr6_QYnNKtZiDUi60uWacUb641cS2qgIQbGLIdD92Hy9efbZx4B-maeJg/exec';
+
 // Simple in-memory rate limiting map (IP -> timestamps array)
 const rateLimitMap = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
@@ -117,6 +121,31 @@ export async function POST(req: NextRequest) {
 
     // Log subscription notice
     console.log(`[NEWSLETTER] New subscription: ${subscription.email} from ${subscription.source}`);
+
+    // Save the signup: same Google Sheet webhook as the contact form, unless a dedicated one is set
+    const webhookUrl = process.env.NEWSLETTER_WEBHOOK_URL || process.env.GOOGLE_SCRIPT_URL || DEFAULT_SHEET_WEBHOOK;
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          brandName: 'Newsletter signup (The Dispatch)',
+          email: subscription.email,
+          phone: '',
+          website: '',
+          adSpend: '',
+          roadblock: 'Newsletter',
+          message: `Newsletter signup from ${subscription.source}`,
+          notes: `Newsletter signup from ${subscription.source}`,
+          eventId: `newsletter_${Date.now()}`,
+          ip: subscription.ip,
+          userAgent: subscription.userAgent,
+          submittedAt: subscription.subscribedAt,
+        }),
+      });
+    } catch (err: any) {
+      console.warn('[API /api/newsletter] Webhook forward error:', err?.message);
+    }
 
     return NextResponse.json(
       {

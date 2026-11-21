@@ -3,6 +3,7 @@ import HeritageFooter from '@/components/sections/HeritageFooter';
 import Link from 'next/link';
 
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'Heritage Grove Footer Showcase — Pop Lab Studio',
   description: 'Hand-drawn teal ink landscape with flying cranes and seamless motion loop in Next.js.',
 };

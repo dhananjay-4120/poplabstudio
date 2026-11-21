@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/terms' },
   title: 'Terms of Service · Pop Lab Studio',
   description:
     'Master Terms of Service governing strategic consulting, creative production, cultural PR, and performance media management engagements with Pop Lab Studio.',
   openGraph: {
+    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
     title: 'Terms of Service · Pop Lab Studio',
     description: 'Terms governing client engagements and services with Pop Lab Studio.',
     url: 'https://poplabstudio.com/terms',

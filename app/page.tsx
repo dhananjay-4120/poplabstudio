@@ -1,9 +1,14 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import DreamyVideoHero from '@/components/sections/DreamyVideoHero';
 import MarqueeTape from '@/components/sections/MarqueeTape';
 import DreamyEngineShowcase from '@/components/sections/DreamyEngineShowcase';
 import Manifesto from '@/components/sections/Manifesto';
 import ContactCTA from '@/components/sections/ContactCTA';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   const jsonLd = {

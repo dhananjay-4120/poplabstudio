@@ -74,10 +74,7 @@ export default function DreamyVideoHero() {
         </motion.div>
 
         {/* Master Punchy Headline: 5-7 Words */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        <h1
           className="font-sans font-black text-4xl sm:text-6xl md:text-7xl lg:text-[84px] tracking-[-0.03em] text-white leading-[1.04] mb-6 max-w-4xl"
         >
           WE MAKE BRANDS <br />
@@ -85,18 +82,15 @@ export default function DreamyVideoHero() {
             IMPOSSIBLE
           </span>{' '}
           TO IGNORE.
-        </motion.h1>
+        </h1>
 
         {/* High-Status Value Hook: Under 20 Words */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        <p
           className="font-sans text-base sm:text-lg md:text-xl text-[#F5F2EB]/75 font-light max-w-2xl leading-relaxed mb-10"
         >
           Story First. Growth Always. We engineer provocative brand identity,
           cinematic film, and high-velocity acquisition for category leaders.
-        </motion.p>
+        </p>
 
         {/* Action Pair: Primary Pill CTA + Frosted Secondary */}
         <motion.div
