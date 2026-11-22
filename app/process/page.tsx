@@ -1,24 +1,19 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import {
-  InkSealStamp,
-  HandDrawnArrow,
-  HandDrawnHighlight,
-  HandDrawnLoopArrowDown,
-  SignalFiltrationDiagram,
-  AttributionSignalDiagram,
-  SprintProcessFlowDiagram,
-} from '@/components/ui/VisualSoul';
+import Section from '@/components/pop/Section';
+import PageHeader from '@/components/pop/PageHeader';
+import Button from '@/components/pop/Button';
+import Card from '@/components/pop/Card';
+import Tag from '@/components/pop/Tag';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/process' },
-  title: 'Our Methodology & 4-Stage Sprint Process — Pop Lab Studio',
+  title: 'Our Methodology & 5-Stage Sprint Process — Pop Lab Studio',
   description:
     'How Pop Lab Studio runs creative growth: channel fit before clever, friction as data, creative as the primary lever, and attribution before optimization.',
   openGraph: {
     images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
-    title: 'Our Methodology & 4-Stage Sprint Process — Pop Lab Studio',
+    title: 'Our Methodology & 5-Stage Sprint Process — Pop Lab Studio',
     description:
       'A method, not a magic trick. The operational system behind our paid media, creative production, and conversion rate engineering.',
     url: 'https://poplabstudio.com/process',
@@ -115,6 +110,16 @@ export default function ProcessPage() {
     })),
   };
 
+  const sentence = (t: string) => t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+
+  const DELIVERABLES = [
+    ['Phase 1: Diagnostic', 'Live screen-share account leak breakdown', 'Ad spend leakage map and angle backlog'],
+    ['Phase 2: Tracking', 'Server-side CAPI + GTM setup and negative lists', 'Verified GTM container, owned by you'],
+    ['Phase 3: Creative', 'Four simultaneous format batches and launch', 'High-res video master files and static ad sets'],
+    ['Phase 4: Optimisation', 'Weekly pruning, search term hygiene, hook updates', 'Weekly performance report in plain business numbers'],
+    ['Phase 5: Controlled scale', 'Methodical spend scaling and multi-channel expansion', 'Scaling playbook and validated winners list'],
+  ];
+
   return (
     <>
       <script
@@ -122,242 +127,105 @@ export default function ProcessPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="w-full relative z-10 pt-28 sm:pt-36 pb-24 px-5 sm:px-10 md:px-16 max-w-6xl mx-auto overflow-x-hidden">
-        {/* Top Folio Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-12 border-b border-black/10 dark:border-white/10 font-mono text-xs uppercase tracking-[0.2em] text-[#121824]/60 dark:text-[#F5F2EB]/50">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#FF5E14] animate-pulse" />
-            THE OPERATING SYSTEM · METHODOLOGY
-          </span>
-          <span>HOW WE RUN GROWTH</span>
+      <PageHeader
+        context="How we work"
+        title="No secret sauce. A process we run every week."
+        lede="We don’t have mysterious agency secrets. We have a disciplined process, run the same way every sprint, long after week one. Here is exactly how we run client accounts."
+      />
+
+      <Section tone="paper" ariaLabel="Our principles" className="!pt-4 sm:!pt-4">
+        <h2 className="font-display text-section max-w-[16ch] mb-10 sm:mb-12">Four principles we don’t bend.</h2>
+        <ul className="grid gap-5 md:grid-cols-2">
+          {PRINCIPLES.map((p) => (
+            <Card key={p.title} as="li" className="p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-bold leading-tight">{p.title}</h3>
+              <p className="mt-3 text-base sm:text-[17px] leading-relaxed text-black/80">{p.body}</p>
+            </Card>
+          ))}
+        </ul>
+      </Section>
+
+      <Section tone="paper" ariaLabel="The five-stage sprint" className="!pt-0 sm:!pt-0">
+        <div className="mb-10 sm:mb-12 max-w-[60ch]">
+          <h2 className="font-display text-section max-w-[16ch]">From first teardown to scale, in five stages.</h2>
+          <p className="mt-5 text-lg">Each stage builds on the one before it.</p>
         </div>
-
-        {/* Main Hero Header */}
-        <div className="max-w-3xl mb-20">
-          <div className="flex items-center gap-3 mb-4">
-            <InkSealStamp text="POP LAB" subtext="METHOD" size={48} />
-            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14]">
-              DISCIPLINE OVER SHORTCUTS
-            </span>
-          </div>
-
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl text-[#121824] dark:text-[#F5F2EB] tracking-tight leading-[1.05] mb-6">
-            A method, not <br />
-            <HandDrawnHighlight strokeColor="#FF5E14"><em>a magic trick.</em></HandDrawnHighlight>
-          </h1>
-
-          <p className="font-sans text-base sm:text-xl text-[#121824]/80 dark:text-[#F5F2EB]/75 font-light leading-relaxed max-w-2xl">
-            We don&apos;t possess mysterious agency secrets. We have a disciplined operating process executed identically every sprint - and the diligence to maintain it long after week one. Here is exactly how client accounts are governed.
-          </p>
-        </div>
-
-        {/* SECTION 1: Four Core Principles */}
-        <section className="mb-24">
-          <div className="mb-10 pb-4 border-b border-black/10 dark:border-white/10 flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5E14]">
-              FOUR CORE PRINCIPLES
-            </span>
-            <span className="font-mono text-xs text-[#121824]/50 dark:text-[#F5F2EB]/40">
-              NON-NEGOTIABLE STANDARDS
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/10 dark:bg-white/10 rounded-3xl overflow-hidden border border-black/10 dark:border-white/10 shadow-sm">
-            {PRINCIPLES.map((p) => (
-              <div
-                key={p.num}
-                className="p-8 sm:p-10 bg-white dark:bg-[#0D1522] hover:bg-black/[0.01] dark:hover:bg-[#10192A] transition-colors"
-              >
-                <span className="font-mono text-xs text-[#FF5E14] font-bold block mb-4">
-                  // {p.num}
-                </span>
-                <h3 className="font-serif text-2xl text-[#121824] dark:text-[#F5F2EB] mb-4">
-                  {p.title}
-                </h3>
-                <p className="font-sans text-sm sm:text-base text-[#121824]/75 dark:text-[#F5F2EB]/70 font-light leading-relaxed">
-                  {p.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Technical Architecture Diagrams & Sprint Flow */}
-        <section className="mb-24 space-y-10">
-          <SprintProcessFlowDiagram />
-          <SignalFiltrationDiagram />
-          <AttributionSignalDiagram />
-        </section>
-
-        {/* SECTION 2: 5-Stage Onboarding & Sprint System */}
-        <section className="mb-24">
-          <div className="p-8 sm:p-12 rounded-3xl bg-white dark:bg-[#090D14] text-[#121824] dark:text-[#F5F2EB] border border-black/10 dark:border-white/10 relative overflow-hidden shadow-xl dark:shadow-none">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(circle,rgba(255,94,20,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none" />
-
-            <div className="relative z-10">
-              <div className="max-w-2xl mb-12">
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5E14] block mb-2 font-semibold">
-                  THE ONBOARDING &amp; SPRINT TIMELINE
-                </span>
-                <h2 className="font-serif text-3xl sm:text-5xl text-[#121824] dark:text-white">
-                  From first teardown to scaling, step by step.
-                </h2>
-              </div>
-
-              <div className="space-y-4">
-                {ONBOARDING_SPRINTS.map((item, idx) => (
-                  <React.Fragment key={item.stage}>
-                    <div
-                      className="touch-motion-card p-6 sm:p-8 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/10 grid grid-cols-1 md:grid-cols-12 gap-6 items-start hover:border-[#FF5E14]/30 transition-all shadow-sm relative overflow-hidden"
-                    >
-                      {/* Ambient mobile glint */}
-                      <div className="ambient-card-glint absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-[#FF5E14]/30 to-transparent pointer-events-none" />
-
-                      <div className="md:col-span-2">
-                        <span className="font-serif text-4xl sm:text-5xl text-[#FF5E14] leading-none">
-                          {item.stage}
-                        </span>
-                      </div>
-
-                      <div className="md:col-span-10 space-y-2">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                          <h3 className="font-serif text-2xl text-[#121824] dark:text-white">
-                            {item.title}
-                          </h3>
-                          <span className="font-mono text-xs text-[#121824]/60 dark:text-white/50 uppercase tracking-wider">
-                            {item.timeline}
-                          </span>
-                        </div>
-                        <p className="font-sans text-sm sm:text-base text-[#121824]/75 dark:text-white/75 font-light leading-relaxed max-w-2xl">
-                          {item.desc}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Authentic handmade loop-the-loop scribble connector (User Ref 2) */}
-                    {idx < ONBOARDING_SPRINTS.length - 1 && (
-                      <div className="flex justify-center my-2 opacity-85 py-0.5">
-                        <HandDrawnLoopArrowDown color="#818cf8" width={48} height={32} />
-                      </div>
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTION 3: Where AI Fits */}
-        <section className="mb-24">
-          <div className="max-w-2xl mb-10">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5E14] block mb-2">
-              PRAGMATIC WORKFLOW INTEGRATION
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-[#121824] dark:text-[#F5F2EB]">
-              AI for speed. Senior operators for everything that matters.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {AI_INTEGRATIONS.map((ai, idx) => (
-              <div
-                key={idx}
-                className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0D1522] border border-black/10 dark:border-white/10 shadow-sm relative overflow-hidden"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FF5E14]/10 text-[#FF5E14] border border-[#FF5E14]/20">
-                    {ai.badge}
-                  </span>
-                  <span className="font-mono text-xs text-[#121824]/40 dark:text-[#F5F2EB]/40">
-                    0{idx + 1}
-                  </span>
-                </div>
-                <h3 className="font-serif text-xl text-[#121824] dark:text-[#F5F2EB] mb-3">
-                  {ai.title}
-                </h3>
-                <p className="font-sans text-xs sm:text-sm text-[#121824]/75 dark:text-[#F5F2EB]/70 font-light leading-relaxed">
-                  {ai.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Deliverables Matrix Table */}
-        <section className="mb-24">
-          <div className="mb-6 flex items-center justify-between font-mono text-xs uppercase tracking-widest text-[#121824]/60 dark:text-[#F5F2EB]/50">
-            <span>CLIENT DELIVERABLES</span>
-            <span>WHAT YOU RECEIVE</span>
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-black/10 dark:border-white/10 bg-white dark:bg-[#0D1522]">
-            <table className="w-full text-left text-xs sm:text-sm font-mono border-collapse">
-              <thead>
-                <tr className="border-b border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
-                  <th className="px-5 py-4 text-[#121824]/70 dark:text-[#F5F2EB]/60 uppercase font-semibold">
-                    Sprint Phase
-                  </th>
-                  <th className="px-5 py-4 text-[#121824]/70 dark:text-[#F5F2EB]/60 uppercase font-semibold">
-                    Core Output
-                  </th>
-                  <th className="px-5 py-4 text-[#121824]/70 dark:text-[#F5F2EB]/60 uppercase font-semibold">
-                    Client Asset Retained
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/5 dark:divide-white/5 text-[#121824]/80 dark:text-[#F5F2EB]/75">
-                <tr>
-                  <td className="px-5 py-4 font-semibold text-[#FF5E14]">Phase 01 · Diagnostic</td>
-                  <td className="px-5 py-4">Live screen-share account leak breakdown</td>
-                  <td className="px-5 py-4">Ad Spend Leakage Map &amp; Angle Backlog</td>
-                </tr>
-                <tr>
-                  <td className="px-5 py-4 font-semibold text-[#FF5E14]">Phase 02 · Tracking</td>
-                  <td className="px-5 py-4">Server-side CAPI + GTM setup &amp; negative lists</td>
-                  <td className="px-5 py-4">100% Client-Owned Verified GTM Container</td>
-                </tr>
-                <tr>
-                  <td className="px-5 py-4 font-semibold text-[#FF5E14]">Phase 03 · Creative</td>
-                  <td className="px-5 py-4">Four simultaneous format batches &amp; launch</td>
-                  <td className="px-5 py-4">High-Res Video Master Files &amp; Static Ad Sets</td>
-                </tr>
-                <tr>
-                  <td className="px-5 py-4 font-semibold text-[#FF5E14]">Phase 04 · Optimization</td>
-                  <td className="px-5 py-4">Weekly pruning, search term hygiene, hook updates</td>
-                  <td className="px-5 py-4">Executive Weekly P&amp;L Performance Telemetry</td>
-                </tr>
-                <tr>
-                  <td className="px-5 py-4 font-semibold text-[#FF5E14]">Phase 05 · Controlled Scale</td>
-                  <td className="px-5 py-4">Methodical spend scaling &amp; multi-channel expansion</td>
-                  <td className="px-5 py-4">Scaling Playbook &amp; Validated Winner Matrix</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* CTA Conversion Box */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-[#FF5E14]/10 border border-[#FF5E14]/30 text-center relative overflow-hidden">
-          <div className="max-w-2xl mx-auto">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#FF5E14] block mb-3">
-              EXPERIENCE THE METHOD
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl text-[#121824] dark:text-white mb-4">
-              See the process run live on <em>your numbers.</em>
-            </h2>
-            <p className="font-sans text-sm sm:text-base text-[#121824]/80 dark:text-white/80 font-light leading-relaxed mb-8 max-w-lg mx-auto">
-              We take on a strictly limited number of partner accounts each quarter. Book the 30-minute diagnostic teardown and we&apos;ll audit your accounts live on screen share.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#FF5E14] hover:bg-[#E04F0E] text-white font-grotesk text-xs uppercase tracking-[0.2em] font-medium transition-all shadow-[0_0_30px_rgba(255,94,20,0.4)] hover:scale-105"
+        <ol className="space-y-5">
+          {ONBOARDING_SPRINTS.map((item, idx) => (
+            <li
+              key={item.stage}
+              className={`grid gap-4 md:grid-cols-[7rem_1fr] md:gap-8 items-start rounded-2xl border-2 border-black p-6 sm:p-8 shadow-hard-sm ${
+                idx % 2 === 1 ? 'bg-lemon' : 'bg-white'
+              }`}
             >
-              <span>Book a Teardown Call</span>
-              <span>→</span>
-            </Link>
-          </div>
-        </section>
-      </div>
+              <span className="font-display text-6xl sm:text-7xl leading-none" aria-hidden="true">
+                {idx + 1}
+              </span>
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold leading-tight">{item.title}</h3>
+                <p className="mt-2">
+                  <Tag className="bg-white">{item.timeline.replace(/\s*·\s*/g, ', ')}</Tag>
+                </p>
+                <p className="mt-4 text-base sm:text-[17px] leading-relaxed max-w-[62ch]">{item.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section tone="ink" ariaLabel="Where AI fits">
+        <h2 className="font-display text-section max-w-[18ch] mb-10 sm:mb-12">
+          AI for speed. Senior people for everything that matters.
+        </h2>
+        <ul className="grid gap-5 md:grid-cols-3">
+          {AI_INTEGRATIONS.map((ai) => (
+            <li key={ai.title} className="rounded-2xl border-2 border-white p-6 sm:p-8">
+              <Tag>{sentence(ai.badge)}</Tag>
+              <h3 className="mt-5 text-xl sm:text-2xl font-bold leading-tight">{ai.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-white/85">{ai.desc}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section tone="paper" ariaLabel="What you receive">
+        <h2 className="font-display text-section max-w-[16ch] mb-8 sm:mb-10">What you get at each stage.</h2>
+        <div className="overflow-x-auto rounded-2xl border-2 border-black bg-white shadow-hard-sm">
+          <table className="w-full min-w-[640px] text-left text-[15px] border-collapse">
+            <thead>
+              <tr className="bg-fog border-b-2 border-black">
+                <th scope="col" className="px-5 py-4 font-bold">Stage</th>
+                <th scope="col" className="px-5 py-4 font-bold">What we do</th>
+                <th scope="col" className="px-5 py-4 font-bold">What you keep</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y-2 divide-black/10">
+              {DELIVERABLES.map(([phase, out, keep]) => (
+                <tr key={phase}>
+                  <th scope="row" className="px-5 py-4 font-bold align-top">{phase}</th>
+                  <td className="px-5 py-4 align-top">{out}</td>
+                  <td className="px-5 py-4 align-top">{keep}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section tone="pop" ariaLabel="Book a diagnostic" innerClassName="text-center">
+        <h2 className="font-display text-section mx-auto max-w-[16ch]">See the process run on your numbers.</h2>
+        <p className="mx-auto mt-6 max-w-[52ch] text-lg sm:text-xl">
+          We take on a limited number of partner accounts each quarter. Book the 30-minute diagnostic and we’ll audit your accounts live on screen share.
+        </p>
+        <div className="mt-9 flex flex-wrap justify-center gap-3">
+          <Button href="/contact" variant="ink" size="lg">
+            Book a 30-minute diagnostic
+          </Button>
+          <Button href="https://wa.me/918837565738" variant="paper" size="lg">
+            Message us on WhatsApp
+          </Button>
+        </div>
+      </Section>
     </>
   );
 }

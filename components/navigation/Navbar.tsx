@@ -1,244 +1,152 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
   { label: 'Work', href: '/work' },
-  { label: 'Process', href: '/process' },
+  { label: 'How we work', href: '/process' },
   { label: 'Journal', href: '/journal' },
-  { label: 'AEO Tool', href: '/tools/aeo-checker', badge: 'FREE' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Free AI search check', href: '/tools/aeo-checker' },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Prevent background scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      menuRef.current?.querySelector<HTMLElement>('a')?.focus();
+    } else if (wasOpen.current) {
+      toggleRef.current?.focus();
     }
-  }, [mobileMenuOpen]);
+    wasOpen.current = open;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const isActive = (href: string) => pathname === href || pathname?.startsWith(href + '/');
 
   return (
-    <>
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 py-4 md:py-6 pointer-events-none transition-all duration-300">
-        <nav
-          aria-label="Main Navigation"
-          className={`pointer-events-auto w-full max-w-5xl transition-all duration-500 rounded-full px-4 py-2.5 sm:px-6 sm:py-3 flex items-center justify-between backdrop-blur-2xl bg-[#050505]/75 border border-white/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.7)] relative overflow-hidden ${
-            scrolled
-              ? 'bg-[#050505]/92 border-white/[0.14] shadow-2xl scale-[0.99]'
-              : ''
-          }`}
-        >
-          {/* Top Specular Glint Line */}
-          <div className="absolute top-0 left-10 right-10 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
+    <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-5 pt-3 sm:pt-4">
+      <nav
+        aria-label="Main navigation"
+        className={`mx-auto max-w-[1240px] flex items-center justify-between gap-4 rounded-full border-2 border-black bg-white pl-5 pr-2 h-[60px] transition-shadow duration-200 ${
+          scrolled || open ? 'shadow-hard-sm' : 'shadow-none'
+        }`}
+      >
+        <Link href="/" aria-label="Pop Lab Studio home" className="shrink-0">
+          <Image src="/logo-dark.png" alt="Pop Lab Studio" width={86} height={48} priority className="h-9 w-auto" />
+        </Link>
 
-          {/* Brand Identity / Official Logo */}
-          <Link
-            href="/"
-            className="group flex items-center gap-3 focus:outline-none rounded-md py-1"
-          >
-            <Image
-              src="/logo-white.png"
-              alt="Pop Lab Studio"
-              width={198}
-              height={110}
-              priority
-              className="h-7 sm:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
-            />
-          </Link>
-
-          {/* Desktop Navigation Links with Magnetic Fluid Hover Pill */}
-          <div
-            onMouseLeave={() => setHoveredIdx(null)}
-            className="hidden md:flex items-center gap-1 p-1 rounded-full bg-white/[0.03] border border-white/[0.06]"
-          >
-            {NAV_LINKS.map((link, idx) => {
-              const isHovered = hoveredIdx === idx;
-              return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onMouseEnter={() => setHoveredIdx(idx)}
-                  className="relative px-3.5 py-1.5 text-xs font-grotesk uppercase tracking-[0.16em] text-[#F5F2EB]/75 hover:text-[#F5F2EB] transition-colors duration-200 z-10 focus:outline-none"
-                >
-                  {isHovered && (
-                    <motion.div
-                      layoutId="nav-hover-pill"
-                      className="absolute inset-0 rounded-full bg-white/[0.08] border border-white/10 -z-10 shadow-sm"
-                      transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="inline-flex items-center gap-1.5">
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#FF5E14]/15 text-[#FF5E14] border border-[#FF5E14]/30 font-mono font-bold tracking-normal">
-                        {link.badge}
-                      </span>
-                    )}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Desktop Action CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Link
-              href="/contact"
-              className="group relative inline-flex items-center justify-center px-5 py-2 rounded-full text-xs font-grotesk uppercase tracking-[0.18em] font-medium text-white bg-[#FF5E14] hover:bg-[#E04F0E] transition-all duration-200 shadow-[0_0_24px_rgba(255,94,20,0.35)] hover:shadow-[0_0_32px_rgba(255,94,20,0.55)] hover:scale-[1.02] active:scale-[0.98] focus:outline-none"
-            >
-              <span>Start a Project</span>
-              <span className="ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5">
-                →
-              </span>
-            </Link>
-          </div>
-
-          {/* Mobile Right Bar: Direct CTA + Hamburger */}
-          <div className="flex md:hidden items-center gap-2.5">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-full text-xs font-grotesk uppercase tracking-wider font-medium text-white bg-[#FF5E14] shadow-[0_0_18px_rgba(255,94,20,0.35)] active:scale-95 focus-visible:ring-2 focus-visible:ring-[#FF5E14] focus:outline-none"
-            >
-              Start →
-            </Link>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-expanded={mobileMenuOpen}
-              aria-label="Toggle navigation menu"
-              className="w-11 h-11 min-w-[44px] min-h-[44px] flex flex-col justify-center items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E14] text-[#F5F2EB] p-2.5 rounded-full bg-white/[0.05] border border-white/10 active:scale-90 transition-all"
-            >
-              <span
-                className={`w-5 h-[2px] bg-[#F5F2EB] transition-all duration-300 ${
-                  mobileMenuOpen ? 'rotate-45 translate-y-[5px]' : ''
-                }`}
-              />
-              <span
-                className={`w-5 h-[2px] bg-[#F5F2EB] transition-all duration-300 ${
-                  mobileMenuOpen ? '-rotate-45 -translate-y-[5px]' : ''
-                }`}
-              />
-            </button>
-          </div>
-        </nav>
-      </header>
-
-      {/* Fullscreen Mobile Drawer Sheet */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-[#050505]/98 backdrop-blur-3xl px-6 pt-28 pb-10 flex flex-col justify-between md:hidden"
-          >
-            {/* Top Coordinates Header */}
-            <div className="border-b border-white/10 pb-4 flex items-center justify-between font-mono text-[11px] text-[#F5F2EB]/50 uppercase tracking-widest relative z-10">
-              <span>POP LAB STUDIO</span>
-              <span className="text-[#FF5E14] font-mono text-[10px] tracking-wider">
-                CREATIVE GROWTH STUDIO
-              </span>
-            </div>
-
-            {/* Dedicated Warm Amber Aura in Drawer */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[420px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(255,94,20,0.22)_0%,rgba(255,94,20,0.05)_50%,transparent_75%)] pointer-events-none blur-3xl -z-10" />
-
-            {/* Navigation Links with Editorial Display Typography */}
-            <div className="flex flex-col gap-5 my-auto py-6">
-              {NAV_LINKS.map((link, idx) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="group flex items-baseline justify-between font-serif text-3xl text-[#F5F2EB] hover:text-[#FF5E14] transition-colors border-b border-white/5 pb-3"
-                >
-                  <span className="flex items-center gap-2.5">
-                    <span>{link.label}</span>
-                    {link.badge && (
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#FF5E14]/15 text-[#FF5E14] border border-[#FF5E14]/30">
-                        {link.badge}
-                      </span>
-                    )}
-                  </span>
-                  <span className="font-mono text-xs text-[#F5F2EB]/40 group-hover:text-[#FF5E14]">
-                    0{idx + 1} →
-                  </span>
-                </Link>
-              ))}
-            </div>
-
-            {/* Bottom Contact & Real Studio Address */}
-            <div className="space-y-4">
+        <ul className="hidden lg:flex items-center gap-1">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
               <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-4 rounded-full bg-[#FF5E14] text-white font-grotesk text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(255,94,20,0.4)]"
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`rounded-full px-4 py-2 text-[15px] font-semibold transition-colors ${
+                  isActive(link.href) ? 'bg-lemon' : 'hover:bg-fog'
+                }`}
               >
-                <span>Start a Project</span>
-                <span>→</span>
+                {link.label}
               </Link>
-              <div className="flex flex-col gap-1.5 text-[11px] font-mono text-[#F5F2EB]/50 pt-3 border-t border-white/5">
-                <div className="flex items-center justify-between">
-                  <span>STUDIO &amp; WORLDWIDE</span>
-                  <a href="mailto:growth@poplabstudio.com" className="text-[#FF5E14] hover:underline">
-                    growth@poplabstudio.com
-                  </a>
-                </div>
-                <div className="flex items-center justify-between text-[10px] text-[#F5F2EB]/40 pt-1">
-                  <a href="tel:+918837565738" className="hover:text-[#FF5E14] transition-colors">
-                    +91 88375 65738
-                  </a>
-                  <div className="flex items-center gap-3">
-                    <a
-                      href="https://wa.me/918837565738"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#25D366] hover:underline"
-                    >
-                      WhatsApp ↗
-                    </a>
-                    <a
-                      href="https://www.instagram.com/poplabstudio.hq/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-[#FF5E14] transition-colors"
-                    >
-                      IG ↗
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/company/pop-lab-studios/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-[#FF5E14] transition-colors"
-                    >
-                      IN ↗
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-2">
+          <Link
+            href="/contact"
+            className="inline-flex h-11 items-center rounded-full border-2 border-black bg-pop px-5 text-[15px] font-semibold pop-press"
+          >
+            Start a project
+          </Link>
+          <button
+            ref={toggleRef}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="lg:hidden grid h-11 w-11 place-items-center rounded-full border-2 border-black bg-white"
+          >
+            <span className="relative block h-3.5 w-5">
+              <span
+                className={`absolute left-0 h-0.5 w-5 bg-black transition-transform duration-200 ${
+                  open ? 'top-1.5 rotate-45' : 'top-0'
+                }`}
+              />
+              <span
+                className={`absolute left-0 h-0.5 w-5 bg-black transition-transform duration-200 ${
+                  open ? 'top-1.5 -rotate-45' : 'top-3'
+                }`}
+              />
+            </span>
+          </button>
+        </div>
+      </nav>
+
+      <div
+        id="mobile-menu"
+        ref={menuRef}
+        hidden={!open}
+        className="lg:hidden mx-auto mt-3 max-w-[1240px] rounded-[1.75rem] border-2 border-black bg-white p-3 shadow-hard"
+      >
+        <ul className="flex flex-col">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`block rounded-2xl px-4 py-4 font-display text-2xl ${isActive(link.href) ? 'bg-lemon' : ''}`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link href="/contact" className="block rounded-2xl px-4 py-4 font-display text-2xl">
+              Contact
+            </Link>
+          </li>
+        </ul>
+        <div className="mt-2 grid grid-cols-2 gap-2 p-1">
+          <a
+            href="https://wa.me/918837565738"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full border-2 border-black bg-lemon py-3 text-center font-semibold"
+          >
+            WhatsApp
+          </a>
+          <a href="tel:+918837565738" className="rounded-full border-2 border-black py-3 text-center font-semibold">
+            Call us
+          </a>
+        </div>
+      </div>
+    </header>
   );
 }

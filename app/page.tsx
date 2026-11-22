@@ -1,10 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import DreamyVideoHero from '@/components/sections/DreamyVideoHero';
-import MarqueeTape from '@/components/sections/MarqueeTape';
-import DreamyEngineShowcase from '@/components/sections/DreamyEngineShowcase';
-import Manifesto from '@/components/sections/Manifesto';
-import ContactCTA from '@/components/sections/ContactCTA';
+import Hero from '@/components/home/Hero';
+import Services from '@/components/home/Services';
+import SelectedWork from '@/components/home/SelectedWork';
+import OneTeam from '@/components/home/OneTeam';
+import ProcessStrip from '@/components/home/ProcessStrip';
+import Faq, { FAQS } from '@/components/home/Faq';
+import FinalCta from '@/components/home/FinalCta';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -16,10 +18,10 @@ export default function HomePage() {
     '@type': ['ProfessionalService', 'MarketingAgency', 'LocalBusiness'],
     name: 'Pop Lab Studio',
     url: 'https://poplabstudio.com',
-    logo: 'https://poplabstudio.com/logo-white.png',
-    image: 'https://poplabstudio.com/hero-sunrise-poster.webp',
+    logo: 'https://poplabstudio.com/logo-dark.png',
+    image: 'https://poplabstudio.com/opengraph-image.jpg',
     description:
-      'Pop Lab Studio is an elite creative growth studio fusing brand architecture, cultural PR, and performance media for ambitious founders and brands.',
+      'Pop Lab Studio is a creative growth studio in Chandigarh. One team for brand, content, Meta and Google ads, marketplace growth and AI search visibility.',
     email: 'growth@poplabstudio.com',
     telephone: '+918837565738',
     priceRange: '₹₹₹',
@@ -27,11 +29,10 @@ export default function HomePage() {
     sameAs: [
       'https://www.instagram.com/poplabstudio.hq/',
       'https://www.linkedin.com/company/pop-lab-studios/',
-      'https://wa.me/918837565738',
     ],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'SCO 364, Second Floor, Sector 34A',
+      streetAddress: 'SCO 364-365-366, Second Floor, Sector 34A',
       addressLocality: 'Chandigarh',
       addressRegion: 'CH',
       postalCode: '160022',
@@ -49,7 +50,6 @@ export default function HomePage() {
       { '@type': 'AdministrativeArea', name: 'Punjab' },
       { '@type': 'AdministrativeArea', name: 'Delhi NCR' },
       { '@type': 'Country', name: 'India' },
-      { '@type': 'AdministrativeArea', name: 'Worldwide' },
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -86,32 +86,28 @@ export default function HomePage() {
     },
   };
 
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return (
     <>
-      {/* Structured Schema.org JSON-LD for AI Search & SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <div
-        id="top"
-        className="relative flex flex-col items-center overflow-x-hidden w-full selection:bg-[#FF5E14] selection:text-white bg-[#050505]"
-      >
-        {/* Section 01: Ambient Dreamy Video Hero (#hero) */}
-        <DreamyVideoHero />
-
-        {/* Section 02: Kinetic Capabilities Marquee */}
-        <MarqueeTape />
-
-        {/* Section 03: The 3 Connected Engines Interactive Glass Stage (#engines) */}
-        <DreamyEngineShowcase />
-
-        {/* Section 04: Visual Anti-Silo Contrast Manifesto (#manifesto) */}
-        <Manifesto />
-
-        {/* Section 05: Direct Partnership Concierge CTA (#contact) */}
-        <ContactCTA />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <div id="top" className="flex flex-col gap-0 sm:gap-6 w-full">
+        <Hero />
+        <Services />
+        <OneTeam />
+        <SelectedWork />
+        <ProcessStrip />
+        <Faq />
+        <FinalCta />
       </div>
     </>
   );

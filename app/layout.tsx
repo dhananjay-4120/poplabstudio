@@ -1,34 +1,15 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Cormorant_Garamond, Plus_Jakarta_Sans, Space_Mono } from 'next/font/google';
-import SmoothScroll from '@/components/ui/SmoothScroll';
-import AtmosphericBackground from '@/components/ui/AtmosphericBackground';
+import { Archivo } from 'next/font/google';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/sections/Footer';
 import './globals.css';
 
-// 1. Editorial Display Serif (Headlines & Dramatic Accents)
-const cormorantGaramond = Cormorant_Garamond({
+// Archivo variable: one family, used expanded (font-stretch 125%) for display and normal width for body
+const archivo = Archivo({
   subsets: ['latin'],
-  variable: '--font-cormorant',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-});
-
-// 2. Crisp Technical Body Sans (Paragraphs & Narrative)
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-jakarta',
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
-
-// 3. True Tabular Swiss Monospace (Counters, Telemetry, Coordinates & Badges)
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  variable: '--font-space-mono',
-  weight: ['400', '700'],
+  variable: '--font-archivo',
+  axes: ['wdth'],
   display: 'swap',
 });
 
@@ -46,7 +27,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#050505',
+  themeColor: '#FFFFFF',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -59,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${plusJakartaSans.variable} ${spaceMono.variable} dark bg-[#050505] text-[#F5F2EB]`}
+      className={`${archivo.variable} bg-white text-black`}
       suppressHydrationWarning
     >
       <head>
@@ -156,17 +137,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             `,
           }}
         />
-
-        <link
-          rel="preload"
-          as="image"
-          href="/hero-sunrise-poster.webp"
-          type="image/webp"
-          fetchPriority="high"
-        />
       </head>
       <body
-        className="bg-[#050505] text-[#F5F2EB] selection:bg-[#FF5E14] selection:text-white min-h-screen antialiased overflow-x-hidden relative isolate"
+        className="bg-white text-black min-h-screen antialiased overflow-x-hidden relative isolate"
         suppressHydrationWarning
       >
         {/* Google Tag Manager (noscript fallback) */}
@@ -179,14 +152,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
 
-        <SmoothScroll>
-          <AtmosphericBackground />
-          <Navbar />
-          <div className="min-h-screen flex flex-col justify-between w-full">
-            <main className="flex-1 w-full">{children}</main>
-            <Footer />
-          </div>
-        </SmoothScroll>
+        <a href="#main" className="skip-link">Skip to content</a>
+        <Navbar />
+        <div className="min-h-screen flex flex-col justify-between w-full">
+          <main id="main" className="flex-1 w-full">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

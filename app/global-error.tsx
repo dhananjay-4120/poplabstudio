@@ -10,29 +10,42 @@ export default function GlobalError({
   reset: () => void;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-[#070B10] text-[#F5F2EB] min-h-screen flex items-center justify-center p-6 antialiased font-sans">
-        <div className="flex flex-col items-center justify-center text-center max-w-md">
-          <div className="w-14 h-14 rounded-full bg-[#FF5E14]/10 border border-[#FF5E14]/30 flex items-center justify-center mb-6">
-            <span className="w-3 h-3 rounded-full bg-[#FF5E14] animate-ping" />
-          </div>
-
-          <h2 className="text-2xl font-serif tracking-tight mb-3">
-            Pop Lab Studio Connection Refreshed
-          </h2>
-
-          <p className="text-sm text-[#F5F2EB]/70 mb-8 font-light leading-relaxed">
-            The studio application updated in the background. Tap below to reload the experience.
+    <html lang="en">
+      <body
+        style={{
+          margin: 0,
+          minHeight: '100vh',
+          display: 'grid',
+          placeItems: 'center',
+          background: '#FFFFFF',
+          color: '#000000',
+          fontFamily: 'Arial, Helvetica, sans-serif',
+          padding: '24px',
+        }}
+      >
+        <div style={{ maxWidth: 440, textAlign: 'center' }}>
+          <h1 style={{ fontSize: 34, fontWeight: 900, lineHeight: 1.05, margin: '0 0 12px' }}>Something broke on our side.</h1>
+          <p style={{ fontSize: 17, lineHeight: 1.5, margin: '0 0 28px' }}>
+            Reload the page to try again. If it keeps happening, message us on WhatsApp at +91 88375 65738.
           </p>
-
           <button
             onClick={() => {
               reset();
               window.location.reload();
             }}
-            className="px-8 py-3 rounded-full text-xs font-mono uppercase tracking-[0.2em] font-semibold text-white bg-[#FF5E14] hover:bg-[#E04F0E] transition-all cursor-pointer shadow-[0_0_30px_rgba(255,94,20,0.35)] active:scale-95"
+            style={{
+              height: 52,
+              padding: '0 28px',
+              borderRadius: 999,
+              border: '2px solid #000',
+              background: '#FF5E14',
+              fontSize: 16,
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '4px 4px 0 0 #000',
+            }}
           >
-            Reload Studio →
+            Reload the page
           </button>
         </div>
       </body>
