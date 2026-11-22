@@ -19,8 +19,8 @@ export const FAQS = [
     a: 'We look at your current ads, website and content together, then tell you the three changes we’d make first. It’s free, and you can use the advice whether or not you hire us.',
   },
   {
-    q: 'Do you only work with brands in Chandigarh?',
-    a: 'No. Our studio is in Sector 34A, Chandigarh, and we work with brands across India and abroad over calls and WhatsApp.',
+    q: 'Where are your clients based?',
+    a: 'All over India and abroad. We work with clients over calls, WhatsApp and shared dashboards, so where you’re based doesn’t matter.',
   },
 ];
 

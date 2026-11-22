@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'How Pop Lab Studio collects, uses, and safeguards your brand and personal data. Plain language, strict confidentiality.',
   openGraph: {
-    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
+    images: [{ url: '/opengraph-image.jpg', width: 1200, height: 630, alt: 'Pop Lab Studio' }],
     title: 'Privacy Policy · Pop Lab Studio',
     description: 'How Pop Lab Studio protects your data and privacy.',
     url: 'https://poplabstudio.com/privacy',

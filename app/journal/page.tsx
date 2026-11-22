@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Honest notes on paid media, creative engineering, server-side attribution, and the unglamorous marketing work that shows up in the P&L.',
   openGraph: {
-    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
+    images: [{ url: '/opengraph-image.jpg', width: 1200, height: 630, alt: 'Pop Lab Studio' }],
     title: 'The Growth Journal & Teardowns — Pop Lab Studio',
     description:
       'Teardowns, frameworks, and notes from live accounts. No thought-leadership fluff - just what we tell partners on calls.',

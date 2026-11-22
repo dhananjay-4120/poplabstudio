@@ -1,53 +1,74 @@
 import React from 'react';
 import Button from '@/components/pop/Button';
 import { Container } from '@/components/pop/Section';
-import ThinkingBoard from './ThinkingBoard';
+import Starburst from './Starburst';
+import ClientLogos from './ClientLogos';
+
+// What we run day to day. Shown as stickers around the headline (desktop) or a row (mobile).
+const CHANNELS = [
+  { label: 'Meta ads', cls: 'bg-white', tilt: '-6deg' },
+  { label: 'Google ads', cls: 'bg-cobalt text-white', tilt: '5deg' },
+  { label: 'Reels', cls: 'bg-blush', tilt: '8deg' },
+  { label: 'Amazon & Flipkart', cls: 'bg-white', tilt: '-4deg' },
+  { label: 'Blinkit & Instamart', cls: 'bg-black text-white', tilt: '3deg' },
+  { label: 'AI search', cls: 'bg-white', tilt: '-7deg' },
+];
 
 export default function Hero() {
   return (
-    <section aria-label="Introduction" className="relative w-full overflow-hidden pt-28 sm:pt-36 pb-10 sm:pb-12">
-      <Container>
-        <div className="relative">
-          <h1 className="font-display text-hero max-w-[11ch] sm:max-w-none">
-            We make brands
-            <br className="hidden sm:block" /> impossible
-            <br className="hidden sm:block" /> to ignore.
-          </h1>
-          <div
-            aria-hidden="true"
-            className="pop-in relative ml-auto -mt-4 mr-1 sm:mr-0 sm:mt-0 sm:absolute sm:right-[4%] lg:right-[8%] sm:bottom-[8%] grid h-28 w-28 sm:h-40 sm:w-40 place-items-center rounded-full border-2 border-black bg-lemon text-center shadow-hard-sm"
-            style={{ ['--tilt' as string]: '-12deg', animationDelay: '700ms' }}
-          >
-            <span className="px-3 text-[13px] sm:text-[17px] font-bold leading-tight">
-              Thought through first. Loud second.
-            </span>
-          </div>
-        </div>
+    <section aria-label="Introduction" className="w-full px-0 sm:px-4 lg:px-6 pt-[84px] sm:pt-[96px]">
+      <div className="relative overflow-hidden bg-lemon sm:rounded-[2rem] sm:border-2 sm:border-black pt-10 sm:pt-16 pb-12 sm:pb-16">
+        <Container>
+          <div className="relative">
+            <h1 className="font-display text-[clamp(2.9rem,8vw,7.6rem)] leading-[0.9] relative z-10">
+              <span className="block">We make brands</span>
+              <span className="block">impossible</span>
+              <span className="block">to ignore.</span>
+            </h1>
 
-        <div className="mt-8 sm:mt-14 grid gap-12 lg:grid-cols-12 lg:gap-14 items-start">
-          <div className="lg:col-span-5">
-            <p className="text-xl sm:text-[22px] leading-snug font-medium max-w-[34ch]">
-              Pop Lab is a creative growth studio in Chandigarh. We build your brand, make the content, run the ads
-              and get you found in AI search, as one team with one plan.
-            </p>
-            <p className="mt-4 text-[17px] text-black/75 max-w-[44ch]">
-              Every campaign starts with a question about your customer, not a template. Pick a project to see how
-              that plays out.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href="/contact" size="lg">
-                Book a 30-minute diagnostic
-              </Button>
-              <Button href="/work" variant="outline" size="lg">
-                See our work
-              </Button>
+            <Starburst
+              className="pop-in mt-8 mx-auto h-[250px] w-[250px] sm:h-[280px] sm:w-[280px] lg:absolute lg:mt-0 lg:right-0 lg:top-[30%] lg:h-[330px] lg:w-[330px]"
+            >
+              <p className="px-6 -rotate-[8deg]">
+                <span className="block text-[14px] sm:text-[15px] font-semibold">We’ve managed</span>
+                <span className="font-display block whitespace-nowrap text-[2.4rem] sm:text-[2.7rem] lg:text-[3.1rem] leading-none my-1">
+                  ₹10 Cr+
+                </span>
+                <span className="block text-[14px] sm:text-[15px] font-semibold leading-tight">in ad spend</span>
+              </p>
+            </Starburst>
+
+            <div className="mt-8 sm:mt-10 lg:max-w-[58%]">
+              <p className="max-w-[40ch] text-xl sm:text-[23px] leading-snug font-medium">
+                Brand, content, ads and AI search for growing brands. One team, one plan, built around why your
+                customer buys.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button href="/contact" variant="ink" size="lg">
+                  Book a 30-minute diagnostic
+                </Button>
+                <Button href="/work" variant="paper" size="lg">
+                  See our work
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="lg:col-span-7">
-            <ThinkingBoard />
-          </div>
-        </div>
-      </Container>
+
+          <ul aria-label="Channels we run" className="mt-10 flex flex-wrap gap-2.5">
+            {CHANNELS.map((c, i) => (
+              <li
+                key={c.label}
+                className={`pop-in rounded-full border-2 border-black px-4 py-2 text-[15px] font-semibold shadow-hard-sm ${c.cls}`}
+                style={{ ['--tilt' as string]: c.tilt, animationDelay: `${250 + i * 90}ms` }}
+              >
+                {c.label}
+              </li>
+            ))}
+          </ul>
+
+          <ClientLogos />
+        </Container>
+      </div>
     </section>
   );
 }

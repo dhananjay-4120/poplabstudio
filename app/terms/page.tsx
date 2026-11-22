@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     'Master Terms of Service governing strategic consulting, creative production, cultural PR, and performance media management engagements with Pop Lab Studio.',
   openGraph: {
-    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
+    images: [{ url: '/opengraph-image.jpg', width: 1200, height: 630, alt: 'Pop Lab Studio' }],
     title: 'Terms of Service · Pop Lab Studio',
     description: 'Terms governing client engagements and services with Pop Lab Studio.',
     url: 'https://poplabstudio.com/terms',

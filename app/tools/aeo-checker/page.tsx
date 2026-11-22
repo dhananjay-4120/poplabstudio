@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Free AI Search and Answer Engine Optimization (AEO/GEO) checker. Discover if ChatGPT Search, Perplexity, and Google AI Overviews cite your brand or your competitors.',
   openGraph: {
-    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
+    images: [{ url: '/opengraph-image.jpg', width: 1200, height: 630, alt: 'Pop Lab Studio' }],
     title: 'Free AEO & GEO Website Diagnostic Scanner — Pop Lab Studio',
     description:
       'Analyze your website for AI Search visibility, schema graph completeness, and LLM crawler access in 5 seconds.',

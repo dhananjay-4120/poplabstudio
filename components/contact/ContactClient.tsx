@@ -40,7 +40,7 @@ const ROADBLOCK_OPTIONS = [
 const FAQS = [
   {
     q: 'Do you work with brands outside India?',
-    a: 'Yes. We are based in Chandigarh and run remotely with high-growth brands across regions, using asynchronous reporting so distance is never a bottleneck.',
+    a: 'Yes. Most of our clients are outside our home city. We work remotely with brands across India and abroad, with regular reporting so distance is never a bottleneck.',
   },
   {
     q: 'What is the minimum ad spend you work with?',

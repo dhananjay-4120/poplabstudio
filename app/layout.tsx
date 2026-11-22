@@ -7,7 +7,7 @@ import './globals.css';
 
 // Archivo variable: one family, used expanded (font-stretch 125%) for display and normal width for body
 const archivo = Archivo({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   variable: '--font-archivo',
   axes: ['wdth'],
   display: 'swap',

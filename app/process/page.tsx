@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description:
     'How Pop Lab Studio runs creative growth: channel fit before clever, friction as data, creative as the primary lever, and attribution before optimization.',
   openGraph: {
-    images: [{ url: '/opengraph-image.jpg', width: 1024, height: 576, alt: 'Pop Lab Studio' }],
+    images: [{ url: '/opengraph-image.jpg', width: 1200, height: 630, alt: 'Pop Lab Studio' }],
     title: 'Our Methodology & 5-Stage Sprint Process — Pop Lab Studio',
     description:
       'A method, not a magic trick. The operational system behind our paid media, creative production, and conversion rate engineering.',

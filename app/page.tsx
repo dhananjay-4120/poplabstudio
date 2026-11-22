@@ -21,7 +21,7 @@ export default function HomePage() {
     logo: 'https://poplabstudio.com/logo-dark.png',
     image: 'https://poplabstudio.com/opengraph-image.jpg',
     description:
-      'Pop Lab Studio is a creative growth studio in Chandigarh. One team for brand, content, Meta and Google ads, marketplace growth and AI search visibility.',
+      'Pop Lab Studio is a creative growth studio. One team for brand, content, Meta and Google ads, marketplace growth and AI search visibility.',
     email: 'growth@poplabstudio.com',
     telephone: '+918837565738',
     priceRange: '₹₹₹',
