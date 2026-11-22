@@ -41,8 +41,8 @@ export default function WorkClient() {
                 type="button"
                 aria-pressed={isSelected}
                 onClick={() => setActiveFilter(f.key)}
-                className={`rounded-full border-2 border-black px-4 py-2 text-[15px] font-semibold whitespace-nowrap transition-colors ${
-                  isSelected ? 'bg-black text-white' : 'bg-white text-black hover:bg-lemon'
+                className={`rounded-full border px-4 py-2 text-[15px] font-medium whitespace-nowrap transition-colors ${
+                  isSelected ? 'border-cream bg-cream text-night' : 'border-cream/20 text-cream hover:bg-cream/10'
                 }`}
               >
                 {f.label}
@@ -58,18 +58,18 @@ export default function WorkClient() {
               <li key={cs.slug}>
                 <Link
                   href={`/work/${cs.slug}`}
-                  className="group block h-full rounded-2xl border-2 border-black bg-white p-6 sm:p-7 shadow-hard pop-press"
+                  className="group flex h-full flex-col rounded-2xl border border-cream/10 bg-deep p-7 sm:p-9 transition-colors hover:border-pop/50"
                 >
-                  <p className="text-[14px] font-semibold text-black/70">{cs.categoryTag.split('·')[0].trim()}</p>
-                  <p className="mt-4 font-display text-[clamp(2.5rem,5vw,3.75rem)] leading-none break-words">
+                  <p className="text-[14px] font-medium text-cream/60">{cs.categoryTag.split('·')[0].trim()}</p>
+                  <p className="mt-6 font-display text-[clamp(2.75rem,5vw,4.25rem)] leading-none text-pop break-words">
                     {hero.value}
                   </p>
-                  <p className="mt-1 text-[16px] font-medium">{hero.label}</p>
-                  <h2 className="mt-6 text-xl font-semibold leading-snug">
+                  <p className="mt-2 text-[16px] text-cream/80">{hero.label}</p>
+                  <h2 className="mt-8 text-xl font-semibold leading-snug">
                     {cs.title} {cs.italicAccent}
                   </h2>
-                  <p className="mt-2 text-[16px] text-black/75 leading-relaxed">{cs.heroLede}</p>
-                  <span className="mt-5 inline-block text-[15px] font-semibold underline decoration-2 underline-offset-4 group-hover:text-cobalt">
+                  <p className="mt-2 text-[16px] text-cream/70 leading-relaxed">{cs.heroLede}</p>
+                  <span className="mt-auto pt-6 text-[15px] font-semibold text-cream underline decoration-pop decoration-[1.5px] underline-offset-[6px] group-hover:text-pop">
                     Read the case study
                   </span>
                 </Link>
@@ -79,14 +79,14 @@ export default function WorkClient() {
         </ul>
       </Section>
 
-      <Section tone="pop" ariaLabel="Book a diagnostic">
-        <h2 className="font-display text-section max-w-[16ch]">Want this kind of read on your spend?</h2>
-        <p className="mt-5 text-lg max-w-[56ch]">
+      <Section tone="cream" ariaLabel="Book a diagnostic">
+        <h2 className="font-display text-section max-w-[16ch] scroll-pop">Want this kind of read <em className="accent">on your spend?</em></h2>
+        <p className="mt-5 text-lg max-w-[56ch] text-night/75">
           Book a 30-minute growth diagnostic. We open your ad accounts live on screen share, show where budget is
           leaking, and map the opportunities worth testing first.
         </p>
         <div className="mt-8">
-          <Button href="/contact" variant="ink" size="lg">
+          <Button href="/contact" size="lg">
             Book a 30-minute diagnostic
           </Button>
         </div>

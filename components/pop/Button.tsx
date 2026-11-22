@@ -1,20 +1,19 @@
 import Link from 'next/link';
 import React from 'react';
 
-type Variant = 'primary' | 'ink' | 'outline' | 'lemon' | 'paper';
+type Variant = 'primary' | 'light' | 'ghost' | 'link';
 type Size = 'md' | 'lg';
 
 const VARIANTS: Record<Variant, string> = {
-  primary: 'bg-pop text-black border-black',
-  ink: 'bg-black text-white border-black',
-  outline: 'bg-white text-black border-black',
-  lemon: 'bg-lemon text-black border-black',
-  paper: 'bg-white text-black border-black',
+  primary: 'bg-pop text-night hover:bg-pop-light shadow-glow',
+  light: 'bg-cream text-night hover:bg-white',
+  ghost: 'border border-cream/25 text-cream hover:bg-cream/10 hover:border-cream/40',
+  link: 'text-cream underline decoration-pop decoration-[1.5px] underline-offset-[6px] hover:text-pop !px-0 !h-auto',
 };
 
 const SIZES: Record<Size, string> = {
   md: 'h-12 px-6 text-[15px]',
-  lg: 'h-14 px-7 text-base sm:text-[17px]',
+  lg: 'h-14 px-7 text-base',
 };
 
 interface ButtonProps {
@@ -42,7 +41,7 @@ export default function Button({
   external,
   ariaLabel,
 }: ButtonProps) {
-  const cls = `inline-flex items-center justify-center gap-2 rounded-full border-2 font-semibold shadow-hard-sm pop-press select-none whitespace-nowrap disabled:opacity-60 disabled:pointer-events-none ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
+  const cls = `inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors duration-200 select-none whitespace-nowrap disabled:opacity-60 disabled:pointer-events-none ${SIZES[size]} ${VARIANTS[variant]} ${className}`;
   if (href) {
     const isExternal = external ?? /^(https?:|mailto:|tel:)/.test(href);
     if (isExternal) {

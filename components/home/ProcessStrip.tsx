@@ -12,21 +12,23 @@ const STEPS = [
 
 export default function ProcessStrip() {
   return (
-    <Section id="process" tone="lemon" ariaLabel="How a project runs">
-      <div className="flex flex-wrap items-end justify-between gap-6 mb-10 sm:mb-12">
-        <h2 className="font-display text-section max-w-[13ch] scroll-pop">How a project runs.</h2>
-        <Button href="/process" variant="ink">
+    <Section id="process" ariaLabel="How a project runs">
+      <div className="flex flex-wrap items-end justify-between gap-6 mb-12 sm:mb-16">
+        <h2 className="font-display text-section max-w-[13ch] scroll-pop">
+          How a project <em className="accent">runs.</em>
+        </h2>
+        <Button href="/process" variant="link">
           The full process
         </Button>
       </div>
-      <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <ol className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
         {STEPS.map((s, i) => (
-          <li key={s.title} className="scroll-tilt wiggle rounded-2xl border-2 border-black bg-white p-5 shadow-hard-sm">
-            <span className="font-display text-4xl leading-none" aria-hidden="true">
+          <li key={s.title} className="border-t border-cream/15 pt-6">
+            <span className="font-display text-5xl leading-none text-pop" aria-hidden="true">
               {i + 1}
             </span>
-            <h3 className="mt-4 text-lg font-bold leading-tight">{s.title}</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-black/80">{s.text}</p>
+            <h3 className="mt-5 text-lg font-semibold leading-tight">{s.title}</h3>
+            <p className="mt-2 text-[15px] leading-relaxed text-cream/70">{s.text}</p>
           </li>
         ))}
       </ol>

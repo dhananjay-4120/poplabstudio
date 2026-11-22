@@ -126,7 +126,7 @@ export default function ContactClient() {
       const config: Record<string, any> = {
         layout: 'month_view',
         useSlotsViewOnSmallScreen: 'true',
-        theme: 'light',
+        theme: 'dark',
       };
       if (prefill?.name) config.name = prefill.name;
       if (prefill?.notes) config.notes = prefill.notes;
@@ -142,7 +142,7 @@ export default function ContactClient() {
       });
 
       window.Cal.ns['30min']('ui', {
-        theme: 'light',
+        theme: 'dark',
         cssVarsPerTheme: {
           light: { 'cal-brand': '#FF5E14' },
           dark: { 'cal-brand': '#FF5E14' },
@@ -294,9 +294,9 @@ export default function ContactClient() {
   };
 
   const inputCls =
-    'w-full h-12 rounded-xl border-2 border-black bg-white px-4 text-base text-black placeholder:text-black/50 focus:outline-none focus:ring-4 focus:ring-cobalt/40 focus:border-cobalt';
-  const labelCls = 'block text-[15px] font-semibold mb-2';
-  const linkCls = 'font-semibold underline underline-offset-4 decoration-2 hover:text-cobalt';
+    'w-full h-12 rounded-xl border border-cream/20 bg-deep px-4 text-base text-cream placeholder:text-cream/45 focus:border-pop focus:outline-none';
+  const labelCls = 'block text-[15px] font-medium text-cream/80 mb-2';
+  const linkCls = 'font-semibold text-cream underline underline-offset-[6px] decoration-pop decoration-[1.5px] hover:text-pop';
 
   return (
     <div className="w-full">
@@ -306,18 +306,18 @@ export default function ContactClient() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             {/* Intro */}
             <div className="lg:col-span-5">
-              <p className="mb-5 text-[15px] font-semibold">Start a project</p>
+              <p className="mb-5 text-[15px] font-medium text-cream/70">Start a project</p>
               <h1 className="font-display text-[clamp(2.1rem,3.6vw,3.25rem)] leading-[1.02]">
-                Tell us about your brand. We&rsquo;ll come back with a plan.
+                Tell us about your brand. <em className="accent">We&rsquo;ll come back with a plan.</em>
               </h1>
-              <p className="mt-6 max-w-[48ch] text-lg leading-relaxed">
+              <p className="mt-6 max-w-[48ch] text-lg leading-relaxed text-cream/75">
                 Share a few details and pick a time for a free 30-minute call. We look at your creative, your ad
                 accounts and your website, and show you where budget is leaking. You keep the plan either way.
               </p>
 
-              <ul className="mt-8 space-y-4 text-[17px]">
-                <li>
-                  <span className="block text-[15px] font-semibold">WhatsApp</span>
+              <ul className="mt-8 border-t border-cream/10 text-[17px]">
+                <li className="border-b border-cream/10 py-4">
+                  <span className="block text-[15px] font-medium text-cream/70 mb-1">WhatsApp</span>
                   <a
                     href="https://wa.me/918837565738"
                     target="_blank"
@@ -327,14 +327,14 @@ export default function ContactClient() {
                     Message us on WhatsApp
                   </a>
                 </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Phone</span>
+                <li className="border-b border-cream/10 py-4">
+                  <span className="block text-[15px] font-medium text-cream/70 mb-1">Phone</span>
                   <a href="tel:+918837565738" className={linkCls}>
                     +91 88375 65738
                   </a>
                 </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Email</span>
+                <li className="border-b border-cream/10 py-4">
+                  <span className="block text-[15px] font-medium text-cream/70 mb-1">Email</span>
                   <span className="flex flex-wrap items-center gap-3">
                     <a href="mailto:growth@poplabstudio.com" className={linkCls}>
                       growth@poplabstudio.com
@@ -342,23 +342,23 @@ export default function ContactClient() {
                     <button
                       type="button"
                       onClick={handleCopyEmail}
-                      className="h-8 px-3 rounded-full border-2 border-black bg-white text-[14px] font-semibold pop-press shadow-hard-sm"
+                      className="h-8 px-3 rounded-full border border-cream/20 text-[14px] font-semibold text-cream hover:bg-cream/10 hover:border-cream/40 transition-colors"
                     >
                       {copied ? 'Copied' : 'Copy email'}
                     </button>
                   </span>
                 </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Studio</span>
+                <li className="border-b border-cream/10 py-4">
+                  <span className="block text-[15px] font-medium text-cream/70 mb-1">Studio</span>
                   <address className="not-italic leading-relaxed">
                     SCO 364-365-366, Second Floor, Sector 34A
                     <br />
                     Chandigarh 160022, India
                   </address>
-                  <p className="text-[15px] mt-1">Mon–Sat, 9:30am–7:30pm IST</p>
+                  <p className="text-[15px] mt-1 text-cream/70">Mon–Sat, 9:30am–7:30pm IST</p>
                 </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Social</span>
+                <li className="border-b border-cream/10 py-4">
+                  <span className="block text-[15px] font-medium text-cream/70 mb-1">Social</span>
                   <span className="flex flex-wrap gap-x-5 gap-y-1">
                     <a
                       href="https://www.instagram.com/poplabstudio.hq/"
@@ -382,16 +382,16 @@ export default function ContactClient() {
             </div>
 
             {/* Form card */}
-            <div className="lg:col-span-7 rounded-2xl border-2 border-black bg-white shadow-hard p-6 sm:p-9">
+            <div className="lg:col-span-7 rounded-2xl border border-cream/10 bg-deep p-6 sm:p-8">
               <h2 className="font-display text-subsection mb-2">Your details</h2>
-              <p className="mb-7 text-[17px]">Takes about a minute. Fields marked with * are required.</p>
+              <p className="mb-7 text-[17px] text-cream/70">Takes about a minute. Fields marked with * are required.</p>
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 {error && (
                   <div
                     role="alert"
                     aria-live="assertive"
-                    className="rounded-xl border-2 border-black bg-lemon p-4 text-[15px] font-bold"
+                    className="rounded-xl border border-pop/40 bg-pop/10 p-4 text-[15px] text-pop font-semibold"
                   >
                     {error}
                   </div>
@@ -451,7 +451,7 @@ export default function ContactClient() {
                         aria-label="Country code"
                         value={formData.countryCode}
                         onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                        className="h-12 w-[6.5rem] shrink-0 rounded-xl border-2 border-black bg-white px-2 text-base text-black focus:outline-none focus:ring-4 focus:ring-cobalt/40 focus:border-cobalt"
+                        className="h-12 w-[6.5rem] shrink-0 rounded-xl border border-cream/20 bg-deep px-2 text-base text-cream focus:border-pop focus:outline-none"
                       >
                         {COUNTRY_CODES.map((c) => (
                           <option key={c.code} value={c.code}>
@@ -526,14 +526,14 @@ export default function ContactClient() {
                     placeholder="Deadlines, current ROAS targets, channels you want to scale..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-xl border-2 border-black bg-white px-4 py-3 text-base text-black placeholder:text-black/50 focus:outline-none focus:ring-4 focus:ring-cobalt/40 focus:border-cobalt resize-none"
+                    className="w-full rounded-xl border border-cream/20 bg-deep px-4 py-3 text-base text-cream placeholder:text-cream/45 focus:border-pop focus:outline-none resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full h-14 rounded-full border-2 border-black bg-pop text-black text-base sm:text-[17px] font-semibold shadow-hard-sm pop-press disabled:opacity-60 disabled:pointer-events-none"
+                  className="w-full h-14 rounded-full bg-pop text-night hover:bg-pop-light transition-colors text-base sm:text-[17px] font-semibold shadow-glow disabled:opacity-60 disabled:pointer-events-none"
                 >
                   {submitting
                     ? 'Sending...'
@@ -550,15 +550,15 @@ export default function ContactClient() {
       {/* Booking step: Cal.com embed */}
       <section id="book" className="w-full pb-16 sm:pb-24 scroll-mt-28">
         <Container>
-          <h2 className="font-display text-section mb-4">
+          <h2 className="font-display text-section mb-4 scroll-pop">
             {submitted ? 'Thanks — now pick a time' : 'Pick a time that works'}
           </h2>
-          <p className="max-w-[62ch] text-lg leading-relaxed mb-3">
+          <p className="max-w-[62ch] text-lg leading-relaxed text-cream/75 mb-3">
             {submitted
               ? 'We have your details. Choose a 30-minute slot on our calendar and we will see you then.'
               : 'Choose a 30-minute slot on our calendar. Time zones adjust automatically.'}
           </p>
-          <p className="mb-8 text-[15px]">
+          <p className="mb-8 text-[15px] text-cream/70">
             Prefer a separate tab?{' '}
             <a
               href="https://cal.com/poplab-studio-o0cj4m/30min"
@@ -569,7 +569,7 @@ export default function ContactClient() {
               Open the calendar in Cal.com
             </a>
           </p>
-          <div className="w-full h-[720px] rounded-2xl border-2 border-black bg-white shadow-hard overflow-hidden p-1">
+          <div className="w-full h-[720px] rounded-2xl border border-cream/10 bg-deep overflow-hidden p-1">
             <div ref={calendarContainerRef} id="my-cal-inline-30min" className="w-full h-full overflow-y-auto" />
           </div>
         </Container>
@@ -578,32 +578,29 @@ export default function ContactClient() {
       {/* What happens next */}
       <section className="w-full pb-16 sm:pb-24">
         <Container>
-          <h2 className="font-display text-section mb-10">What happens next</h2>
+          <h2 className="font-display text-section mb-10 scroll-pop">What happens next</h2>
           <ol className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 n: '1',
                 t: 'We review your details',
                 d: 'Once you submit, we look at your funnel, copy and targeting before we meet.',
-                bg: 'bg-white',
               },
               {
                 n: '2',
                 t: 'The 30-minute call',
                 d: 'A screen-shared session where we find the leaks and map creative angles worth testing.',
-                bg: 'bg-lemon',
               },
               {
                 n: '3',
                 t: 'You get your plan',
                 d: 'You leave with a clear plan you can run in-house or build with Pop Lab Studio.',
-                bg: 'bg-white',
               },
             ].map((s) => (
-              <li key={s.n} className={`rounded-2xl border-2 border-black shadow-hard p-7 ${s.bg}`}>
-                <span className="font-display text-3xl">{s.n}</span>
+              <li key={s.n} className="rounded-2xl border border-cream/10 bg-deep p-7">
+                <span className="font-display text-4xl text-pop">{s.n}</span>
                 <h3 className="font-display text-xl mt-3 mb-2">{s.t}</h3>
-                <p className="text-[17px] leading-relaxed">{s.d}</p>
+                <p className="text-[17px] leading-relaxed text-cream/75">{s.d}</p>
               </li>
             ))}
           </ol>
@@ -613,27 +610,27 @@ export default function ContactClient() {
       {/* FAQ */}
       <section className="w-full pb-20 sm:pb-28">
         <Container>
-          <h2 className="font-display text-section mb-8">Before you book</h2>
-          <div className="border-t-2 border-black">
+          <h2 className="font-display text-section mb-8 scroll-pop">Before you book</h2>
+          <div className="border-t border-cream/10">
             {FAQS.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div key={faq.q} className="border-b-2 border-black">
+                <div key={faq.q} className="border-b border-cream/10">
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
                     aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-4 py-5 text-left"
+                    className="w-full flex items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span className="font-display text-lg sm:text-xl">{faq.q}</span>
+                    <span className="text-lg font-semibold">{faq.q}</span>
                     <span
                       aria-hidden="true"
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-black bg-white text-xl font-bold"
+                      className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border text-xl font-light leading-none ${isOpen ? 'border-pop text-pop' : 'border-cream/25'}`}
                     >
                       {isOpen ? '−' : '+'}
                     </span>
                   </button>
-                  {isOpen && <p className="pb-6 pr-12 text-[17px] leading-relaxed max-w-[68ch]">{faq.a}</p>}
+                  {isOpen && <p className="pb-6 pr-12 text-[17px] leading-relaxed text-cream/75 max-w-[68ch]">{faq.a}</p>}
                 </div>
               );
             })}

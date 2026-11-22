@@ -35,7 +35,7 @@ export default function ErrorBoundary({
         <h1 className="font-display text-section sm:text-[clamp(2.75rem,6.5vw,6rem)] max-w-[18ch]">
           Something broke on our side.
         </h1>
-        <p className="mt-6 max-w-[56ch] text-lg sm:text-xl leading-relaxed">
+        <p className="mt-6 max-w-[56ch] text-lg sm:text-xl leading-relaxed text-cream/70">
           A newer version of the site may have just gone live, or your connection stalled. Try again, and if it keeps
           happening, head back home.
         </p>
@@ -50,7 +50,7 @@ export default function ErrorBoundary({
             Try again
           </Button>
           <Button
-            variant="outline"
+            variant="ghost"
             size="lg"
             onClick={() => {
               window.location.href = '/';

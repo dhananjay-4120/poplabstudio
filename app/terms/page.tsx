@@ -31,15 +31,15 @@ export default function TermsPage() {
       />
       <Container className="pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10 lg:gap-16 items-start">
-          <nav aria-label="Table of contents" className="lg:sticky lg:top-28 rounded-2xl border-2 border-black bg-white p-4 shadow-hard-sm">
-            <p className="px-3 pb-2 font-bold">On this page</p>
+          <nav aria-label="Table of contents" className="lg:sticky lg:top-28 rounded-2xl border border-cream/10 bg-deep p-4">
+            <p className="px-3 pb-2 font-semibold text-cream">On this page</p>
             <ul className="space-y-1 text-[15px]">
-                <li><a href="#scope" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Scope &amp; SOWs</a></li>
-                <li><a href="#ip" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Intellectual Property</a></li>
-                <li><a href="#fees" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Retainers &amp; Ad Spend</a></li>
-                <li><a href="#confidentiality" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Confidentiality</a></li>
-                <li><a href="#warranties" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Performance Warranties</a></li>
-                <li><a href="#jurisdiction" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Governing Law</a></li>
+                <li><a href="#scope" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Scope &amp; SOWs</a></li>
+                <li><a href="#ip" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Intellectual Property</a></li>
+                <li><a href="#fees" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Retainers &amp; Ad Spend</a></li>
+                <li><a href="#confidentiality" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Confidentiality</a></li>
+                <li><a href="#warranties" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Performance Warranties</a></li>
+                <li><a href="#jurisdiction" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Governing Law</a></li>
             </ul>
           </nav>
 
@@ -116,7 +116,7 @@ export default function TermsPage() {
               These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising
               under this agreement shall be subject to the exclusive jurisdiction of the competent courts of the registered jurisdiction in India.
             </p>
-            <div className="rounded-2xl border-2 border-black bg-fog p-6 shadow-hard-sm space-y-1">
+            <div className="rounded-2xl border border-cream/10 bg-deep p-6 space-y-1">
               <p className="font-semibold">Registered office</p>
               <p>Pop Lab Studio</p>
               <p>Refer to official Studio Footer &amp; <Link href="/contact">Contact Page</Link> for physical address.</p>
@@ -124,7 +124,7 @@ export default function TermsPage() {
             </div>
           </section>
 
-            <div className="mt-12 pt-8 border-t-2 border-black flex flex-wrap items-center justify-between gap-4 font-semibold">
+            <div className="mt-12 pt-8 border-t border-cream/10 flex flex-wrap items-center justify-between gap-4 font-semibold">
               <Link href="/">Return to Studio Home</Link>
               <Link href="/privacy">Privacy Policy</Link>
             </div>

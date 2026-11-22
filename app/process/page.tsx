@@ -133,78 +133,82 @@ export default function ProcessPage() {
         lede="We don’t have mysterious agency secrets. We have a disciplined process, run the same way every sprint, long after week one. Here is exactly how we run client accounts."
       />
 
-      <Section tone="paper" ariaLabel="Our principles" className="!pt-4 sm:!pt-4">
-        <h2 className="font-display text-section max-w-[16ch] mb-10 sm:mb-12">Four principles we don’t bend.</h2>
+      <Section ariaLabel="Our principles" className="!pt-4 sm:!pt-4">
+        <h2 className="font-display text-section max-w-[16ch] mb-10 sm:mb-12 scroll-pop">
+          Four principles we <em className="accent">don’t bend.</em>
+        </h2>
         <ul className="grid gap-5 md:grid-cols-2">
           {PRINCIPLES.map((p) => (
             <Card key={p.title} as="li" className="p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold leading-tight">{p.title}</h3>
-              <p className="mt-3 text-base sm:text-[17px] leading-relaxed text-black/80">{p.body}</p>
+              <h3 className="text-xl sm:text-2xl font-semibold leading-tight">{p.title}</h3>
+              <p className="mt-3 text-base sm:text-[17px] leading-relaxed text-cream/70">{p.body}</p>
             </Card>
           ))}
         </ul>
       </Section>
 
-      <Section tone="paper" ariaLabel="The five-stage sprint" className="!pt-0 sm:!pt-0">
+      <Section ariaLabel="The five-stage sprint" className="!pt-0 sm:!pt-0">
         <div className="mb-10 sm:mb-12 max-w-[60ch]">
-          <h2 className="font-display text-section max-w-[16ch]">From first teardown to scale, in five stages.</h2>
-          <p className="mt-5 text-lg">Each stage builds on the one before it.</p>
+          <h2 className="font-display text-section max-w-[16ch] scroll-pop">
+            From first teardown to scale, in <em className="accent">five stages.</em>
+          </h2>
+          <p className="mt-5 text-lg text-cream/70">Each stage builds on the one before it.</p>
         </div>
-        <ol className="space-y-5">
+        <ol className="border-b border-cream/10">
           {ONBOARDING_SPRINTS.map((item, idx) => (
             <li
               key={item.stage}
-              className={`grid gap-4 md:grid-cols-[7rem_1fr] md:gap-8 items-start rounded-2xl border-2 border-black p-6 sm:p-8 shadow-hard-sm ${
-                idx % 2 === 1 ? 'bg-lemon' : 'bg-white'
-              }`}
+              className="grid grid-cols-[3.5rem_1fr] sm:grid-cols-[6.5rem_1fr] border-t border-cream/10"
             >
-              <span className="font-display text-6xl sm:text-7xl leading-none" aria-hidden="true">
+              <span className="font-display text-6xl sm:text-7xl leading-none text-pop pt-8 sm:pt-10" aria-hidden="true">
                 {idx + 1}
               </span>
-              <div>
-                <h3 className="text-xl sm:text-2xl font-bold leading-tight">{item.title}</h3>
+              <div className="border-l border-cream/15 py-8 sm:py-10 pl-5 sm:pl-10">
+                <h3 className="text-xl sm:text-2xl font-semibold leading-tight">{item.title}</h3>
                 <p className="mt-2">
-                  <Tag className="bg-white">{item.timeline.replace(/\s*·\s*/g, ', ')}</Tag>
+                  <Tag>{item.timeline.replace(/\s*·\s*/g, ', ')}</Tag>
                 </p>
-                <p className="mt-4 text-base sm:text-[17px] leading-relaxed max-w-[62ch]">{item.desc}</p>
+                <p className="mt-4 text-base sm:text-[17px] leading-relaxed text-cream/70 max-w-[62ch]">{item.desc}</p>
               </div>
             </li>
           ))}
         </ol>
       </Section>
 
-      <Section tone="ink" ariaLabel="Where AI fits">
-        <h2 className="font-display text-section max-w-[18ch] mb-10 sm:mb-12">
-          AI for speed. Senior people for everything that matters.
+      <Section tone="deep" ariaLabel="Where AI fits">
+        <h2 className="font-display text-section max-w-[18ch] mb-10 sm:mb-12 scroll-pop">
+          AI for speed. Senior people for <em className="accent">everything that matters.</em>
         </h2>
         <ul className="grid gap-5 md:grid-cols-3">
           {AI_INTEGRATIONS.map((ai) => (
-            <li key={ai.title} className="rounded-2xl border-2 border-white p-6 sm:p-8">
+            <li key={ai.title} className="rounded-2xl border border-cream/10 bg-night p-6 sm:p-8">
               <Tag>{sentence(ai.badge)}</Tag>
-              <h3 className="mt-5 text-xl sm:text-2xl font-bold leading-tight">{ai.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-white/85">{ai.desc}</p>
+              <h3 className="mt-5 text-xl sm:text-2xl font-semibold leading-tight">{ai.title}</h3>
+              <p className="mt-3 text-base leading-relaxed text-cream/70">{ai.desc}</p>
             </li>
           ))}
         </ul>
       </Section>
 
-      <Section tone="paper" ariaLabel="What you receive">
-        <h2 className="font-display text-section max-w-[16ch] mb-8 sm:mb-10">What you get at each stage.</h2>
-        <div className="overflow-x-auto rounded-2xl border-2 border-black bg-white shadow-hard-sm">
+      <Section ariaLabel="What you receive">
+        <h2 className="font-display text-section max-w-[16ch] mb-8 sm:mb-10 scroll-pop">
+          What you get at <em className="accent">each stage.</em>
+        </h2>
+        <div className="overflow-x-auto rounded-2xl border border-cream/10 bg-deep">
           <table className="w-full min-w-[640px] text-left text-[15px] border-collapse">
             <thead>
-              <tr className="bg-fog border-b-2 border-black">
-                <th scope="col" className="px-5 py-4 font-bold">Stage</th>
-                <th scope="col" className="px-5 py-4 font-bold">What we do</th>
-                <th scope="col" className="px-5 py-4 font-bold">What you keep</th>
+              <tr className="border-b border-cream/10 text-cream/60">
+                <th scope="col" className="px-5 py-4 font-semibold">Stage</th>
+                <th scope="col" className="px-5 py-4 font-semibold">What we do</th>
+                <th scope="col" className="px-5 py-4 font-semibold">What you keep</th>
               </tr>
             </thead>
-            <tbody className="divide-y-2 divide-black/10">
+            <tbody className="divide-y divide-cream/10">
               {DELIVERABLES.map(([phase, out, keep]) => (
                 <tr key={phase}>
-                  <th scope="row" className="px-5 py-4 font-bold align-top">{phase}</th>
-                  <td className="px-5 py-4 align-top">{out}</td>
-                  <td className="px-5 py-4 align-top">{keep}</td>
+                  <th scope="row" className="px-5 py-4 font-semibold align-top text-cream">{phase}</th>
+                  <td className="px-5 py-4 align-top text-cream/80">{out}</td>
+                  <td className="px-5 py-4 align-top text-cream/80">{keep}</td>
                 </tr>
               ))}
             </tbody>
@@ -212,16 +216,23 @@ export default function ProcessPage() {
         </div>
       </Section>
 
-      <Section tone="pop" ariaLabel="Book a diagnostic" innerClassName="text-center">
-        <h2 className="font-display text-section mx-auto max-w-[16ch]">See the process run on your numbers.</h2>
-        <p className="mx-auto mt-6 max-w-[52ch] text-lg sm:text-xl">
+      <Section tone="cream" ariaLabel="Book a diagnostic" innerClassName="text-center">
+        <h2 className="font-display text-section mx-auto max-w-[16ch] scroll-pop">
+          See the process run on <em className="accent">your numbers.</em>
+        </h2>
+        <p className="mx-auto mt-6 max-w-[52ch] text-lg sm:text-xl text-night/75">
           We take on a limited number of partner accounts each quarter. Book the 30-minute diagnostic and we’ll audit your accounts live on screen share.
         </p>
-        <div className="mt-9 flex flex-wrap justify-center gap-3">
-          <Button href="/contact" variant="ink" size="lg">
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <Button href="/contact" size="lg">
             Book a 30-minute diagnostic
           </Button>
-          <Button href="https://wa.me/918837565738" variant="paper" size="lg">
+          <Button
+            href="https://wa.me/918837565738"
+            variant="ghost"
+            size="lg"
+            className="!border-night/25 !text-night hover:!bg-night/5"
+          >
             Message us on WhatsApp
           </Button>
         </div>

@@ -17,26 +17,27 @@ const OURS = [
 
 export default function OneTeam() {
   return (
-    <Section id="approach" tone="ink" ariaLabel="Why one team">
-      <h2 className="font-display text-section max-w-[16ch] scroll-pop">Marketing breaks in the gaps between agencies.</h2>
-      <div className="mt-12 grid gap-5 md:grid-cols-2">
-        <div className="rounded-2xl border-2 border-white/40 p-6 sm:p-8">
-          <h3 className="text-xl font-semibold text-white/80">The usual setup</h3>
-          <ul className="mt-5 space-y-4">
+    <Section id="approach" tone="deep" ariaLabel="Why one team">
+      <h2 className="font-display text-section max-w-[18ch] scroll-pop">
+        Marketing breaks in the <em className="accent">gaps between agencies.</em>
+      </h2>
+      <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-14">
+        <div>
+          <h3 className="text-[15px] font-semibold text-cream/60">The usual setup</h3>
+          <ul className="mt-5 divide-y divide-cream/10 border-y border-cream/10">
             {USUAL.map((t) => (
-              <li key={t} className="flex gap-3 text-[17px] text-white/70">
-                <span aria-hidden="true" className="font-bold">✕</span>
-                <span>{t}</span>
+              <li key={t} className="py-4 text-lg text-cream/55 line-through decoration-cream/30">
+                {t}
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-2xl border-2 border-white bg-white text-black p-6 sm:p-8" style={{ boxShadow: '6px 6px 0 0 #FF5E14' }}>
-          <h3 className="text-xl font-semibold">Working with Pop Lab</h3>
-          <ul className="mt-5 space-y-4">
+        <div>
+          <h3 className="text-[15px] font-semibold text-pop">Working with Pop Lab</h3>
+          <ul className="mt-5 divide-y divide-cream/10 border-y border-cream/10">
             {OURS.map((t) => (
-              <li key={t} className="flex gap-3 text-[17px]">
-                <span aria-hidden="true" className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-pop text-[13px] font-bold border-2 border-black">✓</span>
+              <li key={t} className="flex gap-4 py-4 text-lg text-cream">
+                <span aria-hidden="true" className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-pop" />
                 <span>{t}</span>
               </li>
             ))}

@@ -268,13 +268,13 @@ export default function AeoCheckerClient() {
 
   const StatusChip = ({ level }: { level: Level }) => {
     const map = {
-      pass: { text: 'Pass', icon: '✓', cls: 'bg-white' },
-      warn: { text: 'Needs work', icon: '!', cls: 'bg-lemon' },
-      fail: { text: 'Missing', icon: '✕', cls: 'bg-pop' },
+      pass: { text: 'Pass', icon: '✓', cls: 'border-cream/30 text-cream' },
+      warn: { text: 'Needs work', icon: '!', cls: 'bg-pop/15 text-pop-light border-pop/40' },
+      fail: { text: 'Missing', icon: '✕', cls: 'bg-pop text-night border-pop' },
     }[level];
     return (
       <span
-        className={`inline-flex items-center gap-1.5 rounded-full border-2 border-black px-3 py-1 text-[13px] font-semibold leading-none text-black ${map.cls}`}
+        className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[13px] font-semibold leading-none ${map.cls}`}
       >
         <span aria-hidden="true">{map.icon}</span>
         {map.text}
@@ -283,9 +283,16 @@ export default function AeoCheckerClient() {
   };
 
   const FactChip = ({ level, children }: { level: Level | 'neutral'; children: React.ReactNode }) => {
-    const cls = level === 'fail' ? 'bg-pop' : level === 'warn' ? 'bg-lemon' : 'bg-white';
+    const cls =
+      level === 'fail'
+        ? 'bg-pop text-night border-pop'
+        : level === 'warn'
+          ? 'bg-pop/15 text-pop-light border-pop/40'
+          : level === 'pass'
+            ? 'border-cream/30 text-cream'
+            : 'border-cream/20 text-cream/80';
     return (
-      <span className={`rounded-full border-2 border-black px-3 py-1 text-[13px] font-semibold leading-none ${cls}`}>
+      <span className={`rounded-full border px-3 py-1 text-[13px] font-semibold leading-none ${cls}`}>
         {children}
       </span>
     );
@@ -313,7 +320,7 @@ export default function AeoCheckerClient() {
   ];
 
   const inputCls =
-    'w-full rounded-xl border-2 border-black bg-white px-4 py-3 text-base text-black placeholder:text-black/50';
+    'w-full h-12 rounded-xl border border-cream/20 bg-deep px-4 text-base text-cream placeholder:text-cream/45 focus:border-pop focus:outline-none';
 
   return (
     <>
@@ -325,9 +332,9 @@ export default function AeoCheckerClient() {
       />
 
       <Section ariaLabel="Run the check" className="!pt-0 !pb-8 sm:!pb-12">
-        <div ref={scannerTopRef} className="rounded-2xl border-2 border-black bg-lemon p-5 sm:p-8 shadow-hard">
+        <div ref={scannerTopRef} className="rounded-2xl border border-cream/10 bg-deep p-6 sm:p-8">
           <form onSubmit={(e) => handleScan(e)} noValidate>
-            <label htmlFor="aeo-url" className="block text-xl sm:text-2xl font-display mb-4">
+            <label htmlFor="aeo-url" className="block text-xl sm:text-2xl font-display mb-4 text-cream">
               Which website should we check?
             </label>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -340,21 +347,21 @@ export default function AeoCheckerClient() {
                 onChange={(e) => setUrlInput(e.target.value)}
                 placeholder="yourbrand.com"
                 disabled={isScanning}
-                className="w-full sm:flex-1 h-14 rounded-full border-2 border-black bg-white px-6 text-base sm:text-lg text-black placeholder:text-black/50 disabled:opacity-60"
+                className="w-full sm:flex-1 h-14 rounded-full border border-cream/20 bg-night px-6 text-base sm:text-lg text-cream placeholder:text-cream/45 focus:border-pop focus:outline-none disabled:opacity-60"
               />
               <button
                 type="submit"
                 disabled={isScanning}
-                className="inline-flex h-14 items-center justify-center rounded-full border-2 border-black bg-pop px-7 text-base sm:text-[17px] font-semibold text-black shadow-hard-sm pop-press select-none disabled:opacity-60 disabled:pointer-events-none"
+                className="inline-flex h-14 items-center justify-center rounded-full bg-pop px-7 text-base sm:text-[17px] font-semibold text-night shadow-glow transition-colors hover:bg-pop-light select-none disabled:opacity-60 disabled:pointer-events-none"
               >
                 {isScanning ? 'Checking your site...' : 'Run the free check'}
               </button>
             </div>
-            <p className="mt-3 text-[15px]">Works with any brand domain or online store URL. It takes about ten seconds.</p>
+            <p className="mt-3 text-[15px] text-cream/70">Works with any brand domain or online store URL. It takes about ten seconds.</p>
           </form>
 
           {error && (
-            <div role="alert" className="mt-5 rounded-xl border-2 border-black bg-white p-4 text-[15px] font-semibold">
+            <div role="alert" className="mt-5 rounded-xl border border-pop/40 bg-night p-4 text-[15px] text-pop font-semibold">
               {error}
             </div>
           )}
@@ -366,16 +373,16 @@ export default function AeoCheckerClient() {
                 <span>{scanProgress}%</span>
               </div>
               <div
-                className="h-5 w-full overflow-hidden rounded-full border-2 border-black bg-white"
+                className="h-3 w-full overflow-hidden rounded-full bg-cream/10"
                 role="progressbar"
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-valuenow={scanProgress}
                 aria-label="Check progress"
               >
-                <div className="h-full bg-pop border-r-2 border-black transition-[width] duration-500" style={{ width: `${scanProgress}%` }} />
+                <div className="h-full rounded-full bg-pop transition-[width] duration-500" style={{ width: `${scanProgress}%` }} />
               </div>
-              <p className="mt-2 text-[15px]">{DEEP_SCAN_STEPS[scanStepIdx]?.detail}</p>
+              <p className="mt-2 text-[15px] text-cream/70">{DEEP_SCAN_STEPS[scanStepIdx]?.detail}</p>
             </div>
           )}
         </div>
@@ -387,22 +394,22 @@ export default function AeoCheckerClient() {
           <div ref={resultsRef} className="space-y-8 scroll-mt-28">
             <div className="grid gap-6 lg:grid-cols-12">
               {/* Overall score */}
-              <div className="lg:col-span-5 rounded-2xl border-2 border-black bg-white p-6 sm:p-8 shadow-hard">
+              <div className="lg:col-span-5 rounded-2xl border border-cream/10 bg-deep p-6 sm:p-8">
                 <h2 className="text-lg font-semibold">AI readiness score for {result.domain}</h2>
                 <p className="mt-4 flex items-baseline gap-2">
-                  <span className="font-display text-[clamp(4.5rem,12vw,8rem)] leading-none">{result.overallScore}</span>
-                  <span className="text-xl font-semibold">out of 100</span>
+                  <span className="font-display text-[clamp(4.5rem,12vw,8rem)] leading-none text-pop">{result.overallScore}</span>
+                  <span className="text-xl font-semibold text-cream/70">out of 100</span>
                 </p>
                 <div className="mt-4">
-                  <span className="inline-flex rounded-full border-2 border-black bg-lemon px-4 py-1.5 text-[15px] font-semibold">
+                  <span className="inline-flex rounded-full border border-cream/20 px-4 py-1.5 text-[15px] font-semibold text-cream">
                     {sentenceCase(result.ratingLabel)}
                   </span>
                 </div>
-                <p className="mt-5 text-[17px] leading-relaxed">{result.summaryText}</p>
+                <p className="mt-5 text-[17px] leading-relaxed text-cream/75">{result.summaryText}</p>
               </div>
 
               {/* Radar */}
-              <div className="lg:col-span-7 rounded-2xl border-2 border-black bg-white p-6 sm:p-8 shadow-hard">
+              <div className="lg:col-span-7 rounded-2xl border border-cream/10 bg-deep p-6 sm:p-8">
                 <h2 className="text-lg font-semibold">Score breakdown</h2>
                 <div className="mt-4 grid gap-6 sm:grid-cols-2 items-center">
                   <svg className="w-full max-w-[280px] mx-auto" viewBox="0 0 300 300" role="img" aria-label="Radar chart of the six scores listed beside it">
@@ -417,8 +424,8 @@ export default function AeoCheckerClient() {
                           })
                           .join(' ')}
                         fill="none"
-                        stroke="#000"
-                        strokeOpacity="0.2"
+                        stroke="#F5F2EB"
+                        strokeOpacity="0.15"
                         strokeWidth="1"
                       />
                     ))}
@@ -431,8 +438,8 @@ export default function AeoCheckerClient() {
                           y1="150"
                           x2={150 + 105 * Math.cos(a)}
                           y2={150 + 105 * Math.sin(a)}
-                          stroke="#000"
-                          strokeOpacity="0.2"
+                          stroke="#F5F2EB"
+                          strokeOpacity="0.15"
                           strokeWidth="1"
                         />
                       );
@@ -440,13 +447,13 @@ export default function AeoCheckerClient() {
                     <polygon
                       points={renderRadarPolygon(result.radarData)}
                       fill="#FF5E14"
-                      fillOpacity="0.55"
-                      stroke="#000"
-                      strokeWidth="3"
+                      fillOpacity="0.25"
+                      stroke="#FF5E14"
+                      strokeWidth="2.5"
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <ul className="space-y-2 text-[15px]">
+                  <ul className="space-y-2 text-[15px] text-cream/80">
                     {[
                       ['AEO graph', result.radarData.aeo],
                       ['GEO data', result.radarData.geo],
@@ -455,9 +462,9 @@ export default function AeoCheckerClient() {
                       ['Content and trust', result.radarData.contentQuality],
                       ['Page speed', result.radarData.pageSpeed],
                     ].map(([name, val]) => (
-                      <li key={name as string} className="flex items-center justify-between gap-3 border-b-2 border-black/10 pb-1.5">
+                      <li key={name as string} className="flex items-center justify-between gap-3 border-b border-cream/10 pb-1.5">
                         <span>{name}</span>
-                        <span className="font-semibold">{val}</span>
+                        <span className="font-semibold text-cream">{val}</span>
                       </li>
                     ))}
                   </ul>
@@ -470,23 +477,23 @@ export default function AeoCheckerClient() {
               <h2 className="font-display text-subsection mb-5">What we found</h2>
               <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {Object.entries(result.metrics).map(([key, metric]) => (
-                  <li key={key} className="rounded-2xl border-2 border-black bg-white p-5 shadow-hard-sm flex flex-col gap-3">
+                  <li key={key} className="rounded-2xl border border-cream/10 bg-deep p-5 flex flex-col gap-3">
                     <div className="flex items-start justify-between gap-3">
                       <h3 className="text-lg font-semibold leading-snug">{metric.label}</h3>
                       <StatusChip level={scoreLevel(metric.score)} />
                     </div>
-                    <p className="font-display text-4xl leading-none">
+                    <p className="font-display text-4xl leading-none text-pop">
                       {metric.score}
-                      <span className="text-base font-semibold"> / 100</span>
+                      <span className="text-base font-semibold text-cream/70"> / 100</span>
                     </p>
-                    <p className="text-[15px] text-black/80">{metric.status}</p>
+                    <p className="text-[15px] text-cream/75">{metric.status}</p>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Detected facts */}
-            <div className="rounded-2xl border-2 border-black bg-fog p-5 sm:p-6">
+            <div className="rounded-2xl border border-cream/10 bg-navy p-5 sm:p-6">
               <h2 className="text-lg font-semibold mb-3">Details we detected</h2>
               <div className="flex flex-wrap gap-2">
                 <FactChip level="neutral">{result.badges.schemasCount} schemas</FactChip>
@@ -505,30 +512,30 @@ export default function AeoCheckerClient() {
             <div ref={gateRef} className="space-y-6">
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <h2 className="font-display text-subsection">Full fix list</h2>
-                <span className="text-[15px] font-semibold">{result.gatedFindings.length} findings</span>
+                <span className="text-[15px] font-semibold text-cream/70">{result.gatedFindings.length} findings</span>
               </div>
 
               <ul className="space-y-4">
                 {result.gatedFindings.map((finding, idx) => (
-                  <li key={idx} className="rounded-2xl border-2 border-black bg-white p-5 shadow-hard-sm">
+                  <li key={idx} className="rounded-2xl border border-cream/10 bg-deep p-5">
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                      <span className="text-[15px] font-semibold">{finding.category}</span>
+                      <span className="text-[15px] font-semibold text-cream/70">{finding.category}</span>
                       <StatusChip level={severityLevel(finding.severity)} />
                     </div>
                     <h3 className="text-lg font-semibold mb-1">{finding.title}</h3>
                     {isUnlocked ? (
                       <>
-                        <p className="text-[16px] leading-relaxed text-black/80 mb-3">{finding.description}</p>
-                        <p className="border-t-2 border-black/10 pt-3 text-[15px]">
+                        <p className="text-[16px] leading-relaxed text-cream/75 mb-3">{finding.description}</p>
+                        <p className="border-t border-cream/10 pt-3 text-[15px] text-cream/75">
                           <span className="font-semibold">What it costs you: </span>
                           {finding.impact}
                         </p>
                       </>
                     ) : (
                       <div aria-hidden="true" className="space-y-2 select-none">
-                        <div className="h-3 w-full rounded-full bg-black" />
-                        <div className="h-3 w-4/5 rounded-full bg-black" />
-                        <div className="h-3 w-2/5 rounded-full bg-black" />
+                        <div className="h-3 w-full rounded bg-cream/15" />
+                        <div className="h-3 w-4/5 rounded bg-cream/15" />
+                        <div className="h-3 w-2/5 rounded bg-cream/15" />
                       </div>
                     )}
                   </li>
@@ -536,15 +543,15 @@ export default function AeoCheckerClient() {
               </ul>
 
               {!isUnlocked && (
-                <div className="rounded-2xl border-2 border-black bg-lemon p-6 sm:p-8 shadow-hard">
+                <div className="rounded-2xl border border-cream/10 bg-deep p-6 sm:p-8">
                   <h3 className="font-display text-subsection">Unlock the full fix list</h3>
-                  <p className="mt-3 max-w-[60ch] text-[17px] leading-relaxed">
+                  <p className="mt-3 max-w-[60ch] text-[17px] leading-relaxed text-cream/75">
                     We found <strong>{result.gatedFindings.length} issues</strong> that can stop ChatGPT, Perplexity and Copilot from recommending <strong>{result.domain}</strong>. Enter your details to see what each one is and how to fix it.
                   </p>
 
                   <form onSubmit={handleGateSubmit} className="mt-6 space-y-4 max-w-2xl">
                     <div>
-                      <label htmlFor="gate-brand" className="block text-[15px] font-semibold mb-1.5">Company or brand name</label>
+                      <label htmlFor="gate-brand" className="block text-[15px] font-medium text-cream/80 mb-1.5">Company or brand name</label>
                       <input
                         id="gate-brand"
                         type="text"
@@ -558,7 +565,7 @@ export default function AeoCheckerClient() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="gate-email" className="block text-[15px] font-semibold mb-1.5">Work email</label>
+                        <label htmlFor="gate-email" className="block text-[15px] font-medium text-cream/80 mb-1.5">Work email</label>
                         <input
                           id="gate-email"
                           type="email"
@@ -570,7 +577,7 @@ export default function AeoCheckerClient() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="gate-phone" className="block text-[15px] font-semibold mb-1.5">Phone or WhatsApp number</label>
+                        <label htmlFor="gate-phone" className="block text-[15px] font-medium text-cream/80 mb-1.5">Phone or WhatsApp number</label>
                         <input
                           id="gate-phone"
                           type="tel"
@@ -584,7 +591,7 @@ export default function AeoCheckerClient() {
                     </div>
 
                     {gateError && (
-                      <p role="alert" className="rounded-xl border-2 border-black bg-white p-3 text-[15px] font-semibold">
+                      <p role="alert" className="text-pop text-[15px] font-semibold">
                         {gateError}
                       </p>
                     )}
@@ -592,12 +599,12 @@ export default function AeoCheckerClient() {
                     <button
                       type="submit"
                       disabled={gateSubmitting}
-                      className="inline-flex h-14 w-full sm:w-auto items-center justify-center rounded-full border-2 border-black bg-pop px-7 text-base sm:text-[17px] font-semibold text-black shadow-hard-sm pop-press select-none disabled:opacity-60 disabled:pointer-events-none"
+                      className="inline-flex h-14 w-full sm:w-auto items-center justify-center rounded-full bg-pop px-7 text-base sm:text-[17px] font-semibold text-night shadow-glow transition-colors hover:bg-pop-light select-none disabled:opacity-60 disabled:pointer-events-none"
                     >
                       {gateSubmitting ? 'Unlocking...' : 'Unlock the fix list'}
                     </button>
 
-                    <p className="text-[14px]">
+                    <p className="text-[14px] text-cream/70">
                       No spam. We’ll use these details to follow up about your results and a diagnostic call.
                     </p>
                   </form>
@@ -607,19 +614,19 @@ export default function AeoCheckerClient() {
 
             {/* Post-unlock booking */}
             {isUnlocked && (
-              <div className="rounded-2xl border-2 border-black bg-pop p-6 sm:p-10 shadow-hard">
-                <p className="text-[15px] font-semibold">Full audit unlocked</p>
+              <div className="rounded-2xl border border-cream/10 bg-deep p-6 sm:p-10">
+                <p className="text-[15px] font-semibold text-cream/70">Full audit unlocked</p>
                 <h3 className="font-display text-subsection mt-2 max-w-[22ch]">Want Pop Lab Studio to fix this for you?</h3>
-                <p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed">
+                <p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed text-cream/75">
                   We build the Schema.org markup, the /llms.txt file and the server-side setup that help AI engines cite you first. Book a free 30-minute diagnostic call with our team.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <Button href="https://cal.com/poplab-studio-o0cj4m/30min" variant="ink" size="lg">
+                  <Button href="https://cal.com/poplab-studio-o0cj4m/30min" variant="primary" size="lg">
                     Book a 30-minute diagnostic
                   </Button>
                   <Button
                     href="https://wa.me/918837565738?text=Hi%20Pop%20Lab%2C%20I%20just%20ran%20an%20AEO%20scan%20on%20my%20domain%20and%20want%20to%20fix%20our%20AI%20citations."
-                    variant="outline"
+                    variant="ghost"
                     size="lg"
                   >
                     Message us on WhatsApp
@@ -632,17 +639,17 @@ export default function AeoCheckerClient() {
       )}
 
       {/* 3. EXPLAINERS (ALWAYS VISIBLE) */}
-      <Section ariaLabel="Why AI search is different" tone="fog">
-        <h2 className="font-display text-section max-w-[20ch]">Why old SEO tactics don’t show up in AI search</h2>
-        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed">
+      <Section ariaLabel="Why AI search is different">
+        <h2 className="font-display text-section max-w-[20ch] scroll-pop">Why old SEO tactics don’t show up in AI search</h2>
+        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-cream/75">
           Traditional Google search matches keywords and counts backlinks. AI engines (ChatGPT, Perplexity, Copilot, Google AI Overviews) read how entities relate to each other and answer in conversation. Here is the difference.
         </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          <div className="rounded-2xl border-2 border-black bg-white p-6 sm:p-8">
-            <p className="text-[15px] font-semibold">Traditional keyword SEO</p>
+          <div className="rounded-2xl border border-cream/10 bg-deep p-6 sm:p-8">
+            <p className="text-[15px] font-semibold text-cream/70">Traditional keyword SEO</p>
             <h3 className="font-display text-subsection mt-2">You get ten blue links</h3>
-            <p className="mt-3 text-[17px] leading-relaxed text-black/80">
+            <p className="mt-3 text-[17px] leading-relaxed text-cream/75">
               Optimises for search bots that scan for repeated keywords and backlinks.
             </p>
             <ol className="mt-5 space-y-3">
@@ -651,19 +658,19 @@ export default function AeoCheckerClient() {
                 'Bot indexes raw keywords and backlink volume',
                 'Returns ten blue links cluttered with ads',
               ].map((t, i) => (
-                <li key={t} className="flex items-center gap-3 rounded-xl border-2 border-black p-3 text-[15px]">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-black text-[13px] font-semibold">{i + 1}</span>
+                <li key={t} className="flex items-center gap-3 rounded-xl border border-cream/15 p-3 text-[15px]">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-cream/30 text-[13px] font-semibold">{i + 1}</span>
                   {t}
                 </li>
               ))}
             </ol>
-            <p className="mt-5 text-[15px]"><span className="font-semibold">The downside: </span>more and more searches end without a click, so users skip the links.</p>
+            <p className="mt-5 text-[15px] text-cream/75"><span className="font-semibold text-cream">The downside: </span>more and more searches end without a click, so users skip the links.</p>
           </div>
 
-          <div className="rounded-2xl border-2 border-black bg-white p-6 sm:p-8 shadow-hard">
-            <p className="text-[15px] font-semibold">Answer engine optimisation (AEO / GEO)</p>
+          <div className="rounded-2xl border border-pop/40 bg-deep p-6 sm:p-8">
+            <p className="text-[15px] font-semibold text-cream/70">Answer engine optimisation (AEO / GEO)</p>
             <h3 className="font-display text-subsection mt-2">You get one recommendation</h3>
-            <p className="mt-3 text-[17px] leading-relaxed text-black/80">
+            <p className="mt-3 text-[17px] leading-relaxed text-cream/75">
               Built for AI assistants that write a direct answer and look for verified facts about your brand.
             </p>
             <ol className="mt-5 space-y-3">
@@ -672,20 +679,20 @@ export default function AeoCheckerClient() {
                 'The AI reads your /llms.txt, Schema graph and page text',
                 'It recommends one answer and links to the brand it trusts',
               ].map((t, i) => (
-                <li key={t} className="flex items-center gap-3 rounded-xl border-2 border-black bg-lemon p-3 text-[15px]">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-black bg-white text-[13px] font-semibold">{i + 1}</span>
+                <li key={t} className="flex items-center gap-3 rounded-xl border border-pop/40 bg-pop/10 p-3 text-[15px]">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-pop text-night text-[13px] font-semibold">{i + 1}</span>
                   {t}
                 </li>
               ))}
             </ol>
-            <p className="mt-5 text-[15px]"><span className="font-semibold">The upside: </span>the brand that gets cited gets the buyer who was ready to act.</p>
+            <p className="mt-5 text-[15px] text-cream/75"><span className="font-semibold text-cream">The upside: </span>the brand that gets cited gets the buyer who was ready to act.</p>
           </div>
         </div>
       </Section>
 
       <Section ariaLabel="How AI engines choose">
-        <h2 className="font-display text-section max-w-[20ch]">How AI engines choose who to recommend</h2>
-        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed">
+        <h2 className="font-display text-section max-w-[20ch] scroll-pop">How AI engines choose who to recommend</h2>
+        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-cream/75">
           When a buyer asks an AI assistant a question, it works through three stages in a fraction of a second.
         </p>
         <ol className="mt-10 grid gap-6 md:grid-cols-3">
@@ -706,21 +713,21 @@ export default function AeoCheckerClient() {
               k: 'One citation beats ten blue links',
             },
           ].map((s, i) => (
-            <li key={s.t} className="flex flex-col justify-between rounded-2xl border-2 border-black bg-white p-6 shadow-hard-sm">
+            <li key={s.t} className="flex flex-col justify-between rounded-2xl border border-cream/10 bg-deep p-6">
               <div>
-                <span className="grid h-10 w-10 place-items-center rounded-full border-2 border-black bg-lemon font-semibold">{i + 1}</span>
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-pop text-night font-semibold">{i + 1}</span>
                 <h3 className="mt-4 text-xl font-semibold">{s.t}</h3>
-                <p className="mt-2 text-[16px] leading-relaxed text-black/80">{s.d}</p>
+                <p className="mt-2 text-[16px] leading-relaxed text-cream/75">{s.d}</p>
               </div>
-              <p className="mt-5 border-t-2 border-black/10 pt-3 text-[15px] font-semibold">{s.k}</p>
+              <p className="mt-5 border-t border-cream/10 pt-3 text-[15px] font-semibold">{s.k}</p>
             </li>
           ))}
         </ol>
       </Section>
 
-      <Section ariaLabel="Common blind spots" tone="lemon">
-        <h2 className="font-display text-section max-w-[20ch]">Three blind spots that cost you customers in AI search</h2>
-        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed">
+      <Section ariaLabel="Common blind spots" tone="navy">
+        <h2 className="font-display text-section max-w-[20ch] scroll-pop">Three blind spots that cost you customers in AI search</h2>
+        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-cream/75">
           Many founders assume AI assistants can read their site. These three hidden problems are common.
         </p>
         <ul className="mt-10 grid gap-6 md:grid-cols-3">
@@ -741,12 +748,12 @@ export default function AeoCheckerClient() {
               f: 'Fix: link your entities in JSON-LD',
             },
           ].map((b) => (
-            <li key={b.t} className="flex flex-col justify-between rounded-2xl border-2 border-black bg-white p-6 shadow-hard-sm">
+            <li key={b.t} className="flex flex-col justify-between rounded-2xl border border-cream/10 bg-deep p-6">
               <div>
                 <h3 className="text-xl font-semibold">{b.t}</h3>
-                <p className="mt-2 text-[16px] leading-relaxed text-black/80">{b.d}</p>
+                <p className="mt-2 text-[16px] leading-relaxed text-cream/75">{b.d}</p>
               </div>
-              <p className="mt-5 border-t-2 border-black/10 pt-3 text-[15px] font-semibold">{b.f}</p>
+              <p className="mt-5 border-t border-cream/10 pt-3 text-[15px] font-semibold">{b.f}</p>
             </li>
           ))}
         </ul>
@@ -754,36 +761,36 @@ export default function AeoCheckerClient() {
 
       <Section id="faq" ariaLabel="Questions">
         <div className="grid gap-10 lg:grid-cols-12">
-          <h2 className="font-display text-section lg:col-span-5">Questions about AEO</h2>
-          <div className="lg:col-span-7 space-y-3">
+          <h2 className="font-display text-section lg:col-span-5 scroll-pop">Questions about <em className="accent">AEO.</em></h2>
+          <div className="lg:col-span-7 border-t border-cream/10">
             {FAQ_ITEMS.map((f) => (
-              <details key={f.q} className="group rounded-2xl border-2 border-black bg-white open:shadow-hard-sm">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              <details key={f.q} className="group border-b border-cream/10">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-6 text-lg font-semibold [&::-webkit-details-marker]:hidden">
                   {f.q}
                   <span
                     aria-hidden="true"
-                    className="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-black text-xl leading-none transition-transform group-open:rotate-45 group-open:bg-lemon"
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-cream/25 text-xl font-light leading-none transition-transform group-open:rotate-45 group-open:border-pop group-open:text-pop"
                   >
                     +
                   </span>
                 </summary>
-                <p className="px-5 pb-5 -mt-1 text-[17px] leading-relaxed text-black/80 max-w-[60ch]">{f.a}</p>
+                <p className="pb-6 -mt-1 text-[17px] leading-relaxed text-cream/75 max-w-[60ch]">{f.a}</p>
               </details>
             ))}
           </div>
         </div>
       </Section>
 
-      <Section ariaLabel="Next step" tone="pop">
-        <h2 className="font-display text-section max-w-[20ch]">Get recommended by AI before your competitors do</h2>
-        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed">
+      <Section ariaLabel="Next step" tone="cream">
+        <h2 className="font-display text-section max-w-[20ch] scroll-pop">Get recommended by AI before your competitors do</h2>
+        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-night/80">
           Few brands have set up their site for AI search yet. The first to add clean structured data and a knowledge file are the ones AI assistants learn to trust.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-3">
-          <Button variant="ink" size="lg" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Button variant="primary" size="lg" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             Check your website
           </Button>
-          <Button href="https://cal.com/poplab-studio-o0cj4m/30min" variant="outline" size="lg">
+          <Button href="https://cal.com/poplab-studio-o0cj4m/30min" variant="ghost" size="lg" className="!border-night/30 !text-night hover:!bg-night/10">
             Book a 30-minute diagnostic
           </Button>
         </div>

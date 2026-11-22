@@ -32,15 +32,15 @@ export default function PrivacyPage() {
       />
       <Container className="pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10 lg:gap-16 items-start">
-          <nav aria-label="Table of contents" className="lg:sticky lg:top-28 rounded-2xl border-2 border-black bg-white p-4 shadow-hard-sm">
-            <p className="px-3 pb-2 font-bold">On this page</p>
+          <nav aria-label="Table of contents" className="lg:sticky lg:top-28 rounded-2xl border border-cream/10 bg-deep p-4">
+            <p className="px-3 pb-2 font-semibold text-cream">On this page</p>
             <ul className="space-y-1 text-[15px]">
-                <li><a href="#info" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Data We Collect</a></li>
-                <li><a href="#use" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">How We Use It</a></li>
-                <li><a href="#sharing" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Processors &amp; Sharing</a></li>
-                <li><a href="#cookies" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Cookies &amp; Tracking</a></li>
-                <li><a href="#rights" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Your Legal Rights</a></li>
-                <li><a href="#contact" className="block rounded-lg px-3 py-2 font-medium hover:bg-lemon">Studio Contact</a></li>
+                <li><a href="#info" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Data We Collect</a></li>
+                <li><a href="#use" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">How We Use It</a></li>
+                <li><a href="#sharing" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Processors &amp; Sharing</a></li>
+                <li><a href="#cookies" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Cookies &amp; Tracking</a></li>
+                <li><a href="#rights" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Your Legal Rights</a></li>
+                <li><a href="#contact" className="block rounded-lg px-3 py-2 font-medium text-cream/80 hover:text-pop focus-visible:text-pop transition-colors">Studio Contact</a></li>
             </ul>
           </nav>
 
@@ -79,7 +79,7 @@ export default function PrivacyPage() {
               <li>Sending ad teardown playbooks or studio case studies if you have subscribed to our insights.</li>
               <li>Complying with statutory accounting and commercial legal requirements in India.</li>
             </ul>
-            <div className="rounded-xl border-2 border-black bg-lemon p-4 font-semibold">
+            <div className="rounded-xl border border-pop/40 bg-deep p-4 font-semibold text-cream">
               Zero sale of data: We never sell, rent, monetize, or broker your personal or brand information to third parties. Ever.
             </div>
           </section>
@@ -132,7 +132,7 @@ export default function PrivacyPage() {
             <p>
               To exercise any of your privacy rights or submit questions regarding data handling, reach our compliance team directly:
             </p>
-            <div className="rounded-2xl border-2 border-black bg-fog p-6 shadow-hard-sm space-y-1">
+            <div className="rounded-2xl border border-cream/10 bg-deep p-6 space-y-1">
               <p>
                 <strong>Email:</strong>{' '}
                 <a href="mailto:growth@poplabstudio.com">
@@ -148,7 +148,7 @@ export default function PrivacyPage() {
             </div>
           </section>
 
-            <div className="mt-12 pt-8 border-t-2 border-black flex flex-wrap items-center justify-between gap-4 font-semibold">
+            <div className="mt-12 pt-8 border-t border-cream/10 flex flex-wrap items-center justify-between gap-4 font-semibold">
               <Link href="/">Return to Studio Home</Link>
               <Link href="/contact">Start a Project</Link>
             </div>

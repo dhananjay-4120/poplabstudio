@@ -41,27 +41,27 @@ export default function JournalClient() {
         <div className="w-full max-w-[1240px] mx-auto px-5 sm:px-8">
           <Link
             href={`/journal/${featured.slug}`}
-            className="group block rounded-[2rem] border-2 border-black bg-lemon p-6 sm:p-10 shadow-hard pop-press"
+            className="group block rounded-[2rem] border border-cream/10 bg-deep p-6 sm:p-10 transition-colors hover:border-cream/25"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               <div className="lg:col-span-8">
-                <div className="flex flex-wrap items-center gap-3 text-[15px] font-medium">
-                  <Tag className="bg-white">{featured.category}</Tag>
+                <div className="flex flex-wrap items-center gap-3 text-[15px] font-medium text-cream/70">
+                  <Tag>{featured.category}</Tag>
                   <span>
                     {featured.publishDate} · {featured.readTime}
                   </span>
                 </div>
                 <h2 className="mt-5 font-display text-[clamp(1.9rem,4.2vw,3.5rem)] leading-[1.02]">
-                  {featured.title} {featured.italicAccent}
+                  {featured.title} <em className="accent">{featured.italicAccent}</em>
                 </h2>
-                <p className="mt-5 max-w-[60ch] text-lg leading-relaxed">{featured.excerpt}</p>
-                <span className="mt-6 inline-block font-bold underline decoration-2 underline-offset-4">
+                <p className="mt-5 max-w-[60ch] text-lg leading-relaxed text-cream/75">{featured.excerpt}</p>
+                <span className="mt-6 inline-block font-semibold text-cream underline decoration-pop decoration-[1.5px] underline-offset-[6px] group-hover:text-pop">
                   Read the article
                 </span>
               </div>
-              <div className="lg:col-span-4 rounded-2xl border-2 border-black bg-white p-5 sm:p-6">
-                <p className="text-[15px] font-semibold">The short version</p>
-                <p className="mt-2 text-lg font-semibold leading-snug">{featured.heroTakeaway}</p>
+              <div className="lg:col-span-4 rounded-2xl border border-cream/10 bg-navy p-5 sm:p-6">
+                <p className="text-[15px] font-medium text-cream/70">The short version</p>
+                <p className="mt-2 text-lg font-semibold leading-snug text-cream">{featured.heroTakeaway}</p>
               </div>
             </div>
           </Link>
@@ -80,8 +80,8 @@ export default function JournalClient() {
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`rounded-full border-2 border-black px-4 h-10 text-[15px] font-semibold whitespace-nowrap ${
-                    isSelected ? 'bg-black text-white' : 'bg-white text-black hover:bg-lemon'
+                  className={`rounded-full border px-4 h-10 text-[15px] font-semibold whitespace-nowrap transition-colors ${
+                    isSelected ? 'border-cream bg-cream text-night' : 'border-cream/20 text-cream hover:bg-cream/10'
                   }`}
                 >
                   {cat}
@@ -95,17 +95,17 @@ export default function JournalClient() {
               <Link
                 key={art.slug}
                 href={`/journal/${art.slug}`}
-                className="group flex flex-col rounded-2xl border-2 border-black bg-white p-6 shadow-hard-sm pop-press"
+                className="group flex flex-col rounded-2xl border border-cream/10 bg-deep p-6 transition-colors hover:border-cream/25"
               >
-                <div className="flex flex-wrap items-center gap-3 text-[14px] font-medium">
+                <div className="flex flex-wrap items-center gap-3 text-[14px] font-medium text-cream/70">
                   <Tag>{art.category}</Tag>
                   <span>{art.readTime}</span>
                 </div>
                 <h3 className="mt-4 font-display text-[1.45rem] leading-[1.05]">
                   {art.title} {art.italicAccent}
                 </h3>
-                <p className="mt-3 leading-relaxed">{art.excerpt}</p>
-                <span className="mt-auto pt-5 font-bold underline decoration-2 underline-offset-4">
+                <p className="mt-3 leading-relaxed text-cream/70">{art.excerpt}</p>
+                <span className="mt-auto pt-5 font-semibold text-cream underline decoration-pop decoration-[1.5px] underline-offset-[6px] group-hover:text-pop">
                   Read the article
                 </span>
               </Link>

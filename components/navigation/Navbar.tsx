@@ -53,12 +53,12 @@ export default function Navbar() {
     <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-5 pt-3 sm:pt-4">
       <nav
         aria-label="Main navigation"
-        className={`mx-auto max-w-[1240px] flex items-center justify-between gap-4 rounded-full border-2 border-black bg-white pl-5 pr-2 h-[60px] transition-shadow duration-200 ${
-          scrolled || open ? 'shadow-hard-sm' : 'shadow-none'
+        className={`mx-auto max-w-[1240px] flex items-center justify-between gap-4 rounded-full border pl-5 pr-2 h-[60px] transition-colors duration-300 ${
+          scrolled || open ? 'border-cream/15 bg-night/85 backdrop-blur-md' : 'border-transparent bg-transparent'
         }`}
       >
         <Link href="/" aria-label="Pop Lab Studio home" className="shrink-0">
-          <Image src="/logo-dark.png" alt="Pop Lab Studio" width={86} height={48} priority className="h-9 w-auto" />
+          <Image src="/logo-white.png" alt="Pop Lab Studio" width={86} height={48} priority className="h-9 w-auto" />
         </Link>
 
         <ul className="hidden lg:flex items-center gap-1">
@@ -68,7 +68,7 @@ export default function Navbar() {
                 href={link.href}
                 aria-current={isActive(link.href) ? 'page' : undefined}
                 className={`rounded-full px-4 py-2 text-[15px] font-semibold transition-colors ${
-                  isActive(link.href) ? 'bg-lemon' : 'hover:bg-fog'
+                  isActive(link.href) ? 'text-pop' : 'text-cream/80 hover:text-cream'
                 }`}
               >
                 {link.label}
@@ -80,7 +80,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <Link
             href="/contact"
-            className="inline-flex h-11 items-center rounded-full border-2 border-black bg-pop px-5 text-[15px] font-semibold pop-press"
+            className="inline-flex h-11 items-center rounded-full bg-pop px-5 text-[15px] font-semibold text-night transition-colors hover:bg-pop-light"
           >
             Start a project
           </Link>
@@ -91,16 +91,16 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="lg:hidden grid h-11 w-11 place-items-center rounded-full border-2 border-black bg-white"
+            className="lg:hidden grid h-11 w-11 place-items-center rounded-full border border-cream/25"
           >
             <span className="relative block h-3.5 w-5">
               <span
-                className={`absolute left-0 h-0.5 w-5 bg-black transition-transform duration-200 ${
+                className={`absolute left-0 h-0.5 w-5 bg-cream transition-transform duration-200 ${
                   open ? 'top-1.5 rotate-45' : 'top-0'
                 }`}
               />
               <span
-                className={`absolute left-0 h-0.5 w-5 bg-black transition-transform duration-200 ${
+                className={`absolute left-0 h-0.5 w-5 bg-cream transition-transform duration-200 ${
                   open ? 'top-1.5 -rotate-45' : 'top-3'
                 }`}
               />
@@ -113,7 +113,7 @@ export default function Navbar() {
         id="mobile-menu"
         ref={menuRef}
         hidden={!open}
-        className="lg:hidden mx-auto mt-3 max-w-[1240px] rounded-[1.75rem] border-2 border-black bg-white p-3 shadow-hard"
+        className="lg:hidden mx-auto mt-3 max-w-[1240px] rounded-[1.75rem] border border-cream/15 bg-deep p-3"
       >
         <ul className="flex flex-col">
           {NAV_LINKS.map((link) => (
@@ -121,14 +121,14 @@ export default function Navbar() {
               <Link
                 href={link.href}
                 aria-current={isActive(link.href) ? 'page' : undefined}
-                className={`block rounded-2xl px-4 py-4 font-display text-2xl ${isActive(link.href) ? 'bg-lemon' : ''}`}
+                className={`block rounded-2xl px-4 py-4 font-display text-3xl ${isActive(link.href) ? 'text-pop' : ''}`}
               >
                 {link.label}
               </Link>
             </li>
           ))}
           <li>
-            <Link href="/contact" className="block rounded-2xl px-4 py-4 font-display text-2xl">
+            <Link href="/contact" className="block rounded-2xl px-4 py-4 font-display text-3xl">
               Contact
             </Link>
           </li>
@@ -138,11 +138,11 @@ export default function Navbar() {
             href="https://wa.me/918837565738"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border-2 border-black bg-lemon py-3 text-center font-semibold"
+            className="rounded-full bg-pop py-3 text-center font-semibold text-night"
           >
             WhatsApp
           </a>
-          <a href="tel:+918837565738" className="rounded-full border-2 border-black py-3 text-center font-semibold">
+          <a href="tel:+918837565738" className="rounded-full border border-cream/25 py-3 text-center font-semibold">
             Call us
           </a>
         </div>

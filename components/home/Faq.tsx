@@ -28,20 +28,22 @@ export default function Faq() {
   return (
     <Section id="faq" ariaLabel="Questions">
       <div className="grid gap-10 lg:grid-cols-12">
-        <h2 className="font-display text-section lg:col-span-5 scroll-pop">Questions we get a lot.</h2>
-        <div className="lg:col-span-7 space-y-3">
+        <h2 className="font-display text-section lg:col-span-5 scroll-pop">
+          Questions we get <em className="accent">a lot.</em>
+        </h2>
+        <div className="lg:col-span-7 border-t border-cream/10">
           {FAQS.map((f) => (
-            <details key={f.q} className="group rounded-2xl border-2 border-black bg-white open:shadow-hard-sm">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+            <details key={f.q} className="group border-b border-cream/10">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-semibold [&::-webkit-details-marker]:hidden">
                 {f.q}
                 <span
                   aria-hidden="true"
-                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-black text-xl leading-none transition-transform group-open:rotate-45 group-open:bg-lemon"
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-cream/25 text-xl font-light leading-none transition-transform group-open:rotate-45 group-open:border-pop group-open:text-pop"
                 >
                   +
                 </span>
               </summary>
-              <p className="px-5 pb-5 -mt-1 text-[17px] leading-relaxed text-black/80 max-w-[60ch]">{f.a}</p>
+              <p className="pb-6 -mt-1 text-[17px] leading-relaxed text-cream/75 max-w-[60ch]">{f.a}</p>
             </details>
           ))}
         </div>

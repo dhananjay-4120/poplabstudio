@@ -118,7 +118,7 @@ export default async function JournalArticlePage({ params }: Props) {
         <PageHeader
           context={
             <span className="flex flex-wrap items-center gap-x-3 gap-y-2">
-              <Link href="/journal" className="underline decoration-2 underline-offset-4 hover:text-cobalt">
+              <Link href="/journal" className="underline decoration-pop decoration-[1.5px] underline-offset-4 hover:text-pop">
                 Journal
               </Link>
               <span aria-hidden="true">/</span>
@@ -129,15 +129,15 @@ export default async function JournalArticlePage({ params }: Props) {
               </span>
             </span>
           }
-          title={`${article.title} ${article.italicAccent}`}
+          title={<>{article.title} <em className="accent">{article.italicAccent}</em></>}
           lede={article.excerpt}
         />
 
         <Container className="pb-16 sm:pb-20">
           <div className="max-w-[68ch]">
-            <div className="mb-10 rounded-2xl border-2 border-black bg-lemon p-5 sm:p-6 shadow-hard-sm">
-              <p className="text-[15px] font-semibold">The short version</p>
-              <p className="mt-2 text-lg sm:text-xl font-semibold leading-snug">{article.heroTakeaway}</p>
+            <div className="mb-10 rounded-2xl border border-cream/10 bg-deep p-5 sm:p-6">
+              <p className="text-[15px] font-medium text-cream/70">The short version</p>
+              <p className="mt-2 text-lg sm:text-xl font-semibold leading-snug text-cream">{article.heroTakeaway}</p>
             </div>
 
             <div className="prose-pop text-[17px] sm:text-lg leading-[1.55]">
@@ -153,8 +153,8 @@ export default async function JournalArticlePage({ params }: Props) {
                   ))}
 
                   {sec.callout && (
-                    <div className="my-6 rounded-2xl border-2 border-black bg-fog p-5 shadow-hard-sm">
-                      <p className="font-bold">{sec.callout.title}</p>
+                    <div className="my-6 rounded-2xl border border-cream/10 bg-deep p-5">
+                      <p className="font-bold text-cream">{sec.callout.title}</p>
                       <p className="mt-1">{sec.callout.text}</p>
                     </div>
                   )}
@@ -169,8 +169,8 @@ export default async function JournalArticlePage({ params }: Props) {
                 </section>
               ))}
 
-              <blockquote className="my-10 rounded-2xl border-2 border-black bg-lemon p-6 sm:p-8">
-                <p className="font-display text-[clamp(1.4rem,3vw,2rem)] leading-[1.1]">
+              <blockquote className="my-12 border-l-2 border-pop pl-6 sm:pl-8">
+                <p className="font-display italic text-[clamp(1.75rem,3.6vw,2.5rem)] leading-[1.15] !text-cream !mb-0">
                   &ldquo;{article.pullQuote}&rdquo;
                 </p>
               </blockquote>
@@ -178,26 +178,26 @@ export default async function JournalArticlePage({ params }: Props) {
 
             {article.comparisonTable && (
               <div className="my-10">
-                <h2 className="font-display text-xl sm:text-2xl mb-4">Side by side</h2>
-                <div className="overflow-x-auto rounded-2xl border-2 border-black bg-white">
+                <h2 className="font-display text-xl sm:text-2xl mb-4 text-cream">Side by side</h2>
+                <div className="overflow-x-auto rounded-2xl border border-cream/10 bg-deep">
                   <table className="w-full text-left text-[15px] border-collapse">
                     <thead>
-                      <tr className="border-b-2 border-black bg-fog">
+                      <tr className="border-b border-cream/10 text-cream/60">
                         {article.comparisonTable.headers.map((h, i) => (
-                          <th key={i} scope="col" className="px-4 py-3 font-bold">
+                          <th key={i} scope="col" className="px-4 py-3 font-semibold">
                             {h}
                           </th>
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y-2 divide-black">
+                    <tbody className="divide-y divide-cream/10">
                       {article.comparisonTable.rows.map((r, i) => (
                         <tr key={i}>
-                          <th scope="row" className="px-4 py-3 font-bold">
+                          <th scope="row" className="px-4 py-3 font-semibold text-cream">
                             {r.metric}
                           </th>
-                          <td className="px-4 py-3">{r.approachA}</td>
-                          <td className="px-4 py-3 font-semibold">{r.approachB}</td>
+                          <td className="px-4 py-3 text-cream/75">{r.approachA}</td>
+                          <td className="px-4 py-3 font-semibold text-cream bg-pop/10">{r.approachB}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -210,13 +210,13 @@ export default async function JournalArticlePage({ params }: Props) {
 
         <section aria-label="More from the journal" className="w-full pb-16 sm:pb-20">
           <Container>
-            <h2 className="font-display text-subsection mb-6">Keep reading</h2>
+            <h2 className="font-display text-subsection mb-6 scroll-pop">Keep reading</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {related.map((r) => (
                 <Link
                   key={r.label}
                   href={`/journal/${r.slug}`}
-                  className="block rounded-2xl border-2 border-black bg-white p-6 shadow-hard-sm pop-press"
+                  className="block rounded-2xl border border-cream/10 bg-deep p-6 transition-colors hover:border-cream/25"
                 >
                   <Tag>{r.label}</Tag>
                   <span className="mt-4 block font-display text-[1.35rem] leading-[1.1]">{r.title}</span>
@@ -226,13 +226,15 @@ export default async function JournalArticlePage({ params }: Props) {
           </Container>
         </section>
 
-        <Section tone="pop" ariaLabel="Book a diagnostic" innerClassName="text-center">
-          <h2 className="font-display text-section mx-auto max-w-[16ch]">Want this kind of look at your spend?</h2>
-          <p className="mx-auto mt-6 max-w-[52ch] text-lg sm:text-xl">
+        <Section tone="cream" ariaLabel="Book a diagnostic" innerClassName="text-center">
+          <h2 className="font-display text-section mx-auto max-w-[16ch] scroll-pop">
+            Want this kind of look <em className="accent">at your spend?</em>
+          </h2>
+          <p className="mx-auto mt-6 max-w-[52ch] text-lg sm:text-xl text-night/75">
             We open your ad accounts with you, show where budget is leaking, and give you a list of things to test first.
           </p>
           <div className="mt-9 flex justify-center">
-            <Button href="/contact" variant="ink" size="lg">
+            <Button href="/contact" size="lg">
               Book a 30-minute diagnostic
             </Button>
           </div>

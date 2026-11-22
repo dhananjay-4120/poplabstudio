@@ -1,15 +1,21 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Archivo } from 'next/font/google';
+import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import Navbar from '@/components/navigation/Navbar';
 import Footer from '@/components/sections/Footer';
 import './globals.css';
 
-// Archivo variable: one family, used expanded (font-stretch 125%) for display and normal width for body
-const archivo = Archivo({
+// Serif headlines (matches the logo and Instagram) + clean sans body
+const serif = Cormorant_Garamond({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-archivo',
-  axes: ['wdth'],
+  variable: '--font-serif',
+  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+const sans = Plus_Jakarta_Sans({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-sans',
   display: 'swap',
 });
 
@@ -27,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  themeColor: '#070B14',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -40,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivo.variable} bg-white text-black`}
+      className={`${serif.variable} ${sans.variable} bg-night text-cream`}
       suppressHydrationWarning
     >
       <head>
@@ -139,7 +145,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body
-        className="bg-white text-black min-h-screen antialiased overflow-x-hidden relative isolate"
+        className="bg-night text-cream min-h-screen antialiased overflow-x-hidden relative isolate"
         suppressHydrationWarning
       >
         {/* Google Tag Manager (noscript fallback) */}

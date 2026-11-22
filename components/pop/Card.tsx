@@ -9,5 +9,5 @@ export default function Card({
   className?: string;
   as?: 'div' | 'article' | 'li';
 }) {
-  return <As className={`rounded-2xl border-2 border-black bg-white shadow-hard ${className}`}>{children}</As>;
+  return <As className={`rounded-2xl border border-cream/10 bg-deep ${className}`}>{children}</As>;
 }
