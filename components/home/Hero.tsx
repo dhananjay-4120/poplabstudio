@@ -28,7 +28,7 @@ export default function Hero() {
               </span>
             </h1>
 
-            <SpinBadge className="pop-in mt-8 mx-auto w-[240px] sm:w-[270px] lg:absolute lg:mt-0 lg:right-0 lg:top-[30%] lg:w-[310px] z-10" />
+            <SpinBadge className="pop-in mt-8 mx-auto w-[270px] sm:w-[280px] lg:absolute lg:mt-0 lg:right-0 lg:top-[30%] lg:w-[310px] z-10" />
 
             <div className="relative z-10 mt-8 sm:mt-10 lg:max-w-[56%]">
               <p className="max-w-[40ch] text-xl sm:text-[23px] leading-snug font-medium">

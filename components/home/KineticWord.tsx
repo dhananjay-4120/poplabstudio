@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 /** Cycles the last words of the headline with a flip. Screen readers get the static sentence from the h1. */
-export default function KineticWord({ words, interval = 2200 }: { words: string[]; interval?: number }) {
+export default function KineticWord({ words, interval = 2600 }: { words: string[]; interval?: number }) {
   const [i, setI] = useState(0);
 
   useEffect(() => {

@@ -37,12 +37,12 @@ export default function SpinBadge({ className = '' }: { className?: string }) {
       </svg>
       <p className="absolute inset-0 grid place-items-center text-center">
         <span className="-rotate-[8deg]">
-          <span className="block text-[11px] sm:text-[13px] lg:text-[14px] font-bold">We’ve managed</span>
-          <span className="font-display flex items-center justify-center leading-none my-1 text-[1.8rem] sm:text-[2.2rem] lg:text-[2.35rem]">
+          <span className="block text-[12.5px] sm:text-[13px] lg:text-[14px] font-bold">We’ve managed</span>
+          <span className="font-display flex items-center justify-center leading-none my-1 text-[2rem] sm:text-[2.2rem] lg:text-[2.35rem]">
             $<span className="roll" aria-hidden="true"><span className="roll-track"><span>0</span><span>3</span><span>7</span><span>2</span><span>9</span><span>5</span><span>1</span></span></span>
             <span className="sr-only">1</span>M+
           </span>
-          <span className="block text-[11px] sm:text-[13px] lg:text-[14px] font-bold">in ad spend</span>
+          <span className="block text-[12.5px] sm:text-[13px] lg:text-[14px] font-bold">in ad spend</span>
         </span>
       </p>
     </div>
