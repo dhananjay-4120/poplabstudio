@@ -5,7 +5,7 @@ import Button from '@/components/pop/Button';
 export default function FinalCta() {
   return (
     <Section id="contact" tone="pop" ariaLabel="Book a diagnostic" innerClassName="text-center">
-      <h2 className="font-display text-section mx-auto max-w-[16ch]">Let’s find the three things holding your growth back.</h2>
+      <h2 className="font-display text-section mx-auto max-w-[16ch] scroll-pop">Let’s find the three things holding your growth back.</h2>
       <p className="mx-auto mt-6 max-w-[52ch] text-lg sm:text-xl">
         Book a free 30-minute diagnostic. You talk to a senior strategist, not a sales rep.
       </p>

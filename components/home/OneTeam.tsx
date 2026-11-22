@@ -18,7 +18,7 @@ const OURS = [
 export default function OneTeam() {
   return (
     <Section id="approach" tone="ink" ariaLabel="Why one team">
-      <h2 className="font-display text-section max-w-[16ch]">Marketing breaks in the gaps between agencies.</h2>
+      <h2 className="font-display text-section max-w-[16ch] scroll-pop">Marketing breaks in the gaps between agencies.</h2>
       <div className="mt-12 grid gap-5 md:grid-cols-2">
         <div className="rounded-2xl border-2 border-white/40 p-6 sm:p-8">
           <h3 className="text-xl font-semibold text-white/80">The usual setup</h3>

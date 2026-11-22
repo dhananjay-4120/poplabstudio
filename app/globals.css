@@ -164,19 +164,150 @@ body {
   animation: pop-in 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
 }
 
-@keyframes ticker {
-  from {
-    transform: translateX(0);
+/* ---------- Motion graphics (hero + site) ---------- */
+
+/* Headline lines rise out of a mask on load */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.line-rise {
+  display: block;
+  animation: line-rise 0.9s cubic-bezier(0.2, 0.9, 0.1, 1) both;
+}
+@keyframes line-rise {
+  from { transform: translateY(105%) rotate(3deg); }
+  to { transform: translateY(0) rotate(0); }
+}
+
+/* Inner page titles: one quick pop on load */
+.title-in {
+  animation: title-in 0.8s cubic-bezier(0.2, 1.2, 0.3, 1) both;
+}
+@keyframes title-in {
+  from { transform: translateY(40px) rotate(-2deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Cycling last words */
+.kinetic-slot {
+  display: inline-block;
+  vertical-align: bottom;
+  perspective: 600px;
+}
+.kinetic-word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  animation: word-flip 0.6s cubic-bezier(0.3, 1.4, 0.4, 1) both;
+}
+.kw-pop {
+  color: var(--pop);
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+}
+@keyframes word-flip {
+  0% { transform: translateY(70%) rotateX(-85deg); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(0) rotateX(0); opacity: 1; }
+}
+
+/* Spinners */
+.spin-slow { animation: spin 22s linear infinite; }
+.spin-rev { animation: spin 16s linear infinite reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Slot-machine digit roll */
+.roll {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  line-height: 1;
+}
+.roll-track {
+  display: flex;
+  flex-direction: column;
+  animation: roll 1.6s cubic-bezier(0.5, 0, 0.2, 1) 0.5s both;
+}
+.roll-track > span { display: block; height: 1em; }
+@keyframes roll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-85.714%); }
+}
+
+/* Floating shapes with mouse parallax */
+.float-field { --mx: 0; --my: 0; }
+.float-field .shape {
+  position: absolute;
+  transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * 1px), 0);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.bob { animation: bob 5s ease-in-out infinite; }
+.bob-tilt { animation: bob-tilt 6s ease-in-out infinite; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+@keyframes bob-tilt {
+  0%, 100% { transform: translateY(0) rotate(-12deg); }
+  50% { transform: translateY(-12px) rotate(10deg); }
+}
+.draw {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: draw 4.5s ease-in-out infinite;
+}
+@keyframes draw {
+  0% { stroke-dashoffset: 260; }
+  45%, 60% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -260; }
+}
+
+/* Marquees */
+.marquee { animation: marquee 28s linear infinite; }
+.marquee-rev { animation: marquee 34s linear infinite reverse; }
+.marquee-slow { animation: marquee 45s linear infinite; }
+.logo-marquee:hover .marquee-slow { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Hover wiggle for cards and stickers */
+.wiggle:hover { animation: wiggle 0.45s ease-in-out; }
+@keyframes wiggle {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: -2deg; }
+  75% { rotate: 2deg; }
+}
+
+/* Scroll-driven reveals (Chrome/Edge; other browsers just show the content) */
+@supports (animation-timeline: view()) {
+  .scroll-pop {
+    animation: scroll-pop linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
   }
-  to {
-    transform: translateX(-50%);
+  .scroll-tilt {
+    animation: scroll-tilt linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
   }
 }
-.ticker-track {
-  animation: ticker 40s linear infinite;
+@keyframes scroll-pop {
+  from { transform: translateY(60px) scale(0.94); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }
+@keyframes scroll-tilt {
+  from { transform: translateY(80px) rotate(-3deg); opacity: 0; }
+  to { transform: translateY(0) rotate(0); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track {
-    animation: none;
+  .spin-slow, .spin-rev, .bob, .bob-tilt, .draw, .marquee, .marquee-rev, .marquee-slow, .scroll-pop, .scroll-tilt {
+    animation: none !important;
   }
+  .draw { stroke-dashoffset: 0; }
+  .float-field .shape { transform: none; }
 }

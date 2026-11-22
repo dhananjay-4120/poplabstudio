@@ -12,7 +12,7 @@ export default function SelectedWork() {
   return (
     <Section id="work" ariaLabel="Selected work">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-10 sm:mb-14">
-        <h2 className="font-display text-section max-w-[14ch]">Results we can show you.</h2>
+        <h2 className="font-display text-section max-w-[14ch] scroll-pop">Results we can show you.</h2>
         <p className="text-lg max-w-[40ch]">
           Every number below comes from the client’s own dashboards and campaign records. Client names are private; the thinking
           isn’t.
@@ -22,7 +22,7 @@ export default function SelectedWork() {
         {items.map((cs) => {
           const hero = cs.metrics.find((m) => m.isHero) ?? cs.metrics[0];
           return (
-            <li key={cs.slug}>
+            <li key={cs.slug} className="scroll-tilt">
               <Link
                 href={`/work/${cs.slug}`}
                 className="group block h-full rounded-2xl border-2 border-black bg-white p-6 sm:p-7 shadow-hard pop-press"

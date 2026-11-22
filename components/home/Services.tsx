@@ -34,7 +34,7 @@ export default function Services() {
   return (
     <Section id="services" ariaLabel="What we do">
       <div className="grid gap-6 lg:grid-cols-12 lg:items-end mb-10 sm:mb-14">
-        <h2 className="font-display text-section lg:col-span-7">Three jobs, one team.</h2>
+        <h2 className="font-display text-section lg:col-span-7 scroll-pop">Three jobs, one team.</h2>
         <p className="lg:col-span-5 text-lg text-black/80 max-w-[44ch]">
           Most brands hire a design studio, a social agency and an ads freelancer, and spend their week keeping them in
           sync. We do all three, so the brand, the content and the ads pull in the same direction.
@@ -42,7 +42,7 @@ export default function Services() {
       </div>
       <ul className="grid gap-5 md:grid-cols-3">
         {SERVICES.map((s) => (
-          <li key={s.id} className={`rounded-2xl border-2 border-black p-6 sm:p-7 shadow-hard flex flex-col ${s.color}`}>
+          <li key={s.id} className={`scroll-tilt wiggle rounded-2xl border-2 border-black p-6 sm:p-7 shadow-hard flex flex-col ${s.color}`}>
             <h3 className="font-display text-subsection">{s.name}</h3>
             <p className="mt-2 text-lg font-medium">{s.line}</p>
             <ul className="mt-6 space-y-2.5 border-t-2 border-current pt-5 text-[16px]">

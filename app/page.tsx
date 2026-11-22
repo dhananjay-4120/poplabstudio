@@ -7,6 +7,7 @@ import OneTeam from '@/components/home/OneTeam';
 import ProcessStrip from '@/components/home/ProcessStrip';
 import Faq, { FAQS } from '@/components/home/Faq';
 import FinalCta from '@/components/home/FinalCta';
+import MarqueeBand from '@/components/home/MarqueeBand';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -102,6 +103,7 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <div id="top" className="flex flex-col gap-0 sm:gap-6 w-full">
         <Hero />
+        <MarqueeBand />
         <Services />
         <OneTeam />
         <SelectedWork />

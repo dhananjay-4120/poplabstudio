@@ -1,47 +1,39 @@
 import React from 'react';
 import Button from '@/components/pop/Button';
 import { Container } from '@/components/pop/Section';
-import Starburst from './Starburst';
+import SpinBadge from './SpinBadge';
+import KineticWord from './KineticWord';
+import FloatField from './FloatField';
 import ClientLogos from './ClientLogos';
 
-// What we run day to day. Shown as stickers around the headline (desktop) or a row (mobile).
-const CHANNELS = [
-  { label: 'Meta ads', cls: 'bg-white', tilt: '-6deg' },
-  { label: 'Google ads', cls: 'bg-cobalt text-white', tilt: '5deg' },
-  { label: 'Reels', cls: 'bg-blush', tilt: '8deg' },
-  { label: 'Amazon & Flipkart', cls: 'bg-white', tilt: '-4deg' },
-  { label: 'Blinkit & Instamart', cls: 'bg-black text-white', tilt: '3deg' },
-  { label: 'AI search', cls: 'bg-white', tilt: '-7deg' },
-];
+const ENDINGS = ['ignore.', 'forget.', 'skip.', 'miss.'];
 
 export default function Hero() {
   return (
     <section aria-label="Introduction" className="w-full px-0 sm:px-4 lg:px-6 pt-[84px] sm:pt-[96px]">
-      <div className="relative overflow-hidden bg-lemon sm:rounded-[2rem] sm:border-2 sm:border-black pt-10 sm:pt-16 pb-12 sm:pb-16">
-        <Container>
+      <div className="hero-block relative overflow-hidden bg-lemon sm:rounded-[2rem] sm:border-2 sm:border-black pt-10 sm:pt-16 pb-12 sm:pb-16">
+        <FloatField />
+        <Container className="relative">
           <div className="relative">
-            <h1 className="font-display text-[clamp(2.9rem,8vw,7.6rem)] leading-[0.9] relative z-10">
-              <span className="block">We make brands</span>
-              <span className="block">impossible</span>
-              <span className="block">to ignore.</span>
+            <h1 className="font-display text-[clamp(2.7rem,7.6vw,7.4rem)] leading-[0.92] relative z-10">
+              <span className="sr-only">We make brands impossible to ignore.</span>
+              <span aria-hidden="true" className="block">
+                <span className="line-mask"><span className="line-rise" style={{ animationDelay: '0ms' }}>We make brands</span></span>
+                <span className="line-mask"><span className="line-rise" style={{ animationDelay: '110ms' }}>impossible</span></span>
+                <span className="line-mask">
+                  <span className="line-rise" style={{ animationDelay: '220ms' }}>
+                    to <KineticWord words={ENDINGS} />
+                  </span>
+                </span>
+              </span>
             </h1>
 
-            <Starburst
-              className="pop-in mt-8 mx-auto h-[250px] w-[250px] sm:h-[280px] sm:w-[280px] lg:absolute lg:mt-0 lg:right-0 lg:top-[30%] lg:h-[330px] lg:w-[330px]"
-            >
-              <p className="px-6 -rotate-[8deg]">
-                <span className="block text-[14px] sm:text-[15px] font-semibold">We’ve managed</span>
-                <span className="font-display block whitespace-nowrap text-[2.4rem] sm:text-[2.7rem] lg:text-[3.1rem] leading-none my-1">
-                  ₹10 Cr+
-                </span>
-                <span className="block text-[14px] sm:text-[15px] font-semibold leading-tight">in ad spend</span>
-              </p>
-            </Starburst>
+            <SpinBadge className="pop-in mt-8 mx-auto w-[240px] sm:w-[270px] lg:absolute lg:mt-0 lg:right-0 lg:top-[30%] lg:w-[310px] z-10" />
 
-            <div className="mt-8 sm:mt-10 lg:max-w-[58%]">
+            <div className="relative z-10 mt-8 sm:mt-10 lg:max-w-[56%]">
               <p className="max-w-[40ch] text-xl sm:text-[23px] leading-snug font-medium">
-                Brand, content, ads and AI search for growing brands. One team, one plan, built around why your
-                customer buys.
+                Brand, content, paid ads and AI search for brands that want to grow. One team, one plan, built
+                around why your customer buys.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button href="/contact" variant="ink" size="lg">
@@ -53,18 +45,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-
-          <ul aria-label="Channels we run" className="mt-10 flex flex-wrap gap-2.5">
-            {CHANNELS.map((c, i) => (
-              <li
-                key={c.label}
-                className={`pop-in rounded-full border-2 border-black px-4 py-2 text-[15px] font-semibold shadow-hard-sm ${c.cls}`}
-                style={{ ['--tilt' as string]: c.tilt, animationDelay: `${250 + i * 90}ms` }}
-              >
-                {c.label}
-              </li>
-            ))}
-          </ul>
 
           <ClientLogos />
         </Container>
