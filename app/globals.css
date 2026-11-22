@@ -2,310 +2,145 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Pop Lab Studio — Bold Pop design tokens. See docs/DESIGN-BOLD-POP.md */
 :root {
-  --ink: #000000;
-  --paper: #ffffff;
-  --pop: #ff5e14;
-  --lemon: #ffe14d;
-  --cobalt: #2b3fff;
-  --blush: #ffc2dc;
-  --fog: #f2f2ee;
+  /* ==========================================================================
+     POP LAB CORE BRAND TOKENS (Pure Obsidian Dark Mode)
+     ========================================================================== */
+  --color-electric-tangerine: #FF5E14;
+  --color-maritime-azure: #0E4D7A;
+  --color-twilight-indigo: #1A2436;
+  --color-bone-alabaster: #F5F2EB;
+
+  /* RGB Channel Equivalents for Tailwind Alpha Utilities */
+  --electric-tangerine-rgb: 255, 94, 20;
+  --maritime-azure-rgb: 14, 77, 122;
+  --twilight-indigo-rgb: 26, 36, 54;
+  --bone-alabaster-rgb: 245, 242, 235;
+
+  /* Semantic Surface & Depth Tokens */
+  --bg-void: #050505;
+  --bg-canvas: #070B10;
+  --bg-surface: rgba(255, 255, 255, 0.03);
+  --bg-surface-elevated: rgba(255, 255, 255, 0.06);
+  --bg-glass-nav: rgba(5, 5, 5, 0.75);
+
+  /* Borders & Dividers */
+  --border-subtle: rgba(245, 242, 235, 0.08);
+  --border-medium: rgba(245, 242, 235, 0.15);
+  --border-accent: rgba(255, 94, 20, 0.40);
+
+  /* Typography Colors */
+  --text-primary: #F5F2EB;
+  --text-muted: rgba(245, 242, 235, 0.70);
+  --text-dim: rgba(245, 242, 235, 0.45);
+  --text-accent: #FF5E14;
+
+  /* Shadows & Glows */
+  --glow-tangerine: 0 0 32px rgba(255, 94, 20, 0.25);
+  --glass-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
 }
 
 html {
-  color-scheme: light;
-  background-color: var(--paper);
-  scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  color-scheme: dark;
+  background-color: #050505;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Lenis Smooth Scroll Optimizations */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
-  background-color: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-archivo), -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 17px;
-  line-height: 1.55;
+  background-color: #050505;
+  color: #F5F2EB;
+  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection {
-  background: var(--lemon);
-  color: var(--ink);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 242, 235, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 94, 20, 0.4);
 }
 
-:focus-visible {
-  outline: 3px solid var(--cobalt);
-  outline-offset: 3px;
-  border-radius: 4px;
+/* Liquid Glass Utilities (Inspired by videobg.ai & Apple Scrollytelling) */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 20px 40px -15px rgba(0, 0, 0, 0.6);
 }
 
-@layer utilities {
-  .font-display {
-    font-family: var(--font-archivo), 'Arial Black', sans-serif;
-    font-stretch: 125%;
-    font-weight: 850;
-    letter-spacing: -0.02em;
-  }
-  .font-wide {
-    font-stretch: 112%;
-  }
-  .text-hero {
-    font-size: clamp(2.75rem, 7.4vw, 7rem);
-    line-height: 0.92;
-  }
-  .text-section {
-    font-size: clamp(2.1rem, 5vw, 4.5rem);
-    line-height: 0.98;
-  }
-  .text-subsection {
-    font-size: clamp(1.5rem, 2.6vw, 2.25rem);
-    line-height: 1.05;
-  }
-  /* Highlighter box: whole line emphasis, max once per page */
-  .mark {
-    background: var(--lemon);
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    padding: 0 0.12em;
-    border-radius: 0.12em;
-  }
-  .pop-press {
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .pop-press:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 8px 8px 0 0 #000;
-  }
-  .pop-press:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0 0 0 0 #000;
-  }
-  .prose-pop {
-    max-width: 68ch;
-  }
-  .prose-pop p {
-    margin-bottom: 1.1em;
-  }
-  .prose-pop h2 {
-    font-family: var(--font-archivo), sans-serif;
-    font-stretch: 125%;
-    font-weight: 850;
-    letter-spacing: -0.02em;
-    font-size: clamp(1.6rem, 3vw, 2.25rem);
-    line-height: 1.05;
-    margin: 2em 0 0.6em;
-  }
-  .prose-pop ul {
-    list-style: disc;
-    padding-left: 1.25em;
-    margin-bottom: 1.1em;
-  }
-  .prose-pop li {
-    margin-bottom: 0.4em;
-  }
-  .prose-pop a {
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
-  }
-  .prose-pop a:hover {
-    color: var(--cobalt);
+.liquid-glass:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.liquid-glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.liquid-glass-pill:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Mobile & Touch Card Physics */
+.touch-motion-card {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .touch-motion-card:active {
+    transform: scale(0.985);
   }
 }
 
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -4rem;
-  z-index: 100;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 0.6rem 1rem;
-  border-radius: 999px;
-  font-weight: 600;
-}
-.skip-link:focus {
-  top: 1rem;
-}
-
-/* Hero thinking board: one orchestrated load sequence */
-@keyframes pop-in {
-  0% {
-    opacity: 0;
-    transform: translateY(14px) scale(0.94) rotate(var(--tilt, 0deg));
+@keyframes subtleAmbientPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(1);
   }
-  70% {
-    opacity: 1;
-    transform: translateY(-3px) scale(1.02) rotate(var(--tilt, 0deg));
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(var(--tilt, 0deg));
+  50% {
+    opacity: 0.55;
+    transform: scale(1.015);
   }
 }
-.pop-in {
-  animation: pop-in 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
-}
 
-/* ---------- Motion graphics (hero + site) ---------- */
-
-/* Headline lines rise out of a mask on load */
-.line-mask {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}
-.line-rise {
-  display: block;
-  animation: line-rise 0.9s cubic-bezier(0.2, 0.9, 0.1, 1) both;
-}
-@keyframes line-rise {
-  from { transform: translateY(105%) rotate(3deg); }
-  to { transform: translateY(0) rotate(0); }
-}
-
-/* Inner page titles: one quick pop on load */
-.title-in {
-  animation: title-in 0.8s cubic-bezier(0.2, 1.2, 0.3, 1) both;
-}
-@keyframes title-in {
-  from { transform: translateY(40px) rotate(-2deg); opacity: 0; }
-  to { transform: none; opacity: 1; }
-}
-
-/* Cycling last words */
-.kinetic-slot {
-  display: inline-block;
-  vertical-align: bottom;
-  perspective: 600px;
-}
-.kinetic-word {
-  display: inline-block;
-  transform-origin: 50% 100%;
-  animation: word-flip 0.6s cubic-bezier(0.3, 1.4, 0.4, 1) both;
-}
-.kw-pop {
-  color: var(--cobalt);
-}
-@keyframes word-flip {
-  0% { transform: translateY(70%) rotateX(-85deg); opacity: 0; }
-  60% { opacity: 1; }
-  100% { transform: translateY(0) rotateX(0); opacity: 1; }
-}
-
-/* Spinners */
-.spin-slow { animation: spin 22s linear infinite; }
-.spin-rev { animation: spin 16s linear infinite reverse; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Slot-machine digit roll */
-.roll {
-  display: inline-block;
-  height: 1em;
-  overflow: hidden;
-  line-height: 1;
-}
-.roll-track {
-  display: flex;
-  flex-direction: column;
-  animation: roll 1.6s cubic-bezier(0.5, 0, 0.2, 1) 0.5s both;
-}
-.roll-track > span { display: block; height: 1em; }
-@keyframes roll {
-  from { transform: translateY(0); }
-  to { transform: translateY(-85.714%); }
-}
-
-/* Floating shapes with mouse parallax */
-.float-field { --mx: 0; --my: 0; }
-.float-field .shape {
-  position: absolute;
-  transform: translate3d(calc(var(--mx) * var(--d) * 1px), calc(var(--my) * var(--d) * 1px), 0);
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.bob { animation: bob 5s ease-in-out infinite; }
-.bob-tilt { animation: bob-tilt 6s ease-in-out infinite; }
-@keyframes bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-16px); }
-}
-@keyframes bob-tilt {
-  0%, 100% { transform: translateY(0) rotate(-12deg); }
-  50% { transform: translateY(-12px) rotate(10deg); }
-}
-.draw {
-  stroke-dasharray: 260;
-  stroke-dashoffset: 260;
-  animation: draw 4.5s ease-in-out infinite;
-}
-@keyframes draw {
-  0% { stroke-dashoffset: 260; }
-  45%, 60% { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -260; }
-}
-
-/* Marquees */
-.marquee { animation: marquee 28s linear infinite; }
-.marquee-rev { animation: marquee 34s linear infinite reverse; }
-.marquee-slow { animation: marquee 45s linear infinite; }
-.logo-marquee:hover .marquee-slow { animation-play-state: paused; }
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* Hover wiggle for cards and stickers */
-.wiggle:hover { animation: wiggle 0.45s ease-in-out; }
-@keyframes wiggle {
-  0%, 100% { rotate: 0deg; }
-  25% { rotate: -2deg; }
-  75% { rotate: 2deg; }
-}
-
-/* Scroll-driven reveals (Chrome/Edge; other browsers just show the content) */
-@supports (animation-timeline: view()) {
-  .scroll-pop {
-    animation: scroll-pop linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
-  }
-  .scroll-tilt {
-    animation: scroll-tilt linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-  }
-}
-@keyframes scroll-pop {
-  from { transform: translateY(60px) scale(0.94); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
-}
-@keyframes scroll-tilt {
-  from { transform: translateY(80px) rotate(-3deg); opacity: 0; }
-  to { transform: translateY(0) rotate(0); opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .spin-slow, .spin-rev, .bob, .bob-tilt, .draw, .marquee, .marquee-rev, .marquee-slow, .scroll-pop, .scroll-tilt {
-    animation: none !important;
-  }
-  .draw { stroke-dashoffset: 0; }
-  .float-field .shape { transform: none; }
+.ambient-card-glint {
+  animation: subtleAmbientPulse 7s ease-in-out infinite;
 }

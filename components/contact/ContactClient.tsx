@@ -1,7 +1,12 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Container } from '@/components/pop/Section';
+import Link from 'next/link';
+import {
+  InkSealStamp,
+  HandDrawnArrow,
+  HandDrawnHighlight,
+} from '@/components/ui/VisualSoul';
 
 declare global {
   interface Window {
@@ -40,7 +45,7 @@ const ROADBLOCK_OPTIONS = [
 const FAQS = [
   {
     q: 'Do you work with brands outside India?',
-    a: 'Yes. Most of our clients are outside our home city. We work remotely with brands across India and abroad, with regular reporting so distance is never a bottleneck.',
+    a: 'Yes. We are based in Chandigarh and run remotely with high-growth brands across regions, using asynchronous reporting so distance is never a bottleneck.',
   },
   {
     q: 'What is the minimum ad spend you work with?',
@@ -52,7 +57,7 @@ const FAQS = [
   },
   {
     q: 'How does Pop Lab Studio integrate AI into workflow?',
-    a: 'We deploy AI for fast creative research, copy angles, and competitive intelligence. Strategy and budget decisions stay with our people.',
+    a: 'We deploy AI for high-velocity creative research, copy angles, and competitive intelligence. Strategic thesis and capital deployment decisions remain 100% human operator judgment.',
   },
 ];
 
@@ -126,7 +131,7 @@ export default function ContactClient() {
       const config: Record<string, any> = {
         layout: 'month_view',
         useSlotsViewOnSmallScreen: 'true',
-        theme: 'light',
+        theme: 'dark',
       };
       if (prefill?.name) config.name = prefill.name;
       if (prefill?.notes) config.notes = prefill.notes;
@@ -142,7 +147,7 @@ export default function ContactClient() {
       });
 
       window.Cal.ns['30min']('ui', {
-        theme: 'light',
+        theme: 'dark',
         cssVarsPerTheme: {
           light: { 'cal-brand': '#FF5E14' },
           dark: { 'cal-brand': '#FF5E14' },
@@ -293,352 +298,532 @@ export default function ContactClient() {
     }, 300);
   };
 
-  const inputCls =
-    'w-full h-12 rounded-xl border-2 border-black bg-white px-4 text-base text-black placeholder:text-black/50 focus:outline-none focus:ring-4 focus:ring-cobalt/40 focus:border-cobalt';
-  const labelCls = 'block text-[15px] font-semibold mb-2';
-  const linkCls = 'font-semibold underline underline-offset-4 decoration-2 hover:text-cobalt';
-
   return (
-    <div className="w-full">
-      {/* Intro + form */}
-      <section className="w-full pt-32 sm:pt-40 pb-16 sm:pb-24">
-        <Container>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            {/* Intro */}
-            <div className="lg:col-span-5">
-              <p className="mb-5 text-[15px] font-semibold">Start a project</p>
-              <h1 className="font-display text-[clamp(2.1rem,3.6vw,3.25rem)] leading-[1.02]">
-                Tell us about your brand. We&rsquo;ll come back with a plan.
-              </h1>
-              <p className="mt-6 max-w-[48ch] text-lg leading-relaxed">
-                Share a few details and pick a time for a free 30-minute call. We look at your creative, your ad
-                accounts and your website, and show you where budget is leaking. You keep the plan either way.
-              </p>
+    <div className="w-full relative z-10 pt-28 sm:pt-36 pb-20 px-5 sm:px-10 md:px-16 max-w-6xl mx-auto">
+      {/* Top Folio Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-12 border-b border-black/10 dark:border-white/10 font-mono text-xs uppercase tracking-[0.2em] text-[#121824]/60 dark:text-[#F5F2EB]/50">
+        <span className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#FF5E14] animate-pulse" />
+          START A PROJECT
+        </span>
+        <span>CHANDIGARH · GLOBAL CLIENTS</span>
+      </div>
 
-              <ul className="mt-8 space-y-4 text-[17px]">
-                <li>
-                  <span className="block text-[15px] font-semibold">WhatsApp</span>
+      {/* Main Editorial Hero */}
+      <div className="max-w-3xl mb-16 sm:mb-20">
+        <div className="flex items-center gap-3 mb-4">
+          <InkSealStamp text="POP LAB" subtext="INTAKE" size={48} />
+          <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14]">
+            SENIOR PARTNER DIAGNOSTIC
+          </span>
+        </div>
+
+        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl text-[#121824] dark:text-[#F5F2EB] tracking-tight leading-[1.05] mb-6">
+          Let&apos;s map your <br />
+          <HandDrawnHighlight strokeColor="#FF5E14"><em>growth roadmap.</em></HandDrawnHighlight>
+        </h1>
+        <p className="font-sans text-base sm:text-lg text-[#121824]/75 dark:text-[#F5F2EB]/75 font-light leading-relaxed">
+          Book a 30-minute diagnostic of your brand creative, ad accounts, and conversion architecture.
+          We provide a custom roadmap identifying where budget leaks and where leverage lives.
+        </p>
+
+      </div>
+
+      {/* Grid: Left Intake Form + Right Studio Info Card */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-24">
+        {/* Left Form Card (7 cols) */}
+        <div className="lg:col-span-7 p-7 sm:p-10 rounded-3xl bg-white dark:bg-[#0D1522]/90 border border-black/10 dark:border-white/10 shadow-xl dark:shadow-2xl">
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/10 dark:border-white/10">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#FF5E14] font-semibold">
+              STEP 1 // INTAKE DIAGNOSTIC
+            </span>
+            <span className="font-mono text-xs text-[#121824]/50 dark:text-[#F5F2EB]/40">
+              EST. 60 SECONDS
+            </span>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Error Notification Banner */}
+            {error && (
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-600 dark:text-red-400 text-xs font-mono flex items-center gap-2"
+              >
+                <span className="text-sm font-bold">⚠</span>
+                <span>{error}</span>
+              </div>
+            )}
+
+            {/* Anti-spam Honeypot */}
+            <div className="sr-only" aria-hidden="true">
+              <label htmlFor="_hp">Leave this field blank</label>
+              <input
+                id="_hp"
+                name="_hp"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+              />
+            </div>
+
+            {/* Brand Name */}
+            <div>
+              <label
+                htmlFor="brandName"
+                className="block font-mono text-[11px] uppercase tracking-wider text-[#121824]/80 dark:text-[#F5F2EB]/70 mb-2"
+              >
+                Brand / Company Name <span className="text-[#FF5E14]">*</span>
+              </label>
+              <input
+                id="brandName"
+                type="text"
+                required
+                placeholder="e.g. Acme Studio"
+                value={formData.brandName}
+                onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] placeholder:text-stone-500 dark:placeholder:text-stone-400 text-sm focus:outline-none focus:border-[#FF5E14] focus:ring-1 focus:ring-[#FF5E14] transition-all"
+              />
+            </div>
+
+            {/* Website & Phone in 2 cols on tablet/desktop */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {/* Website */}
+              <div>
+                <label
+                  htmlFor="website"
+                  className="block font-mono text-[11px] uppercase tracking-wider text-[#121824]/80 dark:text-[#F5F2EB]/70 mb-2"
+                >
+                  Website / Instagram <span className="text-[#FF5E14]">*</span>
+                </label>
+                <input
+                  id="website"
+                  type="text"
+                  required
+                  placeholder="acme.com or @acme"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] placeholder:text-stone-500 dark:placeholder:text-stone-400 text-sm focus:outline-none focus:border-[#FF5E14] focus:ring-1 focus:ring-[#FF5E14] transition-all"
+                />
+              </div>
+
+              {/* Phone with Country Code */}
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block font-mono text-[11px] uppercase tracking-wider text-[#121824]/80 dark:text-[#F5F2EB]/70 mb-2"
+                >
+                  WhatsApp / Phone <span className="text-[#FF5E14]">*</span>
+                </label>
+                <div className="flex gap-2">
+                  <select
+                    value={formData.countryCode}
+                    onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                    className="w-24 px-2 py-3 rounded-xl bg-black/[0.02] dark:bg-[#121A2A] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] text-xs focus:outline-none focus:border-[#FF5E14]"
+                  >
+                    {COUNTRY_CODES.map((c) => (
+                      <option key={c.code} value={c.code} className="bg-white dark:bg-[#0D1522] text-[#121824] dark:text-[#F5F2EB]">
+                        {c.flag} {c.code}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    id="phone"
+                    type="tel"
+                    required
+                    placeholder="98765 43210"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/[^0-9\s-]/g, '') })}
+                    className="flex-1 min-w-0 px-4 py-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] placeholder:text-stone-500 dark:placeholder:text-stone-400 text-sm focus:outline-none focus:border-[#FF5E14] focus:ring-1 focus:ring-[#FF5E14] transition-all"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Monthly Ad Spend */}
+            <div>
+              <label
+                htmlFor="adSpend"
+                className="block font-mono text-[11px] uppercase tracking-wider text-[#121824]/80 dark:text-[#F5F2EB]/70 mb-2"
+              >
+                Current Monthly Ad Spend <span className="text-[#FF5E14]">*</span>
+              </label>
+              <select
+                id="adSpend"
+                required
+                value={formData.adSpend}
+                onChange={(e) => setFormData({ ...formData, adSpend: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl bg-black/[0.02] dark:bg-[#121A2A] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] text-sm focus:outline-none focus:border-[#FF5E14] transition-all"
+              >
+                <option value="" disabled className="bg-white dark:bg-[#0D1522] text-stone-500 dark:text-stone-400">
+                  Select a monthly spend range
+                </option>
+                {AD_SPEND_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt} className="bg-white dark:bg-[#0D1522] text-[#121824] dark:text-[#F5F2EB]">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Biggest Roadblock */}
+            <div>
+              <label
+                htmlFor="roadblock"
+                className="block font-mono text-[11px] uppercase tracking-wider text-[#121824]/80 dark:text-[#F5F2EB]/70 mb-2"
+              >
+                Biggest Growth Bottleneck <span className="text-[#FF5E14]">*</span>
+              </label>
+              <select
+                id="roadblock"
+                required
+                value={formData.roadblock}
+                onChange={(e) => setFormData({ ...formData, roadblock: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl bg-black/[0.02] dark:bg-[#121A2A] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] text-sm focus:outline-none focus:border-[#FF5E14] transition-all"
+              >
+                <option value="" disabled className="bg-white dark:bg-[#0D1522] text-stone-500 dark:text-stone-400">
+                  Select primary challenge
+                </option>
+                {ROADBLOCK_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt} className="bg-white dark:bg-[#0D1522] text-[#121824] dark:text-[#F5F2EB]">
+                    {opt}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Message / Additional Info */}
+            <div>
+              <label
+                htmlFor="message"
+                className="block font-mono text-[11px] uppercase tracking-wider text-[#121824]/80 dark:text-[#F5F2EB]/70 mb-2"
+              >
+                Additional Goals or Notes (Optional)
+              </label>
+              <textarea
+                id="message"
+                rows={3}
+                placeholder="Deadlines, current ROAS targets, specific channels to scale..."
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl bg-black/[0.02] dark:bg-white/[0.04] border border-black/15 dark:border-white/15 text-[#121824] dark:text-[#F5F2EB] placeholder:text-stone-500 dark:placeholder:text-stone-400 text-sm focus:outline-none focus:border-[#FF5E14] focus:ring-1 focus:ring-[#FF5E14] transition-all resize-none"
+              />
+            </div>
+
+            {/* Submit Action */}
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full min-h-[50px] py-4 rounded-full font-grotesk text-xs uppercase tracking-[0.2em] font-semibold text-white bg-[#FF5E14] hover:bg-[#E04F0E] transition-all shadow-[0_0_30px_rgba(255,94,20,0.35)] active:scale-[0.98] disabled:opacity-75 flex items-center justify-center gap-2"
+            >
+              {submitting ? (
+                <span>Saving Intake...</span>
+              ) : submitted ? (
+                <span>Saved ✓ — Proceed to Step 2 Below ↓</span>
+              ) : (
+                <>
+                  <span>Save &amp; Select Calendar Slot</span>
+                  <span className="text-base font-sans">→</span>
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+
+        {/* Right Info Card (5 cols) */}
+        <div className="lg:col-span-5 flex flex-col gap-6">
+          <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#090D14] text-[#121824] dark:text-[#F5F2EB] border border-black/10 dark:border-white/15 shadow-xl relative overflow-hidden">
+            {/* Ambient orange backlight */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle,rgba(255,94,20,0.18)_0%,transparent_70%)] blur-2xl pointer-events-none" />
+
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <h3 className="font-serif text-2xl sm:text-3xl text-[#121824] dark:text-white">
+                Reach the studio directly
+              </h3>
+              <InkSealStamp text="POP LAB" subtext="STUDIO" size={42} />
+            </div>
+
+            <div className="space-y-6 text-sm">
+
+              {/* Email */}
+              <div className="pb-4 border-b border-black/10 dark:border-white/10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5E14] block mb-1">
+                  OFFICIAL INBOX
+                </span>
+                <div className="flex items-center justify-between">
+                  <a
+                    href="mailto:growth@poplabstudio.com"
+                    className="font-mono text-sm text-[#121824] dark:text-white hover:text-[#FF5E14] transition-colors"
+                  >
+                    growth@poplabstudio.com
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="px-2.5 py-1 rounded-full text-[10px] font-mono uppercase bg-black/5 dark:bg-white/10 hover:bg-[#FF5E14] text-[#121824] dark:text-white hover:text-white transition-colors"
+                  >
+                    {copied ? 'Copied' : 'Copy'}
+                  </button>
+                </div>
+                <div className="mt-1">
+                  <a
+                    href="mailto:poplabstudio.business@gmail.com"
+                    className="font-mono text-xs text-[#121824]/60 dark:text-white/60 hover:text-[#FF5E14] transition-colors"
+                  >
+                    poplabstudio.business@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone / WhatsApp */}
+              <div className="pb-4 border-b border-black/10 dark:border-white/10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5E14] block mb-1">
+                  DIRECT PHONE &amp; WHATSAPP
+                </span>
+                <div className="flex flex-col gap-1.5 font-mono text-sm">
+                  <a
+                    href="tel:+918837565738"
+                    className="text-[#121824] dark:text-white hover:text-[#FF5E14] transition-colors flex items-center gap-2"
+                  >
+                    <span>+91 88375 65738</span>
+                  </a>
                   <a
                     href="https://wa.me/918837565738"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={linkCls}
+                    className="text-xs text-[#25D366] hover:underline inline-flex items-center gap-1"
                   >
-                    Message us on WhatsApp
+                    <span>Chat on WhatsApp</span> ↗
                   </a>
-                </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Phone</span>
-                  <a href="tel:+918837565738" className={linkCls}>
-                    +91 88375 65738
+                </div>
+              </div>
+
+              {/* Social Channels */}
+              <div className="pb-4 border-b border-black/10 dark:border-white/10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5E14] block mb-1">
+                  SOCIAL &amp; CONNECT
+                </span>
+                <div className="flex items-center gap-4 text-xs font-mono">
+                  <a
+                    href="https://www.instagram.com/poplabstudio.hq/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#121824]/80 dark:text-white/80 hover:text-[#FF5E14] transition-colors"
+                  >
+                    Instagram ↗
                   </a>
-                </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Email</span>
-                  <span className="flex flex-wrap items-center gap-3">
-                    <a href="mailto:growth@poplabstudio.com" className={linkCls}>
-                      growth@poplabstudio.com
-                    </a>
-                    <button
-                      type="button"
-                      onClick={handleCopyEmail}
-                      className="h-8 px-3 rounded-full border-2 border-black bg-white text-[14px] font-semibold pop-press shadow-hard-sm"
-                    >
-                      {copied ? 'Copied' : 'Copy email'}
-                    </button>
-                  </span>
-                </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Studio</span>
-                  <address className="not-italic leading-relaxed">
-                    SCO 364-365-366, Second Floor, Sector 34A
-                    <br />
-                    Chandigarh 160022, India
-                  </address>
-                  <p className="text-[15px] mt-1">Mon–Sat, 9:30am–7:30pm IST</p>
-                </li>
-                <li>
-                  <span className="block text-[15px] font-semibold">Social</span>
-                  <span className="flex flex-wrap gap-x-5 gap-y-1">
-                    <a
-                      href="https://www.instagram.com/poplabstudio.hq/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={linkCls}
-                    >
-                      Instagram
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/company/pop-lab-studios/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={linkCls}
-                    >
-                      LinkedIn
-                    </a>
-                  </span>
-                </li>
-              </ul>
+                  <a
+                    href="https://www.linkedin.com/company/pop-lab-studios/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#121824]/80 dark:text-white/80 hover:text-[#FF5E14] transition-colors"
+                  >
+                    LinkedIn ↗
+                  </a>
+                </div>
+              </div>
+
+              {/* Physical Address */}
+              <div className="pb-4 border-b border-black/10 dark:border-white/10">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5E14] block mb-1">
+                  PHYSICAL HEADQUARTERS
+                </span>
+                <p className="font-sans text-sm text-[#121824]/80 dark:text-white/80 leading-relaxed">
+                  Pop Lab Studio
+                  <br />
+                  SCO 364-365-366, Second Floor, Sector 34A
+                  <br />
+                  Chandigarh 160022, India
+                </p>
+              </div>
+
+              {/* Hours */}
+              <div>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#FF5E14] block mb-1">
+                  OPERATIONAL HOURS
+                </span>
+                <p className="font-mono text-xs text-[#121824]/75 dark:text-white/75">
+                  Mon – Sat · 9:30 – 19:30 IST
+                </p>
+              </div>
             </div>
 
-            {/* Form card */}
-            <div className="lg:col-span-7 rounded-2xl border-2 border-black bg-white shadow-hard p-6 sm:p-9">
-              <h2 className="font-display text-subsection mb-2">Your details</h2>
-              <p className="mb-7 text-[17px]">Takes about a minute. Fields marked with * are required.</p>
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {error && (
-                  <div
-                    role="alert"
-                    aria-live="assertive"
-                    className="rounded-xl border-2 border-black bg-lemon p-4 text-[15px] font-bold"
-                  >
-                    {error}
-                  </div>
-                )}
-
-                {/* Anti-spam Honeypot */}
-                <div className="sr-only" aria-hidden="true">
-                  <label htmlFor="_hp">Leave this field blank</label>
-                  <input
-                    id="_hp"
-                    name="_hp"
-                    type="text"
-                    tabIndex={-1}
-                    autoComplete="off"
-                    value={honeypot}
-                    onChange={(e) => setHoneypot(e.target.value)}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="brandName" className={labelCls}>
-                    Brand or company name *
-                  </label>
-                  <input
-                    id="brandName"
-                    type="text"
-                    required
-                    placeholder="e.g. Acme Studio"
-                    value={formData.brandName}
-                    onChange={(e) => setFormData({ ...formData, brandName: e.target.value })}
-                    className={inputCls}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="website" className={labelCls}>
-                      Website or Instagram *
-                    </label>
-                    <input
-                      id="website"
-                      type="text"
-                      required
-                      placeholder="acme.com or @acme"
-                      value={formData.website}
-                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                      className={inputCls}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className={labelCls}>
-                      WhatsApp or phone *
-                    </label>
-                    <div className="flex gap-2">
-                      <select
-                        aria-label="Country code"
-                        value={formData.countryCode}
-                        onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
-                        className="h-12 w-[6.5rem] shrink-0 rounded-xl border-2 border-black bg-white px-2 text-base text-black focus:outline-none focus:ring-4 focus:ring-cobalt/40 focus:border-cobalt"
-                      >
-                        {COUNTRY_CODES.map((c) => (
-                          <option key={c.code} value={c.code}>
-                            {c.flag} {c.code}
-                          </option>
-                        ))}
-                      </select>
-                      <input
-                        id="phone"
-                        type="tel"
-                        required
-                        placeholder="98765 43210"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/[^0-9\s-]/g, '') })}
-                        className={`${inputCls} flex-1 min-w-0`}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="adSpend" className={labelCls}>
-                    Current monthly ad spend *
-                  </label>
-                  <select
-                    id="adSpend"
-                    required
-                    value={formData.adSpend}
-                    onChange={(e) => setFormData({ ...formData, adSpend: e.target.value })}
-                    className={inputCls}
-                  >
-                    <option value="" disabled>
-                      Select a monthly spend range
-                    </option>
-                    {AD_SPEND_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="roadblock" className={labelCls}>
-                    Biggest growth bottleneck *
-                  </label>
-                  <select
-                    id="roadblock"
-                    required
-                    value={formData.roadblock}
-                    onChange={(e) => setFormData({ ...formData, roadblock: e.target.value })}
-                    className={inputCls}
-                  >
-                    <option value="" disabled>
-                      Select your main challenge
-                    </option>
-                    {ROADBLOCK_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className={labelCls}>
-                    Goals or notes (optional)
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    placeholder="Deadlines, current ROAS targets, channels you want to scale..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-xl border-2 border-black bg-white px-4 py-3 text-base text-black placeholder:text-black/50 focus:outline-none focus:ring-4 focus:ring-cobalt/40 focus:border-cobalt resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full h-14 rounded-full border-2 border-black bg-pop text-black text-base sm:text-[17px] font-semibold shadow-hard-sm pop-press disabled:opacity-60 disabled:pointer-events-none"
-                >
-                  {submitting
-                    ? 'Sending...'
-                    : submitted
-                      ? 'Sent. Pick a time below'
-                      : 'Send and pick a time'}
-                </button>
-              </form>
-            </div>
+            {/* Value Guarantees */}
+            <ul className="mt-8 pt-6 border-t border-black/10 dark:border-white/10 space-y-2.5 text-xs text-[#121824]/80 dark:text-white/80 font-mono">
+              <li className="flex items-center gap-2">
+                <span className="text-[#FF5E14]">✦</span> By application only (limited client slots)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#FF5E14]">✦</span> 30 minutes screen-shared with senior partners
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-[#FF5E14]">✦</span> You keep the full diagnostic roadmap either way
+              </li>
+            </ul>
           </div>
-        </Container>
-      </section>
+        </div>
+      </div>
 
-      {/* Booking step: Cal.com embed */}
-      <section id="book" className="w-full pb-16 sm:pb-24 scroll-mt-28">
-        <Container>
-          <h2 className="font-display text-section mb-4">
-            {submitted ? 'Thanks — now pick a time' : 'Pick a time that works'}
+      {/* STEP 2: Cal.com Calendar Scheduler Embed */}
+      <section id="book" className="mb-24 scroll-mt-28">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-black/10 dark:border-white/15 bg-white/80 dark:bg-[#18150F]/70 backdrop-blur-md mb-4 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5E14]" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FF5E14] font-semibold">
+              STEP 2 // LIVE SCHEDULER
+            </span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-5xl text-[#121824] dark:text-[#F5F2EB] tracking-tight mb-3">
+            Pick a time that works.
           </h2>
-          <p className="max-w-[62ch] text-lg leading-relaxed mb-3">
-            {submitted
-              ? 'We have your details. Choose a 30-minute slot on our calendar and we will see you then.'
-              : 'Choose a 30-minute slot on our calendar. Time zones adjust automatically.'}
+          <p className="font-sans text-sm sm:text-base text-[#121824]/70 dark:text-[#F5F2EB]/70 font-light mb-4">
+            Select a 30-minute slot on our partners&apos; calendar. Cal.com synchronizes time zones automatically.
           </p>
-          <p className="mb-8 text-[15px]">
-            Prefer a separate tab?{' '}
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#121824]/60 dark:text-[#F5F2EB]/50">
+            <span>Configured with poplabstudio.business@gmail.com</span>
+            <span>•</span>
             <a
               href="https://cal.com/poplab-studio-o0cj4m/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className={linkCls}
+              className="text-[#FF5E14] hover:underline"
             >
-              Open the calendar in Cal.com
+              Open in Cal.com ↗
             </a>
-          </p>
-          <div className="w-full h-[720px] rounded-2xl border-2 border-black bg-white shadow-hard overflow-hidden p-1">
-            <div ref={calendarContainerRef} id="my-cal-inline-30min" className="w-full h-full overflow-y-auto" />
           </div>
-        </Container>
+        </div>
+
+        {/* Embedded Calendar Container */}
+        <div className="w-full rounded-3xl overflow-hidden border border-black/10 dark:border-white/15 bg-[#101010] shadow-2xl h-[720px] p-1">
+          <div
+            ref={calendarContainerRef}
+            id="my-cal-inline-30min"
+            className="w-full h-full overflow-y-auto"
+          />
+        </div>
       </section>
 
-      {/* What happens next */}
-      <section className="w-full pb-16 sm:pb-24">
-        <Container>
-          <h2 className="font-display text-section mb-10">What happens next</h2>
-          <ol className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                n: '1',
-                t: 'We review your details',
-                d: 'Once you submit, we look at your funnel, copy and targeting before we meet.',
-                bg: 'bg-white',
-              },
-              {
-                n: '2',
-                t: 'The 30-minute call',
-                d: 'A screen-shared session where we find the leaks and map creative angles worth testing.',
-                bg: 'bg-lemon',
-              },
-              {
-                n: '3',
-                t: 'You get your plan',
-                d: 'You leave with a clear plan you can run in-house or build with Pop Lab Studio.',
-                bg: 'bg-white',
-              },
-            ].map((s) => (
-              <li key={s.n} className={`rounded-2xl border-2 border-black shadow-hard p-7 ${s.bg}`}>
-                <span className="font-display text-3xl">{s.n}</span>
-                <h3 className="font-display text-xl mt-3 mb-2">{s.t}</h3>
-                <p className="text-[17px] leading-relaxed">{s.d}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
+      {/* STEP 3: "What Happens Next" 3-Step Timeline */}
+      <section className="mb-24">
+        <div className="mb-10 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#FF5E14] block mb-2 font-semibold">
+              // TRANSPARENT PROCESS
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl text-[#121824] dark:text-[#F5F2EB] tracking-tight">
+              Three steps. Zero surprises.
+            </h2>
+          </div>
+          <span className="font-mono text-xs uppercase tracking-widest text-[#121824]/60 dark:text-[#F5F2EB]/50">
+            RAPID ONBOARDING CADENCE
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          <div className="p-8 rounded-2xl bg-white dark:bg-[#0D1522]/80 border border-black/10 dark:border-white/10 flex flex-col justify-between group hover:border-[#FF5E14]/40 transition-all">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-serif text-3xl font-bold text-[#FF5E14]">01</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#FF5E14]/10 text-[#FF5E14]">
+                  PRE-CALL
+                </span>
+              </div>
+              <h3 className="font-serif text-xl text-[#121824] dark:text-[#F5F2EB] mb-2">
+                Pre-call diagnostic
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-[#121824]/70 dark:text-[#F5F2EB]/70 font-light leading-relaxed">
+                Once you submit your brand details, we inspect your funnel speed, copy relevance, and targeting prior to meeting.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between font-mono text-[10px] text-[#121824]/50 dark:text-[#F5F2EB]/40">
+              <span>INITIAL AUDIT</span>
+              <span className="text-[#FF5E14] font-bold text-sm hidden md:inline">→</span>
+            </div>
+          </div>
+
+          <div className="p-8 rounded-2xl bg-white dark:bg-[#0D1522]/80 border-2 border-[#FF5E14]/30 flex flex-col justify-between group shadow-sm">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-serif text-3xl font-bold text-[#FF5E14]">02</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#FF5E14] text-white">
+                  LIVE SESSION
+                </span>
+              </div>
+              <h3 className="font-serif text-xl text-[#121824] dark:text-[#F5F2EB] mb-2">
+                The 30-min teardown
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-[#121824]/70 dark:text-[#F5F2EB]/70 font-light leading-relaxed">
+                A high-impact, screen-shared strategy session. We pinpoint leaks and map high-converting creative angles.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between font-mono text-[10px] text-[#FF5E14]">
+              <span>SCREEN-SHARE TEARDOWN</span>
+              <span className="text-[#FF5E14] font-bold text-sm hidden md:inline">→</span>
+            </div>
+          </div>
+
+          <div className="p-8 rounded-2xl bg-white dark:bg-[#0D1522]/80 border border-black/10 dark:border-white/10 flex flex-col justify-between group hover:border-[#FF5E14]/40 transition-all">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-serif text-3xl font-bold text-[#0E4D7A] dark:text-[#38BDF8]">03</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#0E4D7A]/10 dark:bg-[#38BDF8]/10 text-[#0E4D7A] dark:text-[#38BDF8]">
+                  DELIVERABLE
+                </span>
+              </div>
+              <h3 className="font-serif text-xl text-[#121824] dark:text-[#F5F2EB] mb-2">
+                Your scaling roadmap
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-[#121824]/70 dark:text-[#F5F2EB]/70 font-light leading-relaxed">
+                You walk away with an actionable blueprint you can execute in-house or partner with Pop Lab Studio to build.
+              </p>
+            </div>
+            <div className="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between font-mono text-[10px] text-[#121824]/50 dark:text-[#F5F2EB]/40">
+              <span>OWNED BLUEPRINT</span>
+              <span className="text-[#FF5E14] font-bold">✓</span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* FAQ */}
-      <section className="w-full pb-20 sm:pb-28">
-        <Container>
-          <h2 className="font-display text-section mb-8">Before you book</h2>
-          <div className="border-t-2 border-black">
-            {FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div key={faq.q} className="border-b-2 border-black">
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    aria-expanded={isOpen}
-                    className="w-full flex items-center justify-between gap-4 py-5 text-left"
-                  >
-                    <span className="font-display text-lg sm:text-xl">{faq.q}</span>
-                    <span
-                      aria-hidden="true"
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-2 border-black bg-white text-xl font-bold"
-                    >
-                      {isOpen ? '−' : '+'}
-                    </span>
-                  </button>
-                  {isOpen && <p className="pb-6 pr-12 text-[17px] leading-relaxed max-w-[68ch]">{faq.a}</p>}
-                </div>
-              );
-            })}
-          </div>
-        </Container>
+      {/* FAQ Accordion */}
+      <section className="mb-12">
+        <div className="mb-8">
+          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#FF5E14] block mb-2 font-semibold">
+            // FREQUENTLY ASKED
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl text-[#121824] dark:text-[#F5F2EB] tracking-tight">
+            Before you book.
+          </h2>
+        </div>
+
+        <div className="border-t border-black/10 dark:border-white/10 divide-y divide-black/10 dark:divide-white/10">
+          {FAQS.map((faq, idx) => {
+            const isOpen = openFaq === idx;
+            return (
+              <div key={faq.q} className="py-5">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(isOpen ? null : idx)}
+                  className="w-full flex items-center justify-between text-left focus:outline-none group"
+                >
+                  <span className="font-serif text-lg sm:text-xl text-[#121824] dark:text-[#F5F2EB] group-hover:text-[#FF5E14] transition-colors">
+                    {faq.q}
+                  </span>
+                  <span className="w-8 h-8 rounded-full border border-black/10 dark:border-white/15 flex items-center justify-center font-mono text-sm text-[#121824]/60 dark:text-[#F5F2EB]/60 group-hover:border-[#FF5E14] group-hover:text-[#FF5E14] transition-all">
+                    {isOpen ? '−' : '+'}
+                  </span>
+                </button>
+                {isOpen && (
+                  <p className="mt-3 font-sans text-sm sm:text-base text-[#121824]/70 dark:text-[#F5F2EB]/70 font-light leading-relaxed pr-8">
+                    {faq.a}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </section>
     </div>
   );
